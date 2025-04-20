@@ -8,7 +8,7 @@ import {
 import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
-import { UserTypeEnum } from '@core/enums/user-type.enum';
+import {UserTypeEnum} from '../../shared/enums/user-type.enum';
 
 export const AdminGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
