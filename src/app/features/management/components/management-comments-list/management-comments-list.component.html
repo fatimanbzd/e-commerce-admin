@@ -1,0 +1,17 @@
+<div class="mb-1">
+  <admin-comments-search
+    (filterChanged)="onFilterChanged($event)"
+  ></admin-comments-search>
+</div>
+
+<admin-qland-table
+  [data]="listOfData"
+  [tableColumns]="gridOptions"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [displayRowIndex]="true"
+  [totalRecords]="total"
+  [showPagination]="true"
+  (queryParamsChange)="onTableQueryParamsChange($event)"
+  [isServerSide]="true"
+></admin-qland-table>

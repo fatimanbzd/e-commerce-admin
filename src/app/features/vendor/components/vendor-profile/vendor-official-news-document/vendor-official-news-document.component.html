@@ -1,0 +1,34 @@
+<div class="vendor-profile-attachment-panel">
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzLg]="8">
+      @if (officialNewspaperAttachmentId) {
+        <button
+          nz-button
+          class="btn-download"
+          (click)="downloadFile(officialNewspaperAttachmentId)"
+        >
+          <span nz-icon nzType="download"></span>
+          دانلود تصویر آگهی ثبت شرکت
+        </button>
+      } @else {
+        <div class="clearfix">
+          <nz-upload
+            [nzLimit]="1"
+            [(nzFileList)]="fileList"
+            [nzCustomRequest]="base64Request"
+            [nzBeforeUpload]="beforeUpload"
+          >
+            <button
+              nz-button
+              class="btn-upload"
+              [disabled]="officialNewspaperAttachmentId != null"
+            >
+              <span nz-icon nzType="upload"></span>
+              بارگذاری روزنامه رسمی شرکت
+            </button>
+          </nz-upload>
+        </div>
+      }
+    </div>
+  </div>
+</div>

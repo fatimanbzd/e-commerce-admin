@@ -1,0 +1,92 @@
+<div class="table-container">
+  <nz-table
+    #table
+    nzBordered
+    [nzData]="data"
+    [nzShowPagination]="showPagination"
+    [nzFrontPagination]="!isServerSide"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    [nzTotal]="totalRecords"
+    (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+    <tr>
+      @if (displayRowIndex) {
+        <th nzWidth="70px">ردیف</th>
+      }
+      @if(checkbox){
+        <th
+          nzWidth="60px"
+          [(nzChecked)]="allChecked"
+          [nzRight]="fixedColumn"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="checkAll($event)"
+        ></th>
+      }
+      @for (col of tableColumns; track col) {
+        @if (col.sortable) {
+          <th
+            [nzWidth]="col.width ? col.width + 'px' : null"
+            [nzSortFn]="true"
+            [nzSortDirections]="['ascend', 'descend']"
+            [nzColumnKey]="col.key"
+          >
+            {{ col.headerName }}
+          </th>
+        }
+
+        @else {
+          <th [nzWidth]="col.width ? col.width + 'px' : null">
+            {{ col.headerName }}
+          </th>
+        }
+      }
+    </tr>
+    </thead>
+    <tbody>
+      @for (item of data; track $index) {
+        <tr
+          class="text-center"
+          [ngStyle]="getRowStyle(item)"
+        >
+          @if (displayRowIndex) {
+            <td class="text-center">
+              {{ (table.nzPageIndex - 1) * table.nzPageSize + $index + 1 }}
+            </td>
+          }
+          @if (checkbox) {
+            <td [nzShowCheckbox]="true" [nzRight]="fixedColumn" [(nzChecked)]="item.checked" (nzCheckedChange)="refreshStatus()"></td>
+          }
+
+          @for (col of tableColumns; track $index) {
+            <td
+              [nz-tooltip]="
+                col.tooltipValueGetter
+                  ? col.tooltipValueGetter(item)
+                  : col.tooltip
+              "
+            >
+              @if (col.cellRenderer) {
+                <div [innerHTML]="col.cellRenderer(item)"></div>
+              } @else if (col.valueFormatter) {
+
+                <span [ngClass]="col.setClass? col.setClass(item):''">{{
+                    col.valueFormatter(item)
+                  }}</span>
+              } @else if (col.cellRendererParams?.buttons) {
+                <!--              <ng-container *ngComponentOutlet="col.actionButtons; injector: createInjector(item)"></ng-container>-->
+                <qland-table-button
+                  [buttons]="col.cellRendererParams?.buttons"
+                  (buttonClick)="col.cellRendererParams?.onClick($event)"
+                  [item]="item"
+                ></qland-table-button>
+              } @else {
+                <span [ngClass]="col.setClass? col.setClass(item):''">    {{ item[col.key] }}</span>
+              }
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>

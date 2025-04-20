@@ -1,0 +1,18 @@
+<form nz-form [formGroup]="form">
+  <div class="row-btn" (click)="SettlementUpdate(form)">
+    <button nz-button nzType="primary">تسویه</button>
+  </div>
+
+  <admin-qland-table
+    [data]="settlementList"
+    [tableColumns]="gridOptions"
+    [displayRowIndex]="false"
+    [checkbox]="true"
+    (selectedRowsChange)="selectedRows($event)"
+    [totalRecords]="total"
+    [isServerSide]="true"
+    [showPagination]="true"
+    (queryParamsChange)="onTableQueryParamsChange($event)"
+  ></admin-qland-table>
+
+</form>

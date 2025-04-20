@@ -1,0 +1,32 @@
+::ng-deep {
+  .NgxEditor {
+    height: 200px;
+    overflow-y: scroll;
+  }
+
+  .NgxEditor__Content {
+    min-height: 200px;
+  }
+}
+
+.btn-add {
+  background-color: var(--btn-qland-submit-color) !important;
+  width: 130px;
+}
+
+.selected-button {
+  background-color: #40a9ff;
+  color: white;
+}
+
+.unselected-button {
+  background-color: white;
+  color: black;
+}
+.box-btn {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: -20px;
+  margin-bottom: 10px;
+  //margin-left: 23px;
+}

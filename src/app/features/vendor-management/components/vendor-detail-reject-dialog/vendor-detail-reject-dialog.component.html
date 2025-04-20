@@ -1,0 +1,16 @@
+<div>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label nzRequired>دلیل رد درخواست</nz-form-label>
+      <nz-form-control nzHasFeedback  nzErrorTip="دلیل رد الزامیست!">
+        <textarea nz-input rows="5" [(ngModel)]="description" required ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div *nzModalFooter>
+  <button nz-button (click)="handleCancel()">لغو</button>
+  <button nz-button [nzType]="'primary'" (click)="handleOk()">
+    رد درخواست
+  </button>
+</div>

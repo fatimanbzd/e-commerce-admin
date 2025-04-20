@@ -1,0 +1,85 @@
+@defer {
+  <div class="tree-size">
+    <nz-tree-view
+      [nzTreeControl]="treeControl"
+      [nzDataSource]="dataSource"
+      [trackBy]="trackBy"
+    >
+      <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
+        <nz-tree-node-option
+          [nzDisabled]="node.disabled"
+          [nzSelected]="selectListSelection.isSelected(node)"
+          (nzClick)="selectListSelection.toggle(node)"
+        >
+          <div
+            class="ant-tree-node-title"
+            [ngClass]="{ active: node.isActive, inActive: !node.isActive }"
+          >
+            {{ node.name }}
+          </div>
+        </nz-tree-node-option>
+        <button
+          nz-button
+          nzType="text"
+          nzSize="small"
+          [nz-tooltip]="'حذف'"
+          [nzIcon]="iconTpl"
+          nz-popconfirm
+          nzPopconfirmTitle="آیا از حذف این دسته بندی مطمئن هستید؟"
+          (nzOnConfirm)="delete(node)"
+          nzPopconfirmPlacement="topLeft"
+        >
+          <ng-template #iconTpl>
+            <span nz-icon nzType="question-circle-o" class="icon-question"></span>
+          </ng-template>
+          <span nz-icon nzType="minus" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nzType="text"
+          nzSize="small"
+          (click)="AddUpdateNode(node, false)"
+          [nz-tooltip]="'افزودن'"
+        >
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+        </button>
+        <button
+          nz-button
+          nzType="text"
+          nzSize="small"
+          (click)="AddUpdateNode(node, true)"
+          [nz-tooltip]="'ویرایش'"
+        >
+          <span nz-icon nzType="edit" nzTheme="outline"></span>
+        </button>
+      </nz-tree-node>
+
+      <nz-tree-node
+        *nzTreeNodeDef="let node; when: hasChild"
+        nzTreeNodeIndentLine
+      >
+        <nz-tree-node-toggle>
+          <span nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></span>
+        </nz-tree-node-toggle>
+        <div
+          class="ant-tree-parent-title"
+          [ngClass]="{ active: node.isActive, inActive: !node.isActive }"
+        >
+          {{ node.name }}
+        </div>
+        <button
+          nz-button
+          nzType="text"
+          nzSize="small"
+          (click)="AddUpdateNode(node, false)"
+          [nz-tooltip]="'افزودن'"
+        >
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+        </button>
+      </nz-tree-node>
+    </nz-tree-view>
+  </div>
+} @placeholder (minimum 100) {
+  <p>لطفا منتظر بمانید...</p>
+}
+

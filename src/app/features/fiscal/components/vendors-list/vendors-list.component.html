@@ -1,0 +1,9 @@
+<admin-qland-table
+  [data]="listVendors"
+  [tableColumns]="gridOptions"
+  [displayRowIndex]="true"
+  [totalRecords]="total"
+  [isServerSide]="true"
+  [showPagination]="true"
+  (queryParamsChange)="onTableQueryParamsChange($event)"
+></admin-qland-table>

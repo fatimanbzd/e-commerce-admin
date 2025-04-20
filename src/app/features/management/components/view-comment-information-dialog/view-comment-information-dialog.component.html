@@ -1,0 +1,121 @@
+<div nz-row [nzGutter]="24">
+
+    <div nz-col [nzSpan]="24">
+        <nz-form-item>
+            <nz-form-label nzNoColon>امتیاز: </nz-form-label>
+            <nz-form-control>
+                <nz-rate [(ngModel)]="data.rating" [nzTooltips]="tooltips" nzDisabled></nz-rate>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>نام مشتری</nz-form-label>
+            <nz-form-control>
+                <input
+                        class="input-box" nz-input  [value]="data.customerFullName" readonly/>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>خریدار</nz-form-label>
+            <nz-form-control>
+                <input
+                        class="input-box" nz-input  [value]="data.isBuyer? 'می باشد': 'نمی باشد'" readonly/>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>وضعیت انتشار</nz-form-label>
+            <nz-form-control>
+                <input
+                        class="input-box" nz-input  [value]="data.isAllowedToShow? 'منتشر شده': 'منتشر نشده'" readonly/>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>تاریخ</nz-form-label>
+            <nz-form-control>
+                <input
+                        class="input-box" nz-input  [value]="data.createDate | persianDate" readonly/>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+
+    <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>عنوان محصول</nz-form-label>
+      <nz-form-control>
+        <input
+          class="input-box text-input" nz-input  [value]="data.productTitle" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+
+  <div nz-col [nzSpan]="12">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>عنوان نظر</nz-form-label>
+      <nz-form-control>
+        <input
+          class="input-box text-input" nz-input  [value]="data.title" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+    @if (data.advantages) {
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzNoColon>نقاط قوت</nz-form-label>
+                <nz-form-control>
+                <textarea
+                        class="input-box text-input points"
+                        nz-input
+                        [value]="format(data.advantages)"
+                        readonly
+                        rows="5">
+                </textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    }
+
+    @if (data.disadvantages) {
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzNoColon>نقاط ضعف</nz-form-label>
+                <nz-form-control>
+                <textarea
+                        class="input-box text-input points"
+                        nz-input
+                        [value]="format(data.disadvantages)"
+                        readonly
+                        rows="5">
+                </textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    }
+
+    @if (data.body){
+        <div nz-col [nzSpan]="24">
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzNoColon>متن نظر</nz-form-label>
+                <nz-form-control>
+                    <textarea  class="input-box " rows="4" nz-input [(ngModel)]="data.body" readonly></textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    }
+
+
+
+
+</div>

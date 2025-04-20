@@ -1,0 +1,11 @@
+<admin-qland-table
+  [data]="listOfData"
+  [tableColumns]="gridOptions"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [displayRowIndex]="true"
+  [totalRecords]="total"
+  (queryParamsChange)="onTableQueryParamsChange($event)"
+  [isServerSide]="true"
+  [showPagination]="true"
+></admin-qland-table>

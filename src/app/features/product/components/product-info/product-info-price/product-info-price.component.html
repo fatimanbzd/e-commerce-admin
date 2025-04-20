@@ -1,0 +1,43 @@
+@if (productPrices.length) {
+  <nz-table
+    nzSize="middle"
+    nzBordered
+    [nzData]="productPrices"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr style="text-align: center">
+        <th>رنگ</th>
+        <th>قیمت (ريال)</th>
+        <th>مالیات بر ارزش افزوده</th>
+        <th>تخفیف</th>
+        <th>قیمت کل (ريال)</th>
+        <th>زمان انقضای تخفیف</th>
+        <th>بیشترین تعداد مجاز در هر سفارش</th>
+        <th>کمترین تعداد مجاز در هر سفارش</th>
+        <th>موجودی انبار</th>
+      </tr>
+    </thead>
+    @if (productPrices.length > 0) {
+      <tbody>
+        @for (item of productPrices; track item) {
+          <tr style="text-align: center">
+            <td>{{ item.colorName }}</td>
+            <td>{{ item.price | price }}</td>
+            <td>%{{ item.valueAddedTaxPercent | price | empty }}</td>
+            <td>%{{ item.discountPercent || 0 | empty }}</td>
+            <td>
+              {{ calculateFinalPrice(item) }}
+            </td>
+            <td>{{ item.discountExpireDate | persianDate | empty }}</td>
+            <td>{{ item.highestNumberOfOrders }}</td>
+            <td>{{ item.lowestNumberOfOrders }}</td>
+            <td>{{ item.inventory }}</td>
+          </tr>
+        }
+      </tbody>
+    }
+  </nz-table>
+} @else {
+  <nz-empty nzNotFoundImage="simple"></nz-empty>
+}

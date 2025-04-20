@@ -1,0 +1,67 @@
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  background-color: #f8f8f8;
+}
+
+::ng-deep
+.product-tabset.ant-tabs-card.ant-tabs-right > .ant-tabs-nav .ant-tabs-tab-active,
+::ng-deep.product-tabset.ant-tabs-card.ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab-active {
+  background-color: #d8d8d8;
+  border-left: 3px solid #7367f0;
+}
+
+::ng-deep .product-tabset .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: lighten(black, 30%);
+}
+
+::ng-deep .product-tabset .ant-tabs-content-holder {
+  border: unset !important;
+}
+
+.card-box {
+  margin-bottom: 20px;
+  color: #22b65b;
+}
+
+.release-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 20px 0;
+  gap: 20px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 20px 20px 20px 0;
+  background-color: #eee5;
+
+  .publishable-box {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .active-box {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+  }
+}
+
+.label {
+  text-align: right;
+}
+
+.change-publish-status-btn {
+  border: none;
+}
+
+nz-select {
+  margin: 0 8px 10px 0;
+  width: 220px;
+}
+
+.icon-question {
+  color: red;
+  margin-left: 6px;
+}

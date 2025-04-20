@@ -1,0 +1,77 @@
+<nz-collapse nzAccordion>
+  <nz-collapse-panel [nzHeader]="'جستجو'" [nzActive]="false">
+    <form
+      [formGroup]="form"
+      nz-form
+
+      class="ant-advanced-search-form"
+      (keydown.enter)="filterOrder($event)"
+    >
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label>از تاریخ</nz-form-label>
+            <nz-form-control>
+              <mat-form-field appearance="fill" class="wt-100">
+                <input
+                  matInput
+                  [matDatepicker]="fromDatepicker"
+                  formControlName="fromDate"
+                  (dateChange)="onFromDateChange($event)"
+                  readonly
+                  (click)="fromDatepicker.open()"
+                />
+
+                @if (form.get('fromDate')?.value) {
+                  <button matSuffix class="reset-input" (click)="resetDateInput('fromDate')">
+                <span nz-icon nzType="close"
+                      class="reset-icon" nzTheme="outline"></span></button>
+                }
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="fromDatepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #fromDatepicker></mat-datepicker>
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8" class="search-area">
+          <nz-form-item>
+            <nz-form-label>تا تاریخ</nz-form-label>
+            <nz-form-control>
+              <mat-form-field appearance="fill" class="wt-100">
+                <input
+                  matInput
+                  readonly
+                  (dateChange)="onToDateChange($event)"
+                  [matDatepicker]="toDatepicker"
+                  formControlName="toDate"
+                  (click)="toDatepicker.open()"
+                />
+                @if (form.get('toDate')?.value) {
+                  <button matSuffix class="reset-input" (click)="resetDateInput('toDate')">
+                <span nz-icon nzType="close"
+                      class="reset-icon" nzTheme="outline"></span></button>
+                }
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="toDatepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #toDatepicker></mat-datepicker>
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8" class="search-area">
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button (click)="resetForm()">لغو فیلتر</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+    </form>
+  </nz-collapse-panel>
+</nz-collapse>

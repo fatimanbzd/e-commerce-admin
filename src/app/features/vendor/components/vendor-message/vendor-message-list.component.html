@@ -1,0 +1,14 @@
+<div class="vendor-messages">
+  <admin-qland-table
+    [data]="listOfData"
+    [tableColumns]="columnDefs"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [displayRowIndex]="true"
+    [totalRecords]="total"
+    [rowStyle]="getRowStyle"
+    (queryParamsChange)="onTableQueryParamsChange($event)"
+    [isServerSide]="true"
+    [showPagination]="true"
+  ></admin-qland-table>
+</div>

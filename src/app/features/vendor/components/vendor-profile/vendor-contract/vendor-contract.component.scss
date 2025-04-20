@@ -1,0 +1,10 @@
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 20px auto;
+}
+
+button[nz-button] {
+  margin: 5px;
+}

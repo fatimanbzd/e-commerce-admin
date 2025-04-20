@@ -1,0 +1,153 @@
+<!--<app-product-search-->
+<!--  (filterChanged)="onFilterChanged($event)"-->
+<!--&gt;</app-product-search>-->
+
+<mehr-filter>
+  <form
+    nz-form
+    [formGroup]="form"
+    class="ant-advanced-search-form"
+
+  >
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>عنوان</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="title" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>وضعیت موجودی</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="isProductExist">
+              @for (pe of productExistList; track pe) {
+                <nz-option
+                  nzCustomContent
+                  [nzLabel]="pe.name"
+                  [nzValue]="pe.value"
+                >
+                  {{ pe.name }}
+                </nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>وضعیت انتشار</nz-form-label>
+          <nz-form-control>
+            <nz-select
+              formControlName="PublishableStatuses"
+              [nzOptions]="publishableStatusesList"
+            >
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>محصول ویژه</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="isSpecialProduct" nzDisabled>
+              @for (sp of specialProductList; track sp) {
+                <nz-option
+                  nzCustomContent
+                  [nzLabel]="sp.name"
+                  [nzValue]="sp.value"
+                >
+                  {{ sp.name }}
+                </nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>نوع محصول</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="productTypeId" nzDisabled>
+              <nz-option
+                [nzValue]="0"
+                nzLabel="محصول فیزیکی"
+                nzDisabled
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>پذیرنده</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="vendorIds" nzAllowClear nzMode="multiple">
+              @for (vendor of vendorLis; track vendor) {
+                <nz-option
+                  nzCustomContent
+                  [nzLabel]="vendor.name"
+                  [nzValue]="vendor.id"
+                >
+                  {{ vendor.name }}
+                </nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>کد محصول</nz-form-label>
+          <nz-form-control>
+            <input nz-input formControlName="ProductCode" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>دسته بندی</nz-form-label>
+          <nz-form-control>
+            <nz-tree-select
+              [nzDropdownMatchSelectWidth]="true"
+              [nzDropdownStyle]="{ 'max-height': '300px' }"
+              [nzAsyncData]="true"
+              [nzNodes]="treeData"
+              [nzMultiple]="true"
+              nzCheckable
+              nzShowSearch
+              formControlName="productCategoryIds"
+            ></nz-tree-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24" class="search-area ltr text-end">
+        <button
+          nz-button
+          [nzType]="'primary'"
+          class="filter-btn"
+
+        >
+          فیلتر
+        </button>
+        <button nz-button  class="m-2">لغو فیلتر</button>
+      </div>
+    </div>
+  </form>
+</mehr-filter>
+<admin-qland-table
+  [data]="listOfData"
+  [tableColumns]="gridOptions"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [displayRowIndex]="true"
+  [totalRecords]="total"
+  (queryParamsChange)="onTableQueryParamsChange($event)"
+  [isServerSide]="true"
+  [showPagination]="true"
+></admin-qland-table>
+

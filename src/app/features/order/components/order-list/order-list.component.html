@@ -1,0 +1,28 @@
+
+<div class="tool-bar d-flex justify-content-end  mb-2">
+  <button
+    class="btn-export"
+    nz-button
+    nzType="default"
+    (click)="export()">
+    <span nz-icon nzType="file-excel" nzTheme="outline"></span>
+    خروجی گرفتن از لیست
+  </button>
+</div>
+<div class="mb-1">
+  <admin-order-search
+    (filterChanged)="onFilterChanged($event)"
+  ></admin-order-search>
+</div>
+<admin-qland-table
+  [data]="listOfOrder"
+  [tableColumns]="gridOptions"
+  [showPagination]="true"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [displayRowIndex]="true"
+  [totalRecords]="total"
+  (queryParamsChange)="onTableQueryParamsChange($event)"
+  [isServerSide]="true"
+></admin-qland-table>
+

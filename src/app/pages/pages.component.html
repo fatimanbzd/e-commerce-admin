@@ -1,0 +1,23 @@
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <admin-navbar [isCollapsed]="isCollapsed"></admin-navbar>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <admin-header (trigger)="getLastTrigger($event)"></admin-header>
+    </nz-header>
+    <nz-content>
+      <nz-breadcrumb [nzAutoGenerate]="true" class="mb-3"></nz-breadcrumb>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

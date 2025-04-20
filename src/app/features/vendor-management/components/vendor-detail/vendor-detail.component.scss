@@ -1,0 +1,27 @@
+.page-users-view table td {
+  padding-bottom: 0.8rem;
+  min-width: 130px;
+  word-break: break-word;
+}
+
+td {
+  line-height: 25px;
+  font-size: 0.8rem;
+}
+
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+
+.table_container {
+  height: 85%;
+  min-height: 50%;
+  max-height: 100%;
+}
+
+:host ::ng-deep .ant-space-item {
+  margin-right: 8px !important;
+}
+
+
+

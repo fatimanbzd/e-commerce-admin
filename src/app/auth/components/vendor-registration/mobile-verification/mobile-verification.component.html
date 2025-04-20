@@ -1,0 +1,88 @@
+<form nz-form [formGroup]="validateForm" class="ant-form-horizontal">
+  <nz-form-item>
+    <nz-form-label nzNoColon>نوع پذیرنده</nz-form-label>
+    <nz-form-control>
+      <nz-radio-group formControlName="vendorType">
+        @for (vendorType of vendorTypeList; track $index) {
+          <label nz-radio-button [nzValue]="vendorType.value">{{
+            vendorType.name
+          }}</label>
+        }
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzNoColon>شماره همراه</nz-form-label>
+    <nz-form-control nzErrorTip="شماره همراه الزامیست!">
+      <input
+        nz-input
+        class="number"
+        formControlName="mobileNumber"
+        numbersOnly
+        [maxlength]="11"
+        [minlength]="11"
+        placeholder="{{ '09...' }}"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzNoColon>رمز یکبارمصرف</nz-form-label>
+    <nz-form-control>
+      <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+        <input
+          type="text"
+          nz-input
+          class="number"
+          numbersOnly
+          [maxlength]="5"
+          formControlName="verificationCode"
+        />
+        <ng-template #addOnAfterTemplate>
+          @if (!gettingOtp && !displayTimer) {
+            <button
+              nz-button
+              nzType="text"
+              (click)="getOtp(validateForm.controls['mobileNumber'].value)"
+              class="ant-btn-addOn"
+            >
+              دریافت رمز یکبارمصرف
+            </button>
+          } @else if (!gettingOtp && displayTimer) {
+            <span>{{ displayTimer }}</span>
+          } @else {
+            <nz-spin nzSimple></nz-spin>
+          }
+        </ng-template>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzNoColon>کدملی</nz-form-label>
+    <nz-form-control nzErrorTip="کدملی الزامیست!">
+      <input
+        nz-input
+        formControlName="nationalNumber"
+        class="number"
+        numbersOnly
+        [maxlength]="10"
+        [minlength]="10"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button
+        nz-button
+        class="btn-qLand-primary"
+        (click)="submit(validateForm)"
+      >
+        ثبت نام
+      </button>
+    </nz-form-control>
+    <nz-form-control class="text-center">
+      <a class="fw-bold" routerLink="/pages/login">ورود به سایت</a>
+    </nz-form-control>
+  </nz-form-item>
+</form>

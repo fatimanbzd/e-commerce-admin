@@ -1,0 +1,77 @@
+<div class="container-actions">
+  @if (buttons) {
+    @if (buttons.length < 3) {
+      @for (button of buttons; track button) {
+        @if (!evaluateIsHidden(item, button)) {
+          <button
+            nz-button
+            [ngClass]="button.colorBtn"
+            [nzType]="button.type || 'default'"
+            (click)="onButtonClick(button.action)"
+            [disabled]="evaluateIsDisabled(item, button)"
+            class="action-btn"
+          >
+            @if (button.icon) {
+              <i
+               nz-icon
+               [nzType]="button.icon"
+              ></i>
+            }
+            {{ button.label }}
+          </button>
+        }
+      }
+    } @else {
+      <a nz-dropdown [nzDropdownMenu]="menu" [nzPlacement]="'bottomRight'">
+        <span nz-icon nzType="menu" nzTheme="outline"></span>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          @for (button of buttons; track $index) {
+            @if (!evaluateIsHidden(item, button)) {
+              <li nz-menu-item>
+                @if (evaluateIsDisabled(item, button)) {
+                  <span nz-typography nzDisabled>
+                    @if (button.icon) {
+                      <i
+                        nz-icon
+                        [nzType]="button.icon"
+                      ></i>
+                    }
+                    {{ button.label }}
+                  </span>
+                } @else {
+                  <div
+                       (click)="onButtonClick(button.action)">
+                    @if (button.icon) {
+                      <i
+                        nz-icon
+                        [nzType]="button.icon"
+                        [ngStyle]="{ color: button.colorBtn}"
+                      ></i>
+<!--                      <i-->
+<!--                        [class]="'fa-' + button.icon"-->
+<!--                        class="fa"-->
+<!--                        [ngStyle]="{-->
+<!--                      'background-color:': button.type || 'gray',-->
+<!--                      color: button.colorBtn,-->
+<!--                    }"-->
+<!--                        aria-hidden="true"-->
+<!--                      ></i>-->
+                    }
+                    {{ button.label }}
+                  </div>
+                }
+              </li>
+              @if (!evaluateIsDisabled(item, button) &&
+              !evaluateIsHidden(item, button) &&
+              $index < buttons.length - 1) {
+                <li nz-menu-divider></li>
+              }
+            }
+          }
+        </ul>
+      </nz-dropdown-menu>
+    }
+  }
+</div>

@@ -1,0 +1,114 @@
+.form-group {
+  //direction: rtl;
+
+  .box-login-button {
+    position: relative;
+    display: flex;
+    height: 40px;
+    margin-top: 60px;
+
+    .login-button {
+      width: 100%;
+      background-color: #00d1a1;
+      outline: 2px solid #00d1a1;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid #fff;
+      font-size: 17px;
+      padding: 5px;
+
+      &::before {
+        content: "";
+        width: 44px;
+        height: 140%;
+        position: absolute;
+        right: 0;
+        top: -10px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 60px 0 0 60px;
+        transition: all 0.2s ease-in-out;
+      }
+
+      &:hover::before {
+        width: 100%;
+      }
+    }
+
+    .icon-login {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      line-height: 40px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  }
+}
+
+.ant-input-group-wrapper {
+  .ant-input {
+    border-radius: 0 5px 5px 0 !important;
+  }
+}
+
+.input-group-append button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+[nz-form]:not(.ant-form-inline):not(.ant-form-vertical) {
+  // max-width: 600px;
+}
+
+.ant-row {
+  display: block !important;
+  margin-bottom: 2px;
+}
+
+.ant-form-item-control {
+  display: block;
+}
+
+.ant-form label {
+  flex-grow: 4;
+}
+
+.ant-radio-group {
+  width: 100%;
+  display: inline-flex !important;
+  justify-content: space-evenly;
+}
+
+.btn-qLand-primary {
+  margin-top: 1rem;
+}
+
+::ng-deep nz-radio-group:hover {
+  border: red !important;
+}
+
+::ng-deep.otp-input-group .ant-input-group-addon {
+  background-color: #aeeedb !important;
+}
+
+.ant-input-group {
+  .ant-input {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+  }
+
+  .ant-input-group-addon {
+    &:last-child {
+      border-bottom-left-radius: 5px !important;
+      border-top-left-radius: 5px !important;
+    }
+
+    span {
+      color: #787d7d !important;
+    }
+  }
+}

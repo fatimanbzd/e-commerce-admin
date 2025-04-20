@@ -1,0 +1,52 @@
+.main {
+  display: flex;
+  align-items: flex-start;
+  height: 100%;
+
+  p {
+    margin: 0;
+  }
+
+  .box {
+    .inside-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      width: 100%;
+      border-radius: 5px;
+      box-shadow: 0 0 14px -1px rgba(224, 224, 224, 1);
+
+      .circle-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      .user-icon {
+        background: #caf0f896;
+      }
+
+      .shopping-cart-icon {
+        background: #ffdd004f;
+      }
+
+      .order-icon {
+        background: #e0aaff80;
+      }
+
+      .sale-icon {
+        background: #b7e4c78a;
+      }
+
+      .numbers {
+        color: #000;
+      }
+    }
+  }
+}

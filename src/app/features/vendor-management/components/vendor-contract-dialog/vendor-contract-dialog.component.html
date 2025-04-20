@@ -1,0 +1,68 @@
+<div>
+  <form nz-form [formGroup]="form">
+    <nz-form-item>
+      <nz-form-label nzRequired nzNoColon>شماره قرارداد</nz-form-label>
+      <nz-form-control nzErrorTip="شماره قرارداد الزامیست!">
+        <input
+          nz-input
+          formControlName="contractNumber"
+          class="number"
+          numbersOnly
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired nzNoColon>تاریخ قرارداد</nz-form-label>
+      <nz-form-control nzErrorTip="تاریخ قرارداد الزامیست!">
+        <mat-form-field appearance="fill" class="wt-100">
+          <input
+            matInput
+            [matDatepicker]="contractDatepicker"
+            formControlName="contractDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="contractDatepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #contractDatepicker></mat-datepicker>
+        </mat-form-field>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired nzNoColon>تاریخ انقضا</nz-form-label>
+      <nz-form-control nzErrorTip="تاریخ انقضا الزامیست!">
+        <mat-form-field appearance="fill" class="wt-100">
+          <input
+            matInput
+            [matDatepicker]="expireDatepicker"
+            formControlName="expireDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="expireDatepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #expireDatepicker></mat-datepicker>
+        </mat-form-field>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired nzNoColon>بارگزاری قرارداد</nz-form-label>
+      <nz-form-control>
+        <nz-upload
+          [(nzFileList)]="fileList"
+          [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event)"
+        >
+          <button nz-button>
+            <span nz-icon nzType="upload"></span>
+            انتخاب فایل
+          </button>
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div *nzModalFooter>
+  <button nz-button (click)="handleCancel()">لغو</button>
+  <button nz-button [nzType]="'primary'" (click)="handleOk()">ثبت</button>
+</div>

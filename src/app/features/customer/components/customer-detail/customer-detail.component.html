@@ -1,0 +1,91 @@
+<section class="card">
+  <div class="card-header">
+    <h4 class="card-title">مشخصات کاربر</h4>
+  </div>
+  <div class="card-content">
+    <div class="card-body">
+      <section class="page-users-view">
+        <div class="row">
+          <!-- account start -->
+          <div class="col-12">
+            <div class="card mb-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="users-view-image">
+                    <img
+                      src="/assets/images/default.jpg"
+                      class="users-avatar-shadow w-100 rounded mb-2 pr-2 ml-1"
+                      alt="avatar"
+                    />
+                  </div>
+                  <div class="col-12 col-sm-9 col-md-6 col-lg-5">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td class="font-weight-bold">نام</td>
+                          <td>{{ customer.name ? customer.name : "--" }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">نام خانوادگی</td>
+                          <td>
+                            {{ customer.family ? customer.family : "--" }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">ایمیل</td>
+                          <td>--</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">نام کاربری</td>
+                          <td>
+                            {{ customer.userName ? customer.userName : "--" }}
+                          </td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                          <td class="font-weight-bold">تاریخ ثبت نام</td>
+                          <td>
+                            <!--                          <abbr title="1403-01-18 12:31:25"></abbr>-->--
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-5">
+                    <table class="ml-0 ml-sm-0 ml-lg-0">
+                      <tbody>
+                        <tr>
+                          <td class="font-weight-bold">شماره همراه</td>
+                          <td>{{ customer.mobileNumber }}</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">آیدی</td>
+                          <td>--</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">آدرس</td>
+                          <td>--</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">کد پستی</td>
+                          <td>--</td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">آدرس کامل</td>
+                          <td>--</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-10 offset-md-1 mt-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- account end -->
+        </div>
+      </section>
+      <!-- page users view end -->
+    </div>
+  </div>
+</section>

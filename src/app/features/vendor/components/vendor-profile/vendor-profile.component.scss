@@ -1,0 +1,48 @@
+.card-container {
+  //height: 100vh;
+  //overflow-y: auto;
+  @media all and (max-width: 767px) {
+    padding-bottom: 80px;
+  }
+
+  nz-tabset {
+    height: 100%;
+  }
+}
+
+.vendor-profile {
+  ::ng-deep .ant-tabs-tabpane-active {
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    width: 100% !important;
+    //max-height: 800px;
+
+    @media all and (max-width: 767px) {
+      padding: 0;
+      background-color: white !important;
+      box-shadow: none !important;
+      .ant-radio-group {
+        width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        .ant-radio-button-wrapper {
+          display: block;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .ant-tabs-content-holder {
+    width: 70% !important;
+    margin: auto !important;
+
+    @media all and (max-width: 1199px) {
+      width: 100% !important;
+    }
+  }
+}

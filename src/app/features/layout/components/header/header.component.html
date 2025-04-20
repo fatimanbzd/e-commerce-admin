@@ -1,0 +1,45 @@
+<div class="admin-header">
+  <span class="header-trigger" (click)="headerTrigger()">
+    <span
+      class="trigger"
+      nz-icon
+      [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+    ></span>
+  </span>
+
+  <div class="profile-button">
+    @if (currentRole == UserTypeEnum.vendor && notificationCount !== 0) {
+      <div class="notification-icon">
+        <i class="fa fa-bell" aria-hidden="true"></i>
+
+        <a routerLink="/pages/vendor/vendor-messages">
+          <span class="badge">{{ notificationCount }}</span></a
+        >
+      </div>
+    }
+    <nz-button-group>
+      <button nz-button class="btn-user-name">{{ displayName }}</button>
+      <button
+        nz-button
+        class="btn-profile"
+        nz-dropdown
+        [nzDropdownMenu]="menu1"
+        nzPlacement="bottomRight"
+      >
+        <span nz-icon nzType="user"></span>
+      </button>
+    </nz-button-group>
+    <nz-dropdown-menu #menu1="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item class="menu-item" (click)="changePassword()">
+          <span nz-icon nzType="lock" nzTheme="outline"></span>
+          تغییر رمز عبور
+        </li>
+        <li nz-menu-item class="menu-item" (click)="logout()">
+          <span nz-icon nzType="poweroff" nzTheme="outline"></span>
+          خروج
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div>
+  <form nz-form [formGroup]="form" class="ant-form-horizontal">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzRequired nzNoColon>
+        نام (فارسی)</nz-form-label
+      >
+      <nz-form-control nzErrorTip="نام (فارسی) الزامیست!">
+        <input nz-input faCharOnly formControlName="persianTitle" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzRequired nzNoColon>
+        نام (انگلیسی)</nz-form-label
+      >
+      <nz-form-control nzErrorTip="نام (انگلیسی) الزامیست!">
+        <input nz-input enCharOnly formControlName="englishTitle" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="checkbox-spacing">
+      <nz-form-label nzRequired nzNoColon>وضعیت</nz-form-label>
+      <nz-form-control>
+        <nz-switch
+          formControlName="isActive"
+          nzCheckedChildren="فعال"
+          nzUnCheckedChildren="غیرفعال"
+        ></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div *nzModalFooter>
+  <button nz-button (click)="handleCancel()">لغو</button>
+  <button nz-button [nzType]="'primary'" (click)="handleOk()">
+    {{ id ? "ویرایش" : "ثبت" }}
+  </button>
+</div>

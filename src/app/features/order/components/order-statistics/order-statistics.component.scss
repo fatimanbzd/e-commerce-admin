@@ -1,0 +1,18 @@
+::ng-deep.highcharts-tooltip b {
+  height: auto;
+  direction: ltr;
+  vertical-align: middle;
+  text-align: left;
+  overflow: auto;
+  white-space: normal !important; // add this line...
+}
+
+::ng-deep.highcharts-credits{
+  display: none;
+}
+
+.total-amount-container{
+  display: inline;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd9d9;
+}

@@ -1,0 +1,53 @@
+<div nz-row nzGutter="24">
+  <div nz-col nzSpan="24">
+    @if (images.length) {
+      <div class="ant-upload-list ant-upload-list-picture">
+        <div class="ant-upload-list-picture-container">
+          <div nz-row>
+            @for (file of images; track $index) {
+              <div
+                nz-col
+                nzSpan="6"
+                style="margin-right: 5px; margin-left: 5px"
+              >
+                <div
+                  class="ant-upload-list-item ant-upload-list-item-done ant-upload-list-item-list-type-picture"
+                >
+                  <div class="ant-upload-list-item-info">
+                    <span class="ant-upload-span">
+                      <a
+                        target="_blank"
+                        class="ant-upload-list-item-thumbnail"
+                        href="{{ file.imageSrc | fullSrc }}"
+                        title="{{ file.title }}"
+                      >
+                        <img
+                          src="{{ file.imageSrc | fullSrc }}"
+                          alt="{{ file.title }}"
+                        />
+                      </a>
+
+                      <a
+                        target="_blank"
+                        class="ant-upload-list-item-name"
+                        href="{{ file.imageSrc | fullSrc }}"
+                        title="{{ file.title }}"
+                      >
+                        {{ file.title }}</a
+                      >
+
+                      <span class="ant-upload-list-item-card-actions picture">
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    } @else {
+      <nz-empty nzNotFoundImage="simple"></nz-empty>
+    }
+  </div>
+</div>

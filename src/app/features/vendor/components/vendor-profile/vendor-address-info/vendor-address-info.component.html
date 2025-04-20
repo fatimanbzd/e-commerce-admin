@@ -1,0 +1,98 @@
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon>
+          نام استان
+        </nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="نام استان الزامیست!">
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder="نام استان"
+            formControlName="provinceCode"
+          >
+            @for (province of provinceList; track province) {
+              <nz-option
+                [nzLabel]="province.title"
+                [nzValue]="province.code"
+              ></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon>نام شهر</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip=" نام شهر الزامیست!">
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder="نام شهر"
+            formControlName="cityCode"
+            [nzDisabled]="!validateForm.controls['provinceCode'].value"
+          >
+            @for (city of cityList; track city) {
+              <nz-option [nzLabel]="city.title" [nzValue]="city.code"></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon>کد پستی</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="postalCode">
+          <input
+            nz-input
+            formControlName="postalCode"
+            numbersOnly
+            [maxlength]="10"
+            [minlength]="10"
+          />
+          <ng-template #postalCode let-control>
+            @if (control.errors?.["required"]) {
+              کدپستی الزامیست!
+            }
+            @if (control.errors?.["maxlength"]) {
+              حداکثر کاراکتر 10 می باشد
+            }
+            @if (control.errors?.["minlength"]) {
+              حداقل کاراکتر 10 می باشد
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon>آدرس</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip=" آدرس الزامیست!">
+          <textarea formControlName="address" nz-input rows="3"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-control class="action-container">
+          <button
+            nz-button
+            class="btn-add"
+            nzType="default"
+            (click)="submit(validateForm)"
+            [nzLoading]="loading"
+          >
+            ثبت اطلاعات
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

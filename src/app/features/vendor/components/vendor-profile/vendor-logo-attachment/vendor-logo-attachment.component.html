@@ -1,0 +1,52 @@
+<div nz-row [nzGutter]="[16,16]">
+  <div nz-col [nzSpan]="24" [nzLg]="4">
+    <nz-form-item class="upload-input">
+      <nz-upload
+        [nzLimit]="1"
+        [(nzFileList)]="fileList"
+        [nzBeforeUpload]="beforeUpload"
+        class="wt-100"
+      >
+        <button nz-button class="btn-upload wt-100">
+          <span nz-icon nzType="upload"> </span>{{ logo ? 'تغییر فایل' : 'انتخاب فایل' }}
+        </button>
+
+      </nz-upload>
+    </nz-form-item>
+  </div>
+
+  <div nz-col [nzSpan]="24" [nzLg]="4">
+    <nz-form-item>
+      <button nz-button
+              [nzType]="'primary'"
+              [nzLoading]="uploading"
+              (click)="customUploadReq()"
+              [disabled]="fileList.length === 0">
+        ثبت
+      </button>
+    </nz-form-item>
+  </div>
+</div>
+@if (logo) {
+  <div nz-row class="mt-1">
+    <div nz-col [nzSpan]="24" [nzLg]="8">
+      <div class="file-list-container">
+        <div class="file-info">
+          <div class="file-download-icon">
+            <span nz-icon nzType="paper-clip" nzTheme="outline"></span>
+          </div>
+
+          <div class="file-filename">
+                  <span
+                    title="لوگوی شرکت">
+                    لوگوی شرکت</span>
+          </div>
+        </div>
+        <div class="file-action">
+          <span nz-icon nzType="download" nzTheme="outline" (click)="downloadFile(logo)"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+

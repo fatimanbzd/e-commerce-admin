@@ -1,0 +1,147 @@
+<nz-collapse nzAccordion>
+  <nz-collapse-panel [nzHeader]="'جستجو'" [nzActive]="false">
+    <form
+      [formGroup]="form"
+      nz-form
+      class="ant-advanced-search-form"
+      (keydown.enter)="filterReports($event)"
+    >
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>از مبلغ</nz-form-label>
+            <nz-form-control>
+              <nz-input-group nzAddOnAfter="ریال">
+                <input
+                  type="number"
+                  nz-input
+                  numbersOnly
+                  formControlName="FromAmount"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>تا مبلغ</nz-form-label>
+            <nz-form-control>
+              <nz-input-group nzAddOnAfter="ریال">
+                <input
+                  type="number"
+                  nz-input
+                  numbersOnly
+                  formControlName="ToAmount"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon
+              >نوع تراکنش</nz-form-label
+            >
+            <nz-form-control>
+              <nz-select formControlName="VendorBalanceTypes">
+                  @for (item of balanceType; track item) {
+                    <nz-option
+                      nzCustomContent
+                      [nzLabel]="item.name"
+                      [nzValue]="item.value"
+                    >{{ item.name }}</nz-option
+                    >
+                  }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>پذیرنده</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="VendorIds" nzAllowClear nzMode="multiple">
+                @for (vendor of vendors; track vendor) {
+                  <nz-option
+                    nzCustomContent
+                    [nzLabel]="vendor.name"
+                    [nzValue]="vendor.id"
+                  >
+                    {{ vendor.name }}
+                  </nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>توضیحات</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="Description" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24">از تاریخ</nz-form-label>
+            <nz-form-control>
+              <mat-form-field appearance="fill" class="wt-100">
+                <input
+                  matInput
+                  [matDatepicker]="fromContractDatepicker"
+                  formControlName="FromCreateDate"
+                  (dateChange)="fromDateChange($event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="fromContractDatepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #fromContractDatepicker></mat-datepicker>
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24">تا تاریخ</nz-form-label>
+            <nz-form-control>
+              <mat-form-field appearance="fill" class="wt-100">
+                <input
+                  matInput
+                  [matDatepicker]="untilContractDatepicker"
+                  formControlName="ToCreateDate"
+                  (dateChange)="toDateChange($event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="untilContractDatepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #untilContractDatepicker></mat-datepicker>
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="search-area ltr text-end">
+        <button nz-button (click)="resetForm()" class="m-2">لغو فیلتر</button>
+        <button
+          nz-button
+          [nzType]="'primary'"
+          class="filter-btn"
+          (click)="filterReports()"
+        >
+          فیلتر
+        </button>
+      </div>
+    </form>
+  </nz-collapse-panel>
+</nz-collapse>

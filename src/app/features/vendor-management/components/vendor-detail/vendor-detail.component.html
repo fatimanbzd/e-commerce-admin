@@ -1,0 +1,292 @@
+@if (vendor) {
+  <section class="card">
+    <div class="site-page-header-ghost-wrapper">
+      <nz-page-header
+        (nzBack)="onBack()"
+        [nzGhost]="false"
+        class="card-header"
+      >
+        <nz-page-header-title>مشخصات پذیرنده&nbsp;</nz-page-header-title>
+        <nz-page-header-subtitle>
+          <td>
+          </td>
+        </nz-page-header-subtitle>
+        @if (vendor.status == VendorRequestStatusEnum.contractRequest) {
+
+          <nz-page-header-extra>
+            <div class="group-btn-confirm-reject">
+              <nz-button-group>
+                <button
+                  nz-popconfirm
+                  [nzIcon]="confirmIcon"
+                  nzPopconfirmTitle=" آیا از تایید درخواست پذیرنده مطمئن هستید؟"
+                  nzPopconfirmPlacement="topLeft"
+                  class="success-btn"
+                  (nzOnConfirm)=" approve( vendor.id )"
+                >
+                  <ng-template #confirmIcon>
+                  <span
+                    nz-icon
+                    nzType="question-circle-o"
+                    class="icon-question me-1"
+                  ></span>
+                  </ng-template>
+                  تایید
+                </button>
+                <button
+                  nz-button
+                  class="danger-btn"
+                  (click)="reject(vendor.id)"
+                >
+                  رد
+                </button>
+              </nz-button-group>
+            </div>
+          </nz-page-header-extra>
+        }
+      </nz-page-header>
+    </div>
+
+    <div class="card-content">
+      <div class="card-body">
+        <section class="page-users-view">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-0">
+                <div class="card-body">
+                  <div class="row">
+
+                    <div class="col-12 col-sm-9 col-md-6 col-lg-5">
+                      <table>
+                        <tbody>
+                        <tr>
+                          <td
+                            class="font-weight-bold">{{ vendor.vendorType == VendorTypeEnum.real ? 'نام' : 'نام سازمان' }}
+                          </td>
+                          @if (vendor.vendorType == VendorTypeEnum.real) {
+                            <td>{{ vendor.name ? vendor.name : "--" }} {{ vendor.family ? vendor.family : "--" }}</td>
+                          }
+                          @if (vendor.vendorType == VendorTypeEnum.legal) {
+                            <td>{{ vendor.organizationName ? vendor.organizationName : "--" }}</td>
+                          }
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">عنوان پذیرنده</td>
+                          <td>{{ vendor.vendorTitle ? vendor.vendorTitle : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">کد ملی</td>
+                          <td>
+                            {{ vendor.nationalNumber ? vendor.nationalNumber : "--" }}
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">تاریخ</td>
+                          <td>
+                            {{ vendor.createDate | persianDate }}
+                          </td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col-12 col-md-12 col-lg-5">
+                      <table class="ml-0 ml-sm-0 ml-lg-0">
+                        <tbody>
+                        <tr>
+                          <td class="font-weight-bold">شناسه اقتصادی</td>
+                          <td>
+                            {{ vendor.economicCode ? vendor.economicCode : "--" }}
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">شناسه صنفی</td>
+                          <td>
+                            {{ vendor.classCode ? vendor.classCode : "--" }}
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">وضعیت</td>
+                          <td>
+                            {{ vendor.status| enumLabel: VendorRequestStatusLabel }}
+                          </td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <div class="card-body">
+        <section class="page-users-view">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 col-sm-9 col-md-6 col-lg-5">
+                      <table>
+                        <tbody>
+                        <tr>
+                          <td class="font-weight-bold">نام نماینده</td>
+                          <td>{{ vendor.agentName ? vendor.agentName : "--" }} {{ vendor.agentFamily ? vendor.agentFamily : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">شماره تماس سازمان</td>
+                          <td>{{ vendor.phoneNumber ? vendor.phoneNumber : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">شماره تماس نماینده</td>
+                          <td>{{ vendor.agentMobileNumber ? vendor.agentMobileNumber : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">ایمیل</td>
+                          <td>{{ vendor.email ? vendor.email : "--" }}</td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-5">
+                      <table class="ml-0 ml-sm-0 ml-lg-0">
+                        <tbody>
+
+
+                        <tr>
+                          <td class="font-weight-bold">آدرس سایت</td>
+                          <td>
+                            {{ vendor.siteUrl ? vendor.siteUrl : "--" }}
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">آدرس فروشگاه</td>
+                          <td>{{ vendor.storeAddress ? vendor.storeAddress : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">توضیحات فروشگاه</td>
+                          <td>{{ vendor.storeDescription ? vendor.storeDescription : "--" }}</td>
+                        </tr>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="card-body">
+        <section class="page-users-view">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 col-sm-9 col-md-6 col-lg-5">
+                      <table>
+                        <tbody>
+
+                        <tr>
+                          <td class="font-weight-bold">شماره کارت</td>
+                          <td>{{ vendor.cardNumber ? vendor.cardNumber : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">شماره شبا</td>
+                          <td>{{ vendor.shabaNumber ? vendor.shabaNumber : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold">شماره حساب</td>
+                          <td>{{ vendor.depositNumber ? vendor.depositNumber : "--" }}</td>
+                        </tr>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-5">
+                      <table class="ml-0 ml-sm-0 ml-lg-0">
+                        <tbody>
+
+                        <tr>
+                          <td class="font-weight-bold">نام صاحب حساب</td>
+                          <td>{{ vendor.depositOwnerFullName ? vendor.depositOwnerFullName : "--" }}</td>
+                        </tr>
+
+                        <tr>
+                          <td class="font-weight-bold"> مالیات بر ارزش افزوده</td>
+                          <td>{{ vendor.haveValueAddedTax ? 'دارد' : 'ندارد' }}</td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                    @if (vendor.documents && vendor.documents.length > 0) {
+                      <div class="col-md-8 offset-md-2 mt-2">
+                        <div class="table_container">
+                          <nz-table
+                            [nzShowPagination]="false"
+                            #ownerTable
+                            [nzData]="vendor.documents"
+                          >
+                            <thead class="ant-table-thead">
+                            <tr>
+                              <th>نوع</th>
+                              <th>دانلود</th>
+                            </tr>
+                            </thead>
+                            <tbody class="ant-table-tbody">
+                              @for (owner of ownerTable.data; track owner) {
+                                <tr>
+                                  <td>{{ owner.documentType | enumLabel: vendorDocumentTypeLabel }}</td>
+
+                                  <td>
+                                    <button
+                                      nz-button
+                                      nzType="primary"
+                                      (click)="
+                                        download(owner.fileId)">
+                                      دانلود
+                                      <span nz-icon nzType="download"></span>
+                                    </button>
+
+                                  </td>
+                                </tr>
+                              }
+                            </tbody>
+                          </nz-table>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+}

@@ -1,0 +1,53 @@
+::ng-deep.file-list-container {
+  display: flex;
+  justify-content: space-between;
+  color: #7e7d7d !important;
+  padding: 5px 5px;
+  border: 1px solid #ddd;
+  margin: 5px 0 5px 0;
+  flex-wrap: nowrap;
+  align-items: baseline;
+
+  &:hover {
+    background: #efefef none repeat scroll 0 0;
+  }
+
+  .file-info{
+    display: flex;
+    justify-content: start;
+    .file-download-icon{
+      margin-left: 5px;
+    }
+  }
+  .file-action {
+    span {
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 5px;
+      }
+    }
+
+    .anticon-download {
+      color: #1890ff;
+    }
+
+    .anticon-delete {
+      color: #ff4d4f;
+    }
+  }
+}
+
+::ng-deep .upload-input .ant-upload-list-item-card-actions-btn {
+  margin-right: 8px !important;
+}
+
+::ng-deep.upload-input{
+  .ant-upload.ant-upload-select{
+    display: block;
+  }
+
+}
+::ng-deep.ant-upload-list-item-name {
+  direction: ltr;
+}

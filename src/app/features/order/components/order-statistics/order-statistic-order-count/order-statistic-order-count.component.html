@@ -1,0 +1,59 @@
+
+<admin-order-statistic-filter
+  (filtered)="orderCountPerDate($event)"></admin-order-statistic-filter>
+
+@if (totalAmounts && totalAmounts.valueOfOrders) {
+  <div nz-row>
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      class="chart"
+    ></highcharts-chart>
+  </div>
+} @else {
+  <nz-empty nzNotFoundImage="simple"></nz-empty>
+}
+@if (totalAmounts) {
+  <div style="background: #ECECEC; padding: 30px;" nz-row nzGutter="24" class="mt-3">
+    <div nz-col nzSpan="6">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="( totalAmounts.totalOrders | number: '1.0-2')!"
+          nzTitle="کل سفارشات"
+
+          [nzValueStyle]="{ color: '#369adc' }"
+        ></nz-statistic>
+      </nz-card>
+    </div>
+    <div nz-col nzSpan="6">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="( totalAmounts.averageOrders | number: '1.0-2')!"
+          nzTitle="میانگین سفارشات"
+
+        ></nz-statistic>
+      </nz-card>
+    </div>
+    <div nz-col nzSpan="6">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="( totalAmounts.successfulOrders | number: '1.0-2')!"
+          nzTitle="سفارشات موفق"
+
+          [nzValueStyle]="{ color: '#3F8600' }"
+        ></nz-statistic>
+      </nz-card>
+    </div>
+    <div nz-col nzSpan="6">
+      <nz-card>
+        <nz-statistic
+          [nzValue]="( totalAmounts.unsuccessfulOrders | number: '1.0-2')!"
+          nzTitle="سفارشات ناموفق"
+
+          [nzValueStyle]="{ color: '#CF1322' }"
+        ></nz-statistic>
+      </nz-card>
+    </div>
+  </div>
+
+}

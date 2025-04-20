@@ -1,0 +1,50 @@
+.table_container {
+  height: 100%;
+  min-height: 50%;
+  max-height: 100%;
+}
+
+.row-title {
+  float: left;
+}
+
+.header {
+  background: #fafafa;
+  height: 40px;
+  border-bottom: 1px solid #dadada !important;
+}
+
+.custom-row {
+  height: 47px;
+
+  &:hover {
+    background-color: #fafafa;
+  }
+}
+
+.line {
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.icon-question {
+  color: red;
+  margin-left: 6px;
+}
+
+th {
+  position: relative;
+}
+
+th::before {
+  content: "";
+  width: 1px;
+  height: 22px;
+  background-color: #dadada;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+}
+
+th:last-child::before {
+  background-color: transparent;
+}

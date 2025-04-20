@@ -1,0 +1,31 @@
+<div>
+  <form nz-form [formGroup]="form" class="ant-form-horizontal">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzRequired nzNoColon> عنوان</nz-form-label>
+      <nz-form-control nzErrorTip="عنوان الزامیست!">
+        <input nz-input formControlName="name" />
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon> رنگ</nz-form-label>
+        <br />
+        <nz-color-picker formControlName="data"></nz-color-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="checkbox-spacing">
+      <nz-form-label nzRequired nzNoColon>وضعیت</nz-form-label>
+      <nz-form-control>
+        <nz-switch
+          formControlName="isActive"
+          nzCheckedChildren="فعال"
+          nzUnCheckedChildren="غیرفعال"
+        ></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+
+<div *nzModalFooter>
+  <button nz-button (click)="handleCancel()">لغو</button>
+  <button nz-button [nzType]="'primary'" (click)="handleOk()">
+    {{ id ? "ویرایش" : "ثبت" }}
+  </button>
+</div>

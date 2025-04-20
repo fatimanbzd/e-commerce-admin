@@ -1,0 +1,89 @@
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon>نام سازمان</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="نام سازمان الزامیست!">
+          <input nz-input formControlName="organizationName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="16" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon>عنوان پذیرنده</nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="عنوان پذیرنده الزلمیست!">
+          <input nz-input
+                 formControlName="vendorTitle"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+      >شناسه اقتصادی
+      </nz-form-label
+      >
+      <nz-form-control [nzSpan]="24" [nzErrorTip]="companyEconomicCodeErrors">
+        <input
+          nz-input
+          formControlName="companyEconomicCode"
+          class="number"
+          numbersOnly
+          [maxlength]="12"
+          [minlength]="12"
+        />
+        <ng-template #companyEconomicCodeErrors let-control>
+          @if (control.errors?.["minlength"]) {
+            حداقل کاراکتر 12 می باشد!
+          }
+          @if (control.errors?.["required"]) {
+            شناسه اقتصادی الزامیست!
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+        >شناسه صنفی
+        </nz-form-label
+        >
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="companyClassCodeErrors">
+          <input
+            nz-input
+            formControlName="companyClassCode"
+            class="number"
+            numbersOnly
+          />
+          <ng-template #companyClassCodeErrors let-control>
+            @if (control.errors?.["required"]) {
+              شناسه صنفی الزامیست!
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSpan]="24" [nzLg]="24">
+      <nz-form-item>
+        <nz-form-control class="action-container">
+          <button
+            nz-button
+            class="btn-add"
+            nzType="default"
+            (click)="submit(validateForm)"
+            [nzLoading]="loading"
+          >
+            ثبت اطلاعات
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

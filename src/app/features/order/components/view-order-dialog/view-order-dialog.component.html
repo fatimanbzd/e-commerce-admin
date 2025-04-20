@@ -1,0 +1,280 @@
+<div nz-row [nzGutter]="24">
+
+  <div nz-col [nzSpan]="6">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>نام محصول</nz-form-label>
+      <nz-form-control>
+        <input
+          class="inp title-inp" nz-input [nz-tooltip]="data.productTitle"  nzTooltipPlacement="bottom" [value]="data.productTitle" readonly/>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <div nz-col [nzSpan]="6">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon >تعداد</nz-form-label>
+      <nz-form-control>
+        <input class="inp" nz-input [value]="data.count" readonly />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <div nz-col [nzSpan]="6">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>قیمت کل (ریال)</nz-form-label>
+      <nz-form-control>
+        <input class="inp" nz-input [value]="data.count * data.price | price " readonly/>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+
+  <div nz-col [nzSpan]="6">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>قیمت نهایی (ریال)</nz-form-label>
+      <nz-form-control>
+        <input class="inp" nz-input [value]="data.lastAmount | price " readonly />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <div nz-col [nzSpan]="6">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>پذیرنده</nz-form-label>
+      <nz-form-control>
+        <input class="inp" nz-input [value]="data.productVendorTitle " readonly />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <div nz-col [nzSpan]="6">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>وضعیت کالا</nz-form-label>
+      <nz-form-control>
+        <input class="inp" nz-input [value]="data.sendStatus | enumLabel: InvoiceItemStatusLabel " readonly
+            />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+
+  @if ( data.sendStatus !== InvoiceItemStatusEnum.lackOfSupply && data.sendStatus !== InvoiceItemStatusEnum.underReview){
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon>نوع ارسال</nz-form-label>
+        <nz-form-control>
+          <input class="inp" nz-input [value]="data.deliveryType | enumLabel: InvoiceItemDeliveryLabel" readonly
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  }
+
+  @if (data.deliveryType === IInvoiceItemDeliveryEnum.Post ){
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon>کد مرسوله</nz-form-label>
+        <nz-form-control>
+          <input class="inp" nz-input [value]="data.shipmentNumber" readonly
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  }
+
+  @if (data.deliveryType === IInvoiceItemDeliveryEnum.SendByCourier && data.sendStatus !== InvoiceItemStatusEnum.lackOfSupply
+    && data.sendStatus !== InvoiceItemStatusEnum.underReview){
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon>ساعت ارسال</nz-form-label>
+        <nz-form-control>
+          <input class="inp" nz-input [value]="data.deliveryTime" readonly
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon>تاریخ ارسال</nz-form-label>
+        <nz-form-control>
+          <input class="inp" nz-input [value]="data.deliveryDate | persianDate" readonly
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  }
+</div>
+
+<!--وضعیت تایید شده-->
+@if (data.sendStatus === InvoiceItemStatusEnum.underReview){
+  <nz-ribbon nzText="تغییر وضعیت سفارش" nzColor="green">
+    <nz-card nzTitle=" " nzSize="small">
+
+  <form nz-form [formGroup]="form" class="ant-form-horizontal">
+
+    <div nz-row [nzGutter]="24" class="mt-3">
+      <div nz-col class="gutter-row" [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label  nzRequired >وضعیت کالا</nz-form-label>
+          <nz-form-control nzErrorTip="انتخاب وضعیت کالا اجباری است.">
+            <nz-radio-group formControlName="sendStatus">
+              @for (option of invoiceItemStatusList1 ; track option){
+                <label
+                  nz-radio-button [nzValue]="option.value">
+                  {{ option.label }}
+                </label>
+              }
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    @if (form.get('sendStatus')?.value === InvoiceItemStatusEnum.accepted){
+      <div nz-row [nzGutter]="24">
+
+        <div nz-col class="gutter-row" [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired nzNoColon>انتخاب نوع ارسال</nz-form-label>
+            <nz-form-control nzErrorTip="انتخاب نوع ارسال اجباری است.">
+              <nz-select formControlName="deliveryType">
+                @for (item of invoiceItemDeliveryList; track item) {
+                  <nz-option
+                    nzCustomContent
+                    [nzLabel]="item.name"
+                    [nzValue]="item.value">{{ item.name }}
+                  </nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+
+        </div>
+
+        <!--انتخاب ساعت و تاریخ ارسال برای پیک-->
+        @if (form.get('deliveryType')?.value === IInvoiceItemDeliveryEnum.SendByCourier) {
+          <div nz-col class="gutter-row" [nzSpan]="6" >
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzRequired nzNoColon>انتخاب بازه ارسال</nz-form-label>
+              <nz-form-control nzErrorTip="انتخاب بازه ارسال اجباری است.">
+                <nz-select formControlName="deliveryTime">
+                  <nz-option nzValue="9-12" nzLabel="ساعت 9 تا 12"></nz-option>
+                  <nz-option nzValue="12-15" nzLabel="ساعت 12 تا 15"></nz-option>
+                  <nz-option nzValue="15-18" nzLabel="ساعت 15 تا 18"></nz-option>
+                  <nz-option nzValue="18-21" nzLabel="ساعت 18 تا 21"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div nz-col class="gutter-row" [nzSpan]="6" >
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzRequired nzNoColon>انتخاب تاریخ ارسال</nz-form-label>
+              <nz-form-control
+                [nzErrorTip]="form.get('deliveryDate')?.hasError('required') ? 'انتخاب تاریخ ارسال اجباری است.' : ''">
+
+                <mat-form-field appearance="fill" class="wt-100">
+                  <input
+                    matInput
+                    [matDatepicker]="contractDatepicker"
+                    formControlName="deliveryDate"
+                    (dateChange)="onDiscountExpireDateChange($event)"
+                    [min]="today"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="contractDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #contractDatepicker></mat-datepicker>
+                </mat-form-field>
+
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        }
+      </div>
+    }
+
+    <div nz-col class="gutter-row" style="margin-bottom:50px " [nzSpan]="24">
+      <button class="change-status-btn" nz-button nzType="primary" (click)="changeUnderReview(form.value)">ثبت</button>
+    </div>
+  </form>
+    </nz-card>
+  </nz-ribbon>
+}
+
+  <!--  وضعیت منتظر ارسال-->
+@if (data.sendStatus === InvoiceItemStatusEnum.accepted){
+  <nz-ribbon nzText="تغییر وضعیت سفارش" nzColor="green">
+    <nz-card nzTitle=" " nzSize="small">
+  <div nz-row [nzGutter]="24" class="mt-3">
+  <div nz-col class="gutter-row btn-accept" [nzSpan]="24">
+    <button class="change-status-btn" nz-button nzType="primary"  (click)="changeAccept()">تغییر وضعیت به منتظر ارسال</button>
+  </div>
+  </div>
+
+    </nz-card>
+  </nz-ribbon>
+
+}
+
+
+<!--وضعیت ارسال شده-->
+@if (data.sendStatus === InvoiceItemStatusEnum.waitingToSend){
+  <nz-ribbon nzText="تغییر وضعیت سفارش" nzColor="green">
+    <nz-card nzTitle=" " nzSize="small">
+
+  <div nz-row [nzGutter]="24" class="mt-3">
+      <div nz-col class="gutter-row" [nzSpan]="6" >
+        @if (data.deliveryType === IInvoiceItemDeliveryEnum.Post) {
+          <nz-form-item>
+              <nz-form-label [nzSm]="7" nzRequired>کد مرسوله:</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzOffset]="1"  nzErrorTip="پر کردن کد مرسوله اجباری است.">
+              <input
+                [(ngModel)]="shipmentNumber"
+                maxlength="24"
+                nz-input
+                placeholder="کد مرسوله"/>
+            </nz-form-control>
+          </nz-form-item>
+        }
+      </div>
+
+    <div nz-col class="gutter-row btn-accept" [nzSpan]="18">
+      <button class="change-status-btn" nz-button nzType="primary"  (click)="changeWaitingToSend()">تغییر وضعیت به ارسال شده</button>
+    </div>
+  </div>
+    </nz-card>
+  </nz-ribbon>
+}
+
+<!--وضعیت تحویل داده شده-->
+@if (data.sendStatus === InvoiceItemStatusEnum.sent){
+  <nz-ribbon nzText="تغییر وضعیت سفارش" nzColor="green">
+    <nz-card nzTitle=" " nzSize="small">
+  <div nz-row [nzGutter]="24" class="mt-3">
+
+    <div nz-col class="gutter-row" [nzSpan]="6" >
+      @if (data.deliveryType === IInvoiceItemDeliveryEnum.SendByCourier) {
+        <nz-form-item>
+          <nz-form-label [nzSm]="7" nzNoColon nzRequired>کد تحویل:</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzOffset]="1"  nzErrorTip="پر کردن کد تحویل اجباری و دارای 6 رقم میباشد.">
+            <input
+              [(ngModel)]="deliveredCode"
+              maxlength="6"
+              minlength="6"
+              nz-input
+              placeholder="کد تحویل"/>
+          </nz-form-control>
+        </nz-form-item>
+      }
+    </div>
+
+    <div nz-col class="gutter-row btn-accept" [nzSpan]="18">
+      <button class="change-status-btn" nz-button nzType="primary"  (click)="changeSent()">تغییر وضعیت به تحویل داده شده</button>
+    </div>
+
+  </div>
+    </nz-card>
+  </nz-ribbon>
+}
+

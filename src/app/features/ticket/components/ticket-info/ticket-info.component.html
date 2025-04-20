@@ -1,0 +1,131 @@
+@if (ticket) {
+    <div class="main-container">
+        <div class="content">
+            <div class="content__body">
+                <div class="dialog card">
+                    <div class="dialog__header mt-2 pt-2 pb-4">
+                        <div class="user">
+                            <div>
+                                <span nz-icon nzType="user" nzTheme="outline"></span>
+                                {{ ticket.customerFullName }}
+                            </div>
+                            <div>
+                                <span nz-icon nzType="comment" nzTheme="outline"></span>
+                                موضوع :
+                                {{ ticket.title }}
+                            </div>
+                            <div>
+                                <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+                                اولویت :
+                                {{ ticket.priority | enumLabel:TicketPriorityLabel }}
+                            </div>
+                        </div>
+                        <div>
+                            <button nz-button nz-tooltip nzTooltipTitle="بروزرسانی"
+                                    (click)="getTicketInfo()"
+                            ><span nz-icon nzType="reload"></span></button>
+                        </div>
+                    </div>
+                    <div class="dialog__body" #scrollContainer>
+                        <div class="message received">
+                            <div>
+                                <p>
+                                    @if (ticket.fileId) {
+                                        <div class="attachment-card" (click)="download(ticket.fileId)">
+                                            <i class="fa-paperclip" nz-icon nzType="paper-clip"></i>
+                                            <div class="attachment-name">
+                                                فایل
+                                            </div>
+                                            <i nz-icon nzType="download" class="fa-download  text-end"></i>
+
+                                        </div>
+
+                                    }
+                                    @if (ticket.body) {
+                                        {{ ticket.body }}
+                                    }</p>
+                                <span class="date">{{ ticket.createDate | relativeTime }}</span>
+                            </div>
+                            <img src="../../../../../assets/images/67654f6b2a7d10436445455b1458935f.png" alt=""/>
+                        </div>
+                        @for (tck of ticket.items; track ticket.ticketId) {
+                            @if (!tck.isSupport) {
+                                <div class="message received">
+                                    <div>
+                                        <p>
+                                            @if (tck.fileId) {
+                                                <div class="attachment-card" (click)="download(tck.fileId)">
+                                                    <i class="fa fa-paperclip"></i>
+                                                    <div class="attachment-name">
+                                                        فایل
+                                                    </div>
+                                                </div>
+
+                                            } @else {
+                                                {{ tck.body }}
+                                            }
+                                        </p><span class="date">{{ tck.createDate | relativeTime }}</span>
+                                    </div>
+                                    <img src="../../../../../assets/images/67654f6b2a7d10436445455b1458935f.png"
+                                         alt=""/>
+                                </div>
+                            } @else {
+                                <div class="message send">
+                                    <img src="../../../../../assets/images/operator-support-svgrepo-com.svg" alt=""/>
+                                    <div>
+                                        <p>
+                                            @if (tck.fileId) {
+                                                <div class="attachment-card" (click)="download(tck.fileId)">
+                                                    <i class="fa-paperclip" nz-icon nzType="paper-clip"></i>
+                                                    <div class="attachment-name">
+                                                        فایل
+                                                    </div>
+                                                    <i nz-icon nzType="download" class="fa-download  text-end"></i>
+
+                                                </div>
+                                            } @else {
+                                                {{ tck.body }}
+                                            }</p><span class="date">{{ tck.createDate | relativeTime }}</span>
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="dialog__replay mt-2">
+                    <form nz-form class="wt-100">
+                        <div nz-row nzGutter="16">
+                            <div nz-col nzSpan="22">
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <input nz-input
+                                               [(ngModel)]="text"
+                                               (keydown.enter)="reply($event, text)"
+                                               placeholder="پیام خود را بنویسید">
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                            <div nz-col nzSpan="2">
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <input type="file" style="display: none" #fileInput
+                                               (change)="onFileSelected($event)">
+                                        <button nz-button nzType="default" class="wt-50"
+                                                (click)="attachFile($event)"><span nz-icon
+                                                                                   nzType="paper-clip"
+                                                                                   nzTheme="outline"></span>
+                                        </button>
+                                        <button nz-button nzType="primary" class="wt-50 me-2"
+                                                (click)="reply($event,text)">ارسال
+                                        </button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

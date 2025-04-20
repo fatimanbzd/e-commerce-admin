@@ -1,0 +1,32 @@
+<div class="table_container">
+  <div style="display: block" nz-flex>
+    <button
+      class="row-title"
+      style="margin-bottom: 30px"
+      (click)="openBrandDialog()"
+      nz-button
+      nzType="primary"
+    >
+      ایجاد برند
+    </button>
+  </div>
+
+  <div class="mb-1">
+    <admin-product-brand-search
+      (filterChanged)="onFilterChanged($event)"
+    ></admin-product-brand-search>
+  </div>
+
+  <admin-qland-table
+    [data]="listOfData"
+    [tableColumns]="gridOptions"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [displayRowIndex]="true"
+    [totalRecords]="total"
+    (queryParamsChange)="onTableQueryParamsChange($event)"
+    [isServerSide]="true"
+    [showPagination]="true"
+  ></admin-qland-table>
+
+</div>

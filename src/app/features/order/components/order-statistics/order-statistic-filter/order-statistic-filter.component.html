@@ -1,0 +1,67 @@
+<div nz-row>
+<div class="filter-period-time" nz-col nzSpan="10">
+    <nz-radio-group [(ngModel)]="filter.datePart" (ngModelChange)="filterPerDate({datePart:filter.datePart})">
+      @for (time of times; track time) {
+        <label nz-radio-button [nzValue]="time.value">{{ time.name }}</label>
+      }
+    </nz-radio-group>
+  </div>
+  <div class="filter-date" nz-col nzSpan="12">
+    <div nz-row [nzGutter]="16">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label nzNoColon>از تاریخ</nz-form-label>
+          <nz-form-control>
+            <mat-form-field appearance="fill" [style.width.px]=327>
+              <input
+                matInput
+                readonly
+                [matDatepicker]="fromDatepicker"
+                [(ngModel)]="filter.fromDate"
+                (dateChange)="filterPerDate(filter)"
+                (click)="fromDatepicker.open()"
+              />
+              @if (filter.fromDate) {
+                <button matSuffix class="reset-input" (click)="resetFromDateInput()">
+                <span nz-icon nzType="close"
+                      class="reset-icon" nzTheme="outline"></span></button>
+              }
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="fromDatepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #fromDatepicker></mat-datepicker>
+            </mat-form-field>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label nzNoColon>تا تاریخ</nz-form-label>
+          <nz-form-control>
+            <mat-form-field appearance="fill" [style.width.px]=327>
+              <input
+                matInput
+                readonly
+                [matDatepicker]="toDatepicker"
+                [(ngModel)]="filter.toDate"
+                (dateChange)="filterPerDate(filter)"
+                (click)="toDatepicker.open()"
+              />
+              @if (filter.toDate) {
+                <button matSuffix class="reset-input" (click)="resetToDateInput()">
+                <span nz-icon nzType="close"
+                      class="reset-icon" nzTheme="outline"></span></button>
+              }
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="toDatepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #toDatepicker></mat-datepicker>
+            </mat-form-field>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </div>
+</div>

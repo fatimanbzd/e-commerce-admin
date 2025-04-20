@@ -1,0 +1,30 @@
+<div>
+  <form nz-form [formGroup]="form">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzRequired nzNoColon>عنوان</nz-form-label>
+      <nz-form-control nzErrorTip="عنوان">
+        <input nz-input formControlName="name" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired nzNoColon>وضعیت</nz-form-label>
+      <nz-form-control>
+        <nz-switch
+          formControlName="isActive"
+          nzCheckedChildren="فعال"
+          nzUnCheckedChildren="غیرفعال"
+        ></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24" nzNoColon>توضیحات</nz-form-label>
+      <nz-form-control>
+        <textarea nz-input rows="5" formControlName="description"> </textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div *nzModalFooter>
+    <button nz-button (click)="cancel()">لغو</button>
+    <button nz-button [nzType]="'primary'" (click)="submit()">ثبت</button>
+  </div>
+</div>

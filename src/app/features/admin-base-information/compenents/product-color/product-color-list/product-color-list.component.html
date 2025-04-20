@@ -1,0 +1,24 @@
+<div class="table_container">
+  <div class="row-title" nz-flex>
+    <button
+      style="margin-bottom: 30px"
+      (click)="openColorDialog()"
+      nz-button
+      nzType="primary"
+    >
+      ایجاد رنگ
+    </button>
+  </div>
+
+
+  <admin-qland-table
+    [data]="listOfData"
+    [tableColumns]="gridOptions"
+    [displayRowIndex]="true"
+    [totalRecords]="total"
+    [isServerSide]="true"
+    [showPagination]="true"
+    (queryParamsChange)="onTableQueryParamsChange($event)"
+  ></admin-qland-table>
+
+</div>

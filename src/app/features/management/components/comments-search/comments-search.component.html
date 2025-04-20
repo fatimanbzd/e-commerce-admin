@@ -1,0 +1,108 @@
+<nz-collapse nzAccordion>
+  <nz-collapse-panel [nzHeader]="'جستجو'" [nzActive]="false">
+
+    <form  [formGroup]="form"
+           nz-form
+           class="ant-advanced-search-form"
+           (keydown.enter)="filterReports($event)">
+      <div nz-row [nzGutter]="24">
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>عنوان نظر</nz-form-label>
+            <nz-form-control>
+              <input nz-input
+                     type="text"
+                     formControlName="SearchQuery"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>خریدار</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="IsBuyer">
+                  <nz-option nzCustomContent [nzLabel]="'می باشد'" [nzValue]="true">می باشد</nz-option>
+                  <nz-option nzCustomContent [nzLabel]="'نمی باشد'" [nzValue]="false">نمی باشد</nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>وضعیت انتشار</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="IsAllowedToShow">
+                <nz-option nzCustomContent [nzLabel]="'منتشر شده'" [nzValue]="true">منتشر شده</nz-option>
+                <nz-option nzCustomContent [nzLabel]="'منتشر نشده'" [nzValue]="false">منتشر نشده</nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24">از تاریخ</nz-form-label>
+            <nz-form-control>
+              <mat-form-field appearance="fill" class="wt-100">
+                <input
+                  matInput
+                  [matDatepicker]="fromContractDatepicker"
+                  formControlName="FromCreateDate"
+                  (dateChange)="onDateChange($event)"
+                />
+
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="fromContractDatepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #fromContractDatepicker></mat-datepicker>
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="4">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24">تا تاریخ</nz-form-label>
+            <nz-form-control>
+              <mat-form-field appearance="fill" class="wt-100">
+                <input
+                  matInput
+                  [matDatepicker]="untilContractDatepicker"
+                  formControlName="ToCreateDate"
+                  (dateChange)="fromDateChange($event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="untilContractDatepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #untilContractDatepicker></mat-datepicker>
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+
+        <div nz-col [nzSpan]="4" class="search-area ltr mt-3">
+          <button nz-button (click)="resetForm()"  class="me-2">لغو فیلتر</button>
+          <button
+            nz-button
+            [nzType]="'primary'"
+            class="filter-btn"
+            (click)="filterReports()"
+          >
+            فیلتر
+          </button>
+        </div>
+
+      </div>
+
+    </form>
+
+  </nz-collapse-panel>
+</nz-collapse>

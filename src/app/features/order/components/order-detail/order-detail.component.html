@@ -1,0 +1,491 @@
+@if (order) {
+  <div class="row">
+    <div class="col-12">
+      <nz-descriptions [nzTitle]="orderTitle" nzBordered nzLayout="vertical">
+        <nz-descriptions-item nzTitle="وضعیت سفارش" [nzSpan]="3">
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="12">
+              <div class="inner-box">
+                <strong>{{
+                  order.invoiceState | enumLabel: InvoiceStatusLabel
+                }}</strong>
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="12">
+              <div class="inner-box text-end">
+                <button
+                  class="mr-2"
+                  nz-button
+                  nzType="primary"
+                  nzGhost
+                  (click)="onPrintInvoice()"
+                >
+                  <span nz-icon nzType="printer" nzTheme="outline"></span>
+                  چاپ
+                </button>
+              </div>
+            </div>
+          </div>
+        </nz-descriptions-item>
+
+        <nz-descriptions-item nzTitle="اطلاعات ارسال" [nzSpan]="3">
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box"><strong>شناسه درخواست :</strong></div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">{{ "-" }}</div>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box"><strong>نام و نام خانوادگی :</strong></div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">
+                {{ order.recipientFullName }}
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box">
+                <strong> شماره همراه:</strong>
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">
+                {{ order.recipientMobileNumber }}
+              </div>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box"><strong>روش ارسال :</strong></div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">-</div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box">
+                <strong> هزینه ارسال :</strong>
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">-</div>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box"><strong>کد پستی :</strong></div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">
+                {{ order.recipientPostalCode }}
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box">
+                <strong> آدرس کامل :</strong>
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">
+                {{ order.recipientAddress }}
+              </div>
+            </div>
+          </div>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="اطلاعات سفارش" [nzSpan]="3">
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box"><strong>شماره سفارش :</strong></div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">{{ order.invoiceNumber }}</div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box">
+                <strong> تاریخ ثبت :</strong>
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start ltr">
+                {{ order.invoiceRegisterDate | persianDateTime }}
+              </div>
+            </div>
+          </div>
+          @if (isAdmin) {
+            <div nz-row [nzGutter]="16">
+              <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                  <strong>نام و نام خانوادگی :</strong>
+                </div>
+              </div>
+              <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box text-start">
+                  {{ order.customerFullName }}
+                </div>
+              </div>
+              <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                  <strong> نحوه پرداخت :</strong>
+                </div>
+              </div>
+              <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box text-start">{{ "-" }}</div>
+              </div>
+            </div>
+
+            <div nz-row [nzGutter]="16">
+              <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box"><strong>شماره همراه :</strong></div>
+              </div>
+              <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box text-start">
+                  {{ order.customerMobileNumber }}
+                </div>
+              </div>
+              <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                  <strong> تخفیف:</strong>
+                </div>
+              </div>
+              <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box text-start">
+                  {{
+                    order.discountAmount && order.discountAmount !== 0
+                      ? order.discountAmount + "ریال"
+                      : "-"
+                  }}
+                </div>
+              </div>
+            </div>
+          }
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="12"></div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box">
+                <strong> جمع قیمت:</strong>
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">
+                {{ order.invoiceTotalAmount | price }} ريال
+              </div>
+            </div>
+          </div>
+          <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="12"></div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+              <div class="inner-box">
+                <strong> توضیحات سفارش:</strong>
+              </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+              <div class="inner-box text-start">
+                {{ order.invoiceDescription | empty }}
+              </div>
+            </div>
+          </div>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+  </div>
+
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <nz-ribbon nzText="سفارشات" nzColor="purple">
+        <nz-card nzSize="default">
+          <div class="ant-table-container">
+
+            <admin-qland-table
+              [data]="listOfOrder"
+              [tableColumns]="gridOptions"
+              [displayRowIndex]="true"
+              [totalRecords]="total"
+              [isServerSide]="true"
+              [showPagination]="true"
+            ></admin-qland-table>
+
+          </div>
+        </nz-card>
+      </nz-ribbon>
+    </div>
+  </div>
+
+
+  @if (order.transactions.length) {
+    <div class="row mt-4">
+      <div class="col-12">
+        <nz-ribbon nzText="تراکنش ها">
+          <nz-card nzSize="default">
+
+            <admin-qland-table
+              [data]="listOfTransaction"
+              [tableColumns]="Transaction"
+              [displayRowIndex]="true"
+              [totalRecords]="total"
+              [isServerSide]="true"
+              [showPagination]="true"
+            ></admin-qland-table>
+
+          </nz-card>
+        </nz-ribbon>
+      </div>
+    </div>
+  }
+  <ng-template #orderTitle>
+    اطلاعات سفارش شماره
+    {{ order.invoiceNumber }}
+  </ng-template>
+}
+
+<!----------------------------    Print template    ------------------------------------->
+<div class="receipt-container" id="receipt-content">
+  <div class="print-header p-0 print-border">
+    <div class="p-0 print-border">
+      @if (order) {
+        <div class="row" dir="rtl">
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-12 text-center">
+                <div class="text-center">
+                  <h4 class="mb-0" style="padding-top: 4px">
+                    صورت حساب الکترونیکی فروش نیابتی
+                  </h4>
+                </div>
+              </div>
+              <div class="col-12 text-center" style="padding-top: 10px">
+                <h2>شرکت مهراندیش آکام</h2>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 factor-header-info print-border-right">
+            <div>
+              <b>شماره فاکتور: </b>
+              <span>{{ order.invoiceNumber }}</span>
+            </div>
+            <div>
+              <b>تاریخ فاکتور: </b>
+              <span>{{ order.invoiceRegisterDate | persianDate }}</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row mx-0">
+              <div class="col-12 mb-1 print-border-top factor-table-color">
+                <h6 class="print-title font-weight-bold">حق العمل کار</h6>
+              </div>
+              <div class="col-4">
+                <strong class="title font-weight-bold"> فروشنده: &nbsp;</strong>
+
+                <span>{{ order.sellerInformation.sellerName }}</span>
+              </div>
+
+              <div class="col-4">
+                <strong class="title font-weight-bold">
+                  شناسه ملی: &nbsp;</strong
+                >
+                <span>{{ order.sellerInformation.sellerEconomicCode }}</span>
+              </div>
+
+              <div class="col-4">
+                <strong class="title font-weight-bold">
+                  شماره اقتصادی: &nbsp;
+                </strong>
+
+                <span>{{ order.sellerInformation.sellerEconomicCode }}</span>
+              </div>
+
+              <div class="col-4">
+                <strong class="title font-weight-bold"> کدپستی: &nbsp;</strong>
+
+                <span>{{ order.sellerInformation.sellerPostalCode }}</span>
+              </div>
+              <div class="col-4">
+                <strong class="title font-weight-bold">
+                  شماره تماس: &nbsp;</strong
+                >
+                <span>{{ order.sellerInformation.sellerPhoneNumber }}</span>
+              </div>
+
+              <div class="col-4">
+                <strong class="title font-weight-bold">
+                  شناسه ثبت: &nbsp;</strong
+                >
+                <span>{{ order.sellerInformation.companyRegistrationId }}</span>
+              </div>
+
+              <div class="col-12">
+                <strong class="title font-weight-bold"> نشانی: &nbsp;</strong>
+
+                <span>{{ order.sellerInformation.sellerAddress }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row mx-0">
+              <div class="col-12 mb-1 factor-table-color">
+                <h6 class="print-title font-weight-bold">خریدار</h6>
+              </div>
+              <div class="col-4">
+                <strong class="title font-weight-bold"> خریدار: &nbsp;</strong>
+                <span>{{ order.customerFullName }}</span>
+              </div>
+              <div class="col-4">
+                <strong class="title font-weight-bold">
+                  شماره ملی: &nbsp;</strong
+                >
+                <span>{{ order.customerNationalNumber }}</span>
+              </div>
+              <div class="col-4">
+                <strong class="title font-weight-bold">
+                  شماره تماس: &nbsp;</strong
+                >
+                <span>{{ order.customerMobileNumber }}</span>
+              </div>
+              <div class="col-4">
+                <strong class="title font-weight-bold"> کدپستی: &nbsp;</strong>
+                <span>{{ order.recipientPostalCode }}</span>
+              </div>
+
+              <div class="col-4">
+                <strong class="title font-weight-bold">
+                  نحوه پرداخت: &nbsp;</strong
+                >
+                <span>آنلاین</span>
+              </div>
+
+              <div class="col-12">
+                <strong class="title font-weight-bold"> نشانی: &nbsp;</strong>
+                <span>{{ order.recipientAddress }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <table class="table mb-0 print-border-top">
+              <thead>
+                <tr class="print-factor factor-table-color">
+                  <th>ردیف</th>
+                  <th class="text-center" style="width: 300px">شرح کالا</th>
+                  <th>آمر</th>
+                  <th>تعداد</th>
+                  <th>مبلغ واحد</th>
+                  <th>تخفیف</th>
+                  <th>مالیات ارزش افزوده</th>
+                  <th>مبلغ نهایی</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (data of listOfOrder; track $index) {
+                  <tr>
+                    <th class="" scope="row">{{ $index + 1 }}</th>
+                    <td
+                      class="text-end justify-content-end"
+                      style="width: 300px"
+                    >
+                      {{ data.productTitle }}
+                      <p>
+                        رنگ : {{ data.productPriceColorName }}، گارانتی :
+                        {{
+                          data.productGuaranty
+                            | enumLabel: WarrantyCategoryLabel
+                        }}
+                      </p>
+                    </td>
+                    <td>{{ data.productVendorTitle }}</td>
+                    <td>{{ data.count }}</td>
+                    <td style="min-width: 100px">
+                      {{ data.price | price }} ریال
+                    </td>
+                    <td>
+                      {{
+                        data.productDiscountAmount
+                          ? (data.productDiscountAmount | price) + "ریال"
+                          : "-"
+                      }}
+                    </td>
+                    <td>
+                      {{ data.taxAmount ? data.taxAmount + " ریال" : "-" }}
+                    </td>
+                    <td style="min-width: 100px">
+                      {{ data.lastAmount | price }}
+                      ریال
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-12" style="position: relative">
+            <div class="row justify-content-end m-0">
+              <div class="col-7 pl-0">
+                <div style="margin-bottom: 5px">
+                  <div class="print-factor">
+                    <h5 class="text-muted">توضیحات:</h5>
+                    <small style="word-wrap: break-word">{{
+                      order.invoiceDescription
+                    }}</small>
+                    <div
+                      class="text-center position-absolute"
+                      style="width: 200px; top: -50px"
+                    >
+                      <img
+                        class="img-fluid"
+                        src="/assets/images/1703337440_icon.png"
+                        alt="company_sign"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-5 pr-0">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th class="p-0 text-end">مجموع:</th>
+                      <td class="p-0">
+                        {{ order.invoiceTotalAmount | price }} ریال
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="p-0 text-end">هزینه حمل و نقل:</th>
+                      <td class="p-0">{{ order.shippingCostAmount }} ریال</td>
+                    </tr>
+                    <tr>
+                      <th class="p-0 text-end">هزینه نصب و راه اندازی:</th>
+                      <td class="p-0">{{ "0" }} ریال</td>
+                    </tr>
+                    <tr class="factor-table-color">
+                      <th class="p-0 text-end" style="min-width: 120px">
+                        مجموع فاکتور:
+                      </th>
+                      <td class="p-0">
+                        {{ order.invoiceTotalAmount | price }} ریال
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="container p-0 mt-1 d-print-none">
+    <div class="row">
+      <div class="col-12 text-right">
+        <button onclick="window.print();" class="btn btn-light">چاپ</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    setTimeout(function () {
+      window.print();
+    }, 500);
+  </script>
+</div>

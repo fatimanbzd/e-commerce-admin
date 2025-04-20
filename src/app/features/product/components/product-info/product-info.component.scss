@@ -1,0 +1,23 @@
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  background-color: #f8f8f8;
+}
+
+::ng-deep
+  .product-tabset.ant-tabs-card.ant-tabs-right
+  > .ant-tabs-nav
+  .ant-tabs-tab-active,
+::ng-deep.product-tabset.ant-tabs-card.ant-tabs-right
+  > div
+  > .ant-tabs-nav
+  .ant-tabs-tab-active {
+  background-color: #d8d8d8;
+  border-left: 3px solid #7367f0;
+}
+
+::ng-deep .product-tabset .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: lighten(black, 30%);
+}
+
+::ng-deep .product-tabset .ant-tabs-content-holder {
+  border: unset !important;
+}

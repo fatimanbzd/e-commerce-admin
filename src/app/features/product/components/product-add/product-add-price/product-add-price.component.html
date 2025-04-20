@@ -1,0 +1,407 @@
+<div class="col-12">
+  <form nz-form [formGroup]="form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>انتخاب ارز</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <nz-select
+              formControlName="selectCurrency"
+              nzPlaceHolder="ريال"
+              nzDisabled
+            >
+              @for (option of listOfCurrency; track option) {
+                <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>گرد کردن</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <nz-select
+              formControlName="rounding"
+              nzPlaceHolder="پیش فرض"
+              nzDisabled
+            >
+              @for (option of listOfRound; track option) {
+                <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>نحوه گرد کردن</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <nz-select
+              formControlName="howToRound"
+              nzPlaceHolder="پیش فرض"
+              nzDisabled
+            >
+              @for (option of listOfHowToRound; track option) {
+                <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>هزینه حمل و نصب</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <nz-select
+              formControlName="shippingAndInstallationCost"
+              nzPlaceHolder="یک هزینه حمل و نصب را انتخاب کنید..."
+              nzDisabled
+            >
+              <nz-option></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+
+    <nz-alert
+      nzType="info"
+      nzMessage="لطفا در نظر داشته باشید که قیمت ورودی در هر بخش باید بدون محاسبه مالیات باشد و بعد از اعمال تغییرات مالیات ارزش افزوده به قیمت اضافه می شود"
+    ></nz-alert>
+    <br />
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired nzNoColon>رنگ</nz-form-label>
+          <nz-form-control
+            [nzSpan]="24"
+            nzErrorTip=" تکمیل این فیلد اجباری است !"
+          >
+            <nz-select formControlName="colorId" nzPlaceHolder="انتخاب کنید">
+              @for (color of colors; track color) {
+                <nz-option
+                  [nzValue]="color.id"
+                  [nzLabel]="color.name"
+                ></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+            >گارانتی</nz-form-label
+          >
+          <nz-form-control
+            [nzSpan]="24"
+            nzErrorTip=" تکمیل این فیلد اجباری است  !"
+          >
+            <nz-select
+              formControlName="productGuaranty"
+              nzPlaceHolder="انتخاب کنید"
+            >
+              @for (warranty of warrantyCategoryList; track warranty) {
+                <nz-option [nzLabel]="warranty.name" [nzValue]="warranty.value">
+                  {{ warranty.name }}
+                </nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired nzNoColon>
+            قیمت</nz-form-label
+          >
+          <nz-form-control
+            [nzSpan]="24"
+            nzErrorTip=" تکمیل این فیلد اجباری است  !"
+          >
+            <nz-input-group nzAddOnAfter="ریال">
+              <input
+                type="number"
+                nz-input
+                numbersOnly
+                class="inp"
+                formControlName="price"
+              />
+            </nz-input-group>
+            @if (calculatedText !== null) {
+              <p style="color: #008f26; margin: 0">
+                {{ calculatedText | price }} تومان
+              </p>
+            }
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon
+          >مالیات بر ارزش افزوده</nz-form-label
+          >
+          <nz-form-control [nzSpan]="24">
+            <nz-input-group nzAddOnAfter="%">
+              <input
+                placeholder="0.00"
+                nz-input
+                formControlName="valueAddedTaxPercent"
+                type="number"
+                step="0.01"
+                min="0"
+                max="100"
+                (input)="onInputTaxPercent($event)"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>
+            تخفیف (به درصد)</nz-form-label
+          >
+          <nz-form-control [nzSpan]="24">
+            <nz-input-group nzAddOnAfter="%">
+              <input
+                placeholder="0.00"
+                nz-input
+                formControlName="discountPercent"
+                type="number"
+                step="0.01"
+                min="0"
+                max="100"
+                (input)="onInputTaxPercent($event)"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon
+            >زمان انقضای تخفیف (نمایش تقویم)</nz-form-label
+          >
+          <nz-form-control [nzSpan]="24">
+            <mat-form-field appearance="fill" class="wt-100">
+              <input
+                matInput
+                [matDatepicker]="contractDatepicker"
+                formControlName="discountExpireDate"
+                (dateChange)="onDiscountExpireDateChange($event)"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="contractDatepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #contractDatepicker></mat-datepicker>
+            </mat-form-field>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label nzRequired [nzSpan]="24" nzNoColon>
+            بیشترین تعداد مجاز در هر سفارش</nz-form-label
+          >
+          <nz-form-control
+            [nzSpan]="24"
+            nzErrorTip=" تکمیل این فیلد اجباری است  !"
+          >
+            <input
+              nz-input
+              numbersOnly
+              formControlName="highestNumberOfOrders"
+              max="100000"
+              maxlength="5"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label nzRequired [nzSpan]="24" nzNoColon>
+            کمترین تعداد مجاز در هر سفارش</nz-form-label
+          >
+          <nz-form-control
+            [nzSpan]="24"
+            nzErrorTip=" تکمیل این فیلد اجباری است  !"
+          >
+            <input
+              nz-input
+              numbersOnly
+              formControlName="lowestNumberOfOrders"
+              min="1"
+              minlength="1"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label nzRequired [nzSpan]="24" nzNoColon>
+            موجودی انبار</nz-form-label
+          >
+          <nz-form-control
+            [nzSpan]="24"
+            nzErrorTip=" تکمیل این فیلد اجباری است  !"
+          >
+            <input
+              nz-input
+              numbersOnly
+              formControlName="inventory"
+              max="100000"
+              maxlength="5"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" [nzLg]="6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon> قیمت نهایی</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <input
+              nz-input
+              numbersOnly
+              type="number"
+              formControlName="finalPrice"
+              readonly
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" class="btn">
+        <button
+          nz-button
+          nzType="primary"
+          nzDanger
+          class="btn-size space"
+          (click)="resetForm()"
+        >
+          حذف
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          class="add btn-size"
+          (click)="onSubmit(form)"
+        >
+          {{ editMode ? "ویرایش" : "ثبت" }}
+        </button>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+  </form>
+
+  @if (productPrices.length) {
+    <nz-table
+      nzSize="middle"
+      nzBordered
+      [nzData]="productPrices"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr style="text-align: center">
+          <th>رنگ</th>
+          <th>قیمت</th>
+          @if (isAdmin) {
+            <th>پذیرنده</th>
+          }
+          <th>مالیات بر ارزش افزوده</th>
+          <th>تخفیف</th>
+          <th>قیمت کل</th>
+          <th>زمان انقضای تخفیف</th>
+          <th>بیشترین تعداد مجاز در هر سفارش</th>
+          <th>کمترین تعداد مجاز در هر سفارش</th>
+          <th>موجودی انبار</th>
+          <th>عملیات</th>
+        </tr>
+      </thead>
+      @if (productPrices.length > 0) {
+        <tbody>
+          @for (item of productPrices; track item) {
+            <tr style="text-align: center">
+              <td>{{ item.colorName }}</td>
+              <td>{{ item.price | price }}</td>
+              @if (isAdmin) {
+                <td>{{ item.vendorTitle }}</td>
+              }
+              <td>%{{ item.valueAddedTaxPercent | price | empty }}</td>
+              <td>%{{ item.discountPercent || 0 | empty }}</td>
+              <td>
+                {{ calculateFinalPrice(item) | price }}
+              </td>
+              <td>{{ item.discountExpireDate | persianDate | empty }}</td>
+              <td>{{ item.highestNumberOfOrders }}</td>
+              <td>{{ item.lowestNumberOfOrders }}</td>
+              <td>{{ item.inventory }}</td>
+              <td class="operation">
+                <button
+                  class="button-spacing"
+                  style="border: none"
+                  nz-popconfirm
+                  [nzIcon]="iconTpl"
+                  nzPopconfirmTitle="آیا از حذف این ردیف مطمئن هستید؟"
+                  (nzOnConfirm)="deletePrice(item)"
+                  nzPopconfirmPlacement="topLeft"
+                  nz-button
+                >
+                  <ng-template #iconTpl>
+                    <span
+                      nz-icon
+                      nzType="question-circle-o"
+                      class="icon-question"
+                    ></span>
+                  </ng-template>
+                  <span
+                    nz-icon
+                    nzType="delete"
+                    nzTheme="outline"
+                    class="remove-btn"
+                  ></span>
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+                <span
+                  nz-icon
+                  nzType="edit"
+                  nzTheme="outline"
+                  class="text-primary"
+                  (click)="getDataByID(item.productPriceId)"
+                ></span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      }
+    </nz-table>
+  } @else {
+    <div class="row-no-price">
+      <p>قیمتی برای این محصول ثبت نشده است.</p>
+    </div>
+  }
+</div>

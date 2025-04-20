@@ -1,0 +1,21 @@
+::ng-deep.filter-container {
+  position: relative;
+  margin-top: 10px;
+
+  button {
+    border-radius: 5px;
+  }
+
+  .filter-content {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    z-index: 1;
+    background: #fff;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #cccecf;
+    padding: 10px;
+    box-shadow: 2px 2px 12px #00000050;
+  }
+}

@@ -1,0 +1,143 @@
+<div class="login-page d-flex flex-column justify-content-center">
+  <div class="main d-flex flex-column justify-content-center">
+    <div class="container-fluid">
+      <div class="row d-lg-flex justify-content-lg-center">
+        <div class="col-md-3 col-lg-3 col-xl-4 col-xxl-4 d-none d-md-flex">
+          &nbsp;
+        </div>
+
+        <div class="main-login col-md-6 col-lg-5 col-xl-4 col-xxl-3 d-block">
+          <div class="login-box d-flex flex-column">
+            <div class="header">
+              <div class="logo">
+                <img
+                  class="logo-img"
+                  ngSrc="../../../../assets/images/qland_logo.png"
+                  alt="کیولند"
+                  height="283"
+                  width="1018"
+                />
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <div class="container">
+                <form
+                  [formGroup]="validateForm"
+                  nz-form
+                  class="ant-form-horizontal"
+                  (ngSubmit)="submit()"
+                >
+                  <nz-form-item>
+                    <nz-form-label
+                      [nzSpan]="24"
+                      [nzLabelAlign]="'right'"
+                      [nzLabelWrap]="true"
+                      nzFor="userType"
+                      nzNoColon
+                      >نوع کاربر
+                    </nz-form-label>
+                    <nz-form-control [nzSpan]="24">
+                      <nz-radio-group formControlName="userType">
+                        @for (userType of userTypeList; track userType) {
+                          <label nz-radio-button [nzValue]="userType.value">{{
+                            userType.name
+                          }}</label>
+                        }
+                      </nz-radio-group>
+                    </nz-form-control>
+                  </nz-form-item>
+
+                  <nz-form-item>
+                    <nz-form-label
+                      [nzSpan]="24"
+                      [nzLabelAlign]="'right'"
+                      [nzLabelWrap]="true"
+                      nzFor="userName"
+                      nzNoColon
+                      >نام کاربری
+                    </nz-form-label>
+                    <nz-form-control
+                      [nzSpan]="24"
+                      nzErrorTip="نام کاربری الزامیست!"
+                    >
+                      <nz-input-group [nzAddOnAfter]="userIconButton">
+                        <input
+                          type="text"
+                          id="userName"
+                          nz-input
+                          formControlName="userName"
+                          placeholder="نام کاربری خود را وارد نمایید"
+                        />
+                        <ng-template #userIconButton>
+                          <i nz-icon nzType="user" nzTheme="outline"></i>
+                        </ng-template>
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label
+                      [nzSpan]="24"
+                      [nzLabelAlign]="'right'"
+                      [nzLabelWrap]="true"
+                      nzFor="password"
+                      nzNoColon
+                      >رمز عبور
+                    </nz-form-label>
+                    <nz-form-control
+                      [nzSpan]="24"
+                      nzErrorTip="رمز عبور الزامیست!"
+                    >
+                      <nz-input-group [nzAddOnAfter]="lockIconButton">
+                        <input
+                          [type]="showPass ? 'text' : 'password'"
+                          id="password"
+                          nz-input
+                          formControlName="password"
+                          placeholder="رمز عبور خود را وارد نمایید"
+                        />
+                        <ng-template #lockIconButton>
+                          <i
+                            class="show-password"
+                            nz-icon
+                            [nzType]="showPass ? 'eye' : 'eye-invisible'"
+                            nzTheme="outline"
+                            (click)="showPassword()"
+                          ></i>
+                        </ng-template>
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item class="mt-4">
+                    <nz-form-control>
+                      <button nz-button class="btn-qLand-primary" type="submit">
+                        ورود
+                      </button>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <div class="vendor-register-link">
+                      <a class="btn-qland-link" routerLink="/vendor-register"
+                        >ثبت نام پذیرنده</a
+                      >
+                    </div>
+                  </nz-form-item>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3 col-xl-4 col-xxl-4 d-none d-md-flex">
+          &nbsp;&nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">
+      <span> کلیه حقوق این سایت متعلق به (کیولند) می باشد</span>
+    </div>
+  </div>
+</div>

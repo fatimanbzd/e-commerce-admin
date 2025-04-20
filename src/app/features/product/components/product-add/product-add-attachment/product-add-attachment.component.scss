@@ -1,0 +1,105 @@
+.spacing-left {
+  padding-left: 0 !important;
+}
+
+.spacing-right {
+  padding-right: 0 !important;
+}
+
+.inp {
+  border-radius: 0 5px 5px 0 !important;
+  border-left: none !important;
+}
+
+.btn-selection {
+  border-radius: 5px 0 0 5px !important;
+  background-color: rgba(218, 218, 218, 0.42);
+}
+
+::ng-deep.input-group-index-image {
+  .ant-btn {
+    border-radius: 5px 0 0 5px;
+  }
+
+  .ant-input-group-addon:last-child {
+    border-radius: 5px 0 0 5px !important;
+  }
+
+  .ant-input-group-addon {
+    padding: 0 !important;
+    border: unset !important;
+  }
+}
+
+::ng-deep.upload-other-files .ant-upload.ant-upload-select-picture-card {
+  width: 100%;
+  border-color: var(--base-color);
+  color: var(--base-color);
+  margin-right: 0 !important;
+}
+
+.alert-size {
+  padding-right: 12px;
+  margin-bottom: 0;
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+}
+
+.btn-add {
+  background-color: var(--btn-qland-submit-color) !important;
+  color: white;
+  width: 90px;
+}
+
+/* Upload File */
+.upload_dropZone {
+  color: #13576c;
+  background-color: lighten(#f3f3f3, 2%);
+  outline: 2px dashed var(--colorPrimaryHalf, #c1ddef);
+  outline-offset: -12px;
+  transition:
+    outline-offset 0.2s ease-out,
+    outline-color 0.3s ease-in-out,
+    background-color 0.2s ease-out;
+}
+
+.btn-upload {
+  color: #fff;
+  background-color: darken(#bfdbed, 20%);
+}
+
+.btn-upload:hover,
+.btn-upload:focus {
+  color: #fff;
+  background-color: darken(#bfdbed, 30%);
+}
+
+.upload_img {
+  width: calc(33.333% - (2rem / 3));
+  object-fit: contain;
+}
+
+.ant-upload-list-item {
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.ant-upload-list-picture .ant-upload-list-item {
+  height: auto !important;
+
+  .choose-image {
+    display: block;
+    height: 40px;
+  }
+
+  .action-image {
+    display: block;
+    height: 40px;
+    text-align: left;
+
+    button {
+      color: white;
+      border: unset;
+    }
+  }
+}

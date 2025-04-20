@@ -1,0 +1,24 @@
+<nz-tabset
+  [nzSelectedIndex]="selectedIndex"
+  (nzSelectChange)="changeSelectedTab($event)">
+  <nz-tab nzTitle="ارزش سفارشات">
+    @if (selectedIndex === 0) {
+      <admin-order-statistic-value></admin-order-statistic-value>
+    }
+  </nz-tab>
+  <nz-tab nzTitle="تعداد سفارشات">
+    @if (selectedIndex == 1) {
+      <admin-order-statistic-order-count></admin-order-statistic-order-count>
+    }
+  </nz-tab>
+  <nz-tab nzTitle="تعداد کاربران سفارش دهنده">
+    @if (selectedIndex == 2) {
+      <admin-order-statistic-user-count></admin-order-statistic-user-count>
+    }
+  </nz-tab>
+  <nz-tab nzTitle="تعداد محصولات سفارشات">
+    @if (selectedIndex == 3) {
+      <admin-order-statistic-product-count></admin-order-statistic-product-count>
+    }
+  </nz-tab>
+</nz-tabset>

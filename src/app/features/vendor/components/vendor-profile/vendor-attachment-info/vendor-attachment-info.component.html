@@ -1,0 +1,12 @@
+<nz-ribbon nzText="مدارک">
+  <nz-card nzSize="small" nzTitle=" ">
+    <vendor-document-attachment></vendor-document-attachment>
+  </nz-card>
+</nz-ribbon>
+<nz-divider></nz-divider>
+<nz-ribbon nzText="لوگوی شرکت" nzColor="purple">
+  <nz-card nzSize="small" nzTitle=" ">
+    <vendor-logo-attachment [logo]="logo" (updatedLogo)="updateLogo()"></vendor-logo-attachment>
+
+  </nz-card>
+</nz-ribbon>

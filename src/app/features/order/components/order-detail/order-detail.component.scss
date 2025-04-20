@@ -1,0 +1,97 @@
+.gutter-row {
+  line-height: 2rem;
+}
+
+
+th {
+  font-size: 0.8rem;
+  font-weight: bold !important;
+}
+
+//print-layout
+.receipt-container {
+  position: absolute;
+}
+
+@media screen {
+  .receipt-container {
+    display: none !important;
+  }
+  .print-header {
+    width: 80%;
+  }
+}
+
+@media print {
+  .receipt-container {
+    display: block !important;
+  }
+  @page {
+    size: landscape;
+    margin: 0 0 !important;
+  }
+  .print-header {
+    width: 95%;
+  }
+}
+
+body {
+  font-family: samim, serif;
+}
+
+.print-border {
+  border: 2px solid #6e7275 !important;
+}
+
+.factor-header-info {
+  white-space: nowrap;
+}
+
+.factor-header-info b {
+  font-size: 12px;
+}
+
+.print-border-top {
+  border-top: 2px solid #6e7275 !important;
+}
+
+.factor-table-color {
+  background-color: #dde2e1;
+}
+
+.factor-table-color h6 {
+  color: #626262;
+}
+
+.print-title {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+strong.title {
+  margin-bottom: 5px;
+  display: block;
+  font-size: 14px;
+  text-wrap: none;
+}
+
+.print-factor {
+  border: 1px solid #b8c2cc;
+  padding: 25px;
+  margin-right: 4px;
+}
+
+.table tr td,
+.table tr th {
+  padding: 0.2rem;
+  padding-right: 0.6rem;
+  font-size: 14px;
+}
+
+.is-valid {
+  border-color: green;
+}
+
+.is-invalid {
+  border-color: red;
+}

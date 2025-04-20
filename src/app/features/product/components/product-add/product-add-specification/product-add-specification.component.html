@@ -1,0 +1,228 @@
+<form nz-form [formGroup]="form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col nzSpan="20" nzOffset="2">
+      <nz-form-item class="mb-3">
+        <nz-form-label nzRequired nzNoColon> نام گروه</nz-form-label>
+        <nz-form-control nzErrorTip="نام گروه را وارد نمایید.">
+          <input
+            class="passenger-input"
+            nz-input
+            placeholder="مثال: مشخصات کلی"
+            formControlName="groupName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div
+    nz-row
+    [nzGutter]="24"
+    class="spec-form"
+    formArrayName="productSpecifications"
+  >
+    <div nz-col nzSpan="21" nzOffset="3" style="margin-right: 14%">
+      @for (propControl of specification.controls;
+        track propControl;
+        let i = $index) {
+        <nz-form-item [formGroupName]="i">
+          <div nz-col [nzLg]="1" [nzXs]="24">
+            <nz-form-control>
+              <label nz-checkbox formControlName="isSpecial"> </label>
+            </nz-form-control>
+          </div>
+          <div nz-col [nzLg]="9" [nzXs]="24" style="margin-left: 1rem">
+            <nz-form-control>
+              <nz-input-group
+                class="rtl specification-addon"
+                nzAddOnBefore="عنوان"
+              >
+                <input
+                  type="text"
+                  nz-input
+                  [id]="'spec-key-' + i"
+                  placeholder="مثال: حافظه خارجی"
+                  formControlName="key"
+                />
+              </nz-input-group>
+              <span
+                class="error"
+                [style.visibility]="
+                  form.get('key')?.invalid ? 'visible' : 'hidden'
+                "
+              >
+                > مقدار را وارد نمایید
+              </span>
+            </nz-form-control>
+          </div>
+          <div nz-col [nzLg]="9" [nzXs]="24">
+            <nz-form-control>
+              <nz-input-group
+                class="rtl specification-addon"
+                nzAddOnBefore="مقدار"
+              >
+                <input
+                  type="text"
+                  nz-input
+                  [id]="'spec-value-' + i"
+                  placeholder="مثال: 32 گیگا بایت"
+                  formControlName="value"
+                />
+              </nz-input-group>
+              <span
+                class="error"
+                [style.visibility]="
+                  form.get('value')?.invalid ? 'visible' : 'hidden'
+                "
+              >
+                مقدار را وارد نمایید
+              </span>
+            </nz-form-control>
+          </div>
+          <div nz-col [nzSpan]="3">
+            @if (i + 1 == specification.length) {
+              <span
+                nz-icon
+                nzType="plus-circle-o"
+                class="dynamic-plus-button"
+                title="افزودن مشخصه"
+                (click)="addSpecification($event)"
+              ></span>
+            }
+            <span
+              nz-icon
+              nzType="minus-circle-o"
+              class="dynamic-delete-button"
+              title="حذف مشخصه"
+              (click)="removeSpecification(i, $event)"
+            ></span>
+          </div>
+        </nz-form-item>
+      }
+    </div>
+  </div>
+
+  <nz-form-item>
+
+    <nz-form-control class="action-container">
+      <button class="mx-2" nz-button nzType="default" (click)="clearForm()">
+        پاک کردن فرم
+      </button>
+
+      <button nz-button class="btn-add" nzType="primary" (click)="submitForm()">
+        ثبت
+      </button>
+
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+@if (productSpecs.length) {
+  <nz-divider></nz-divider>
+  <div class="guid-bar mb-1">
+    <div class="guid-item">
+      <div class="circle success"></div>
+      <div class="guid-title">تایید و در وضعیت انتشار</div>
+    </div>
+    <div class="guid-item">
+      <div class="circle danger"></div>
+      <div class="guid-title">تایید نشده و در وضعیت در انتظار انتشار</div>
+    </div>
+  </div>
+  <div class="table_container table-spec">
+    <nz-table
+      #nestedTable
+      [nzData]="productSpecs"
+      [nzFrontPagination]="productSpecs.length>10"
+      [nzPageSize]="10">
+      <thead>
+      <tr class="custom-head-row">
+        <th [nzWidth]="'100px'"></th>
+        <th>نام گروه</th>
+        <th>عملیات</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+        <tr
+          class="custom-body-row"
+          [ngStyle]="{
+              'border': data.isPublishable
+                ? '2px solid rgb(81 167 64)'
+                : '3px solid rgb(235 143 143)',
+            }"
+        >
+          <td [(nzExpand)]="data.expand"></td>
+          <td>{{ data.groupName }}</td>
+          <td>
+              <span class="table-operation">
+                <button
+                  nz-button
+                  class="btn btn-danger"
+                  title="حذف"
+                  (click)="removeSpec(data)"
+                >حذف</button>
+
+                <button nz-button
+                        class="btn btn-warning mx-2"
+                        title="ویرایش"
+                        (click)="editSpec(data)">ویرایش</button>
+
+                @if (isAdmin) {
+                  <button
+                    nz-button
+                    class="btn btn-primary"
+                    style="margin-right: 10px"
+                    (click)="publish(data)"
+                    title="انتشار"
+                    [disabled]="data.isPublishable"
+                  >انتشار</button>
+                }
+              </span>
+          </td>
+        </tr>
+        <tr [nzExpand]="data.expand">
+          <td colspan="3" class="nested-td" style="background-color: #fbfbfb">
+            <nz-table
+              #innerTable
+              [nzData]="data.productSpecifications"
+              nzSize="middle"
+              [nzShowPagination]="false"
+              class="nested-table"
+            >
+              <thead>
+              <tr>
+                <th colspan="3">مشخصات</th>
+              </tr>
+              <tr>
+                <th>عنوان</th>
+                <th>مقدار</th>
+                <th>مشخصه اصلی</th>
+              </tr>
+              </thead>
+              <tbody class="nested-tbody">
+                @for (data of innerTable.data; track data) {
+                  <tr>
+                    <td>{{ data.key }}</td>
+                    <td>{{ data.value }}</td>
+                    <td>
+                      @if (data.isSpecial) {
+                        <span
+                          nz-icon
+                          nzType="check"
+                          nzTheme="outline"
+                          class="text-success"
+                          style="font-size: 17px"
+                        ></span>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </nz-table>
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+  </div>
+}

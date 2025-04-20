@@ -1,0 +1,300 @@
+<div class="col-12">
+  @if (productId && isPending) {
+    <div nz-row [nzGutter]="24">
+      <div nz-col nzSpan="24" nzLg="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>
+            وضعیت اطلاعات محصول
+          </nz-form-label>
+          <nz-form-control>
+            <nz-radio-group [(ngModel)]="haveProductInformationPending"
+                            (ngModelChange)="onChangeEditMode(haveProductInformationPending)">
+              <label nz-radio-button [nzValue]="true">پیش نویس</label>
+              <label nz-radio-button [nzValue]="false">منتشر شده</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  }
+
+  <form nz-form [formGroup]="form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired nzNoColon>
+            عنوان
+          </nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="عنوان الزامیست!">
+            <input nz-input formControlName="persianTitle"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24" [nzLg]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+          >عنوان انگلیسی
+          </nz-form-label
+          >
+          <nz-form-control [nzSpan]="24" nzErrorTip="عنوان انگلیسی الزامیست!">
+            <input
+              nz-input
+              formControlName="englishTitle"
+              enCharOnly
+              class="text-end ltr"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+          >دسته بندی (فرعی ترین دسته بندی که محصول شامل آن می شود)
+          </nz-form-label>
+          <nz-form-control [nzSpan]="24" nzErrorTip="دسته بندی الزامیست!">
+            <nz-tree-select
+              [nzDropdownMatchSelectWidth]="true"
+              [nzDropdownStyle]="{ 'max-height': '300px' }"
+              [nzAsyncData]="true"
+              [nzNodes]="treeData"
+              nzShowSearch
+              formControlName="productCategoryId"
+            ></nz-tree-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24" [nzLg]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+          >نوع محصول
+          </nz-form-label
+          >
+          <nz-form-control [nzSpan]="24" nzErrorTip="نوع محصول الزامیست!">
+            <nz-select formControlName="productTypeId">
+              <nz-option
+                [nzValue]="0"
+                nzLabel="محصول فیزیکی"
+                nzDisabled
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="12">
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="24" [nzLg]="12">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+              >برند
+              </nz-form-label
+              >
+              <nz-form-control [nzSpan]="24" nzErrorTip="برند الزامیست!">
+                <nz-select
+                  nzShowSearch
+                  nzPlaceHolder="انتخاب برند"
+                  formControlName="brandId"
+                >
+                  @for (brand of brands; track brand) {
+                    <nz-option
+                      nzCustomContent
+                      [nzLabel]="brand.persianTitle"
+                      [nzValue]="brand.id"
+                    >
+                      {{ brand.persianTitle }} - {{ brand.englishTitle }}
+                    </nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="24" [nzLg]="12">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzNoColon
+              >وزن حدودی (گرم)
+              </nz-form-label
+              >
+              <nz-form-control [nzSpan]="24">
+                <input nz-input formControlName="weight" numbersOnly/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </div>
+      <div nz-col [nzSpan]="24" [nzLg]="12">
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzSpan]="24" [nzLg]="12">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+              >گروه وزنی کالا
+              </nz-form-label
+              >
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="گروه وزنی کالا الزامیست!"
+              >
+                <nz-select
+                  nzAllowClear
+                  nzPlaceHolder="انتخاب گروه وزنی کالا"
+                  formControlName="weightCategory"
+                >
+                  @for (weight of weightCategoryList; track weight) {
+                    <nz-option
+                      nzCustomContent
+                      [nzLabel]="weight.name"
+                      [nzValue]="weight.value">{{ weight.name }}
+                    </nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="24" [nzLg]="12">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzNoColon>واحد</nz-form-label>
+              <nz-form-control [nzSpan]="24">
+                <nz-select
+                  nzAllowClear
+                  nzPlaceHolder="انتخاب واحد"
+                  formControlName="unitId"
+                >
+                  @for (unit of unitList; track unit) {
+                    <nz-option
+                      nzCustomContent
+                      [nzLabel]="unit.name"
+                      [nzValue]="unit.id"
+                    >
+                      {{ unit.name }}
+                    </nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>برچسب</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <textarea
+              nz-input
+              formControlName="tags"
+              [nzAutosize]="{ minRows: 4, maxRows: 6 }"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon nzRequired
+          >این محصول با چه دسته بندی های دیگری ارتباط داشته
+            باشد؟
+          </nz-form-label
+          >
+          <nz-form-control [nzSpan]="24" nzErrorTip="این فیلد الزامیست!">
+            <nz-tree-select
+              [nzDropdownMatchSelectWidth]="true"
+              [nzDropdownStyle]="{ 'max-height': '300px' }"
+              [nzAsyncData]="true"
+              [nzNodes]="treeData"
+              [nzMultiple]="true"
+              nzCheckable
+              nzShowSearch
+              formControlName="productCategoryRelations"
+            ></nz-tree-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>توضیحات کوتاه</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <div class="NgxEditor__Wrapper">
+              <ngx-editor-menu
+                [editor]="editor_shortDescription"
+                [toolbar]="toolbar"
+              ></ngx-editor-menu>
+              <ngx-editor
+                [editor]="editor_shortDescription"
+                placeholder="توضیحات کوتاه..."
+                formControlName="shortDescription"
+                [disabled]="false"
+              ></ngx-editor>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="24" nzNoColon>توضیحات</nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <div class="NgxEditor__Wrapper">
+              <ngx-editor-menu
+                [editor]="editor_description"
+                [toolbar]="toolbar"
+              ></ngx-editor-menu>
+              <ngx-editor
+                [editor]="editor_description"
+                placeholder="توضیحات..."
+                formControlName="description"
+                [disabled]="false"
+              ></ngx-editor>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24" [nzLg]="24">
+        <nz-form-item>
+          <label nz-checkbox formControlName="isExternalProduct"
+          >محصول خارجی؟</label
+          >
+        </nz-form-item>
+        @if (form.get("isExternalProduct")?.value) {
+          <nz-form-item>
+            <nz-form-label
+              [nzSpan]="24"
+              [nzRequired]="form.get('isExternalProduct')?.value"
+              nzNoColon
+            >لینک محصول خارجی
+            </nz-form-label>
+            <nz-form-control
+              [nzSpan]="24"
+              [nzLg]="12"
+              nzErrorTip="لینک محصول خارجی الزامیست!"
+            >
+              <input nz-input formControlName="externalProductLink"/>
+            </nz-form-control>
+          </nz-form-item>
+        }
+      </div>
+    </div>
+    <nz-form-item nz-row>
+      <nz-form-control class="action-container">
+        <button
+          nz-button
+          class="btn-add"
+          nzType="primary"
+          (click)="submit(form)"
+          [nzLoading]="loading"
+        >
+          {{ productId ? "ثبت پیش نویس" : "ثبت" }}
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

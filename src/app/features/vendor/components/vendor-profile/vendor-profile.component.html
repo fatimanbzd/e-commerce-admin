@@ -1,0 +1,76 @@
+<div class="card-container vendor-profile">
+  <nz-tabset
+    nzType="card"
+    [nzSelectedIndex]="selectedIndex"
+    (nzSelectChange)="changeSelectedTab($event)"
+  >
+    <nz-tab [nzTitle]="basic_info">
+      <ng-template #basic_info>
+        <span nz-icon [nzType]="'shop'"></span>
+        اطلاعات
+        {{
+          vendorInfo && vendorInfo.vendorType == VendorTypeEnum.legal
+            ? "شرکت"
+            : "فردی"
+        }}
+      </ng-template>
+      @if (selectedIndex == 0) {
+        @if (vendorInfo && vendorInfo.vendorType == VendorTypeEnum.legal) {
+          <vendor-company-info></vendor-company-info>
+        } @else {
+          <vendor-real-personal-info></vendor-real-personal-info>
+        }
+      }
+    </nz-tab>
+
+    <nz-tab [nzTitle]="contact">
+      <ng-template #contact>
+        <span nz-icon [nzType]="'phone'"></span>
+        اطلاعات تماس
+      </ng-template>
+      @if (selectedIndex == 1) {
+        <admin-vendor-contact-info></admin-vendor-contact-info>
+      }
+    </nz-tab>
+    <nz-tab [nzTitle]="address">
+      <ng-template #address>
+        <span nz-icon [nzType]="'environment'"></span>
+        اطلاعات آدرس
+      </ng-template>
+      @if (selectedIndex == 2) {
+        <admin-vendor-address-info></admin-vendor-address-info>
+      }
+    </nz-tab>
+    <nz-tab [nzTitle]="bank_account">
+      <ng-template #bank_account>
+        <span nz-icon [nzType]="'bank'"></span>
+        اطلاعات حساب بانکی
+      </ng-template>
+      @if (selectedIndex == 3) {
+        <vendor-financial-info></vendor-financial-info>
+      }
+    </nz-tab>
+    <nz-tab [nzTitle]="attachment">
+      <ng-template #attachment>
+        <span nz-icon [nzType]="'upload'"></span>
+        بارگذاری مدارک
+      </ng-template>
+      @if (selectedIndex == 4) {
+        <vendor-attachment-info
+          [selectedTab]="selectedIndex"
+          [logo]="vendorInfo.logo"
+          (updatedLogo)="getVendor()"
+        ></vendor-attachment-info>
+      }
+    </nz-tab>
+    <nz-tab [nzTitle]="contract">
+      <ng-template #contract>
+        <span nz-icon [nzType]="'container'"></span>
+        قرارداد
+      </ng-template>
+      @if (selectedIndex == 5) {
+        <vendor-contract [selectedTab]="selectedIndex"></vendor-contract>
+      }
+    </nz-tab>
+  </nz-tabset>
+</div>

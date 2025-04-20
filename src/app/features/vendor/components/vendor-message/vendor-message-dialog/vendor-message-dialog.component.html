@@ -1,0 +1,13 @@
+<div>
+  <div>
+    @if (data) {
+      <p><b>تاریخ ارسال : </b>{{ data.createDate | persianDate }}</p>
+      <p><b>فرستنده:</b> {{ data.from }}</p>
+      <p>{{ data.message }}</p>
+    }
+  </div>
+  <div *nzModalFooter>
+    <button nz-button (click)="handleCancel()">لغو</button>
+    <button nz-button [nzType]="'primary'" (click)="readMessage()">دیده شد</button>
+  </div>
+</div>

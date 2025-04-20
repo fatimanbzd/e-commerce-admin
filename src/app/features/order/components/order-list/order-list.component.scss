@@ -1,0 +1,11 @@
+.tool-bar {
+  .btn-export {
+    border: 1px solid #7367F0 !important;
+    background-color: transparent;
+    color: #7367F0 !important;
+
+    &:hover {
+      background-color: #f3f1f1 !important;
+    }
+  }
+}

@@ -1,0 +1,143 @@
+<div nz-row nzGutter="24">
+  <div nz-col nzSpan="24">
+    <nz-alert
+      nzType="info"
+      nzMessage="توجه: بهترین نمایش برای تصاویر محصولات در نسبت {{
+        '1 : 1'
+      }} می باشد."
+    ></nz-alert>
+    <br/>
+
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label class="text-start" [nzSpan]="24" nzNoColon nzRequired>
+            تصاویر محصول
+            <span style="font-size: 0.8rem">
+              ( بهترین اندازه
+              <span class="text-danger">{{ "1280 * 720" }}</span>
+              پیکسل می باشد.)
+            </span>
+          </nz-form-label>
+
+          <nz-form-control [nzSpan]="24">
+            <fieldset class="upload_dropZone text-center mb-3 p-4">
+              <legend class="visually-hidden">بارگزاری تصویر</legend>
+              <!--              <p class="small my-2">تصویر را بکشید و رها کنید<br><i>یا</i></p>-->
+              <input
+                id="upload_image_background"
+                #fileInput
+                class="position-absolute invisible"
+                type="file"
+                (change)="onSelectedIndexImage($event)"
+              />
+              <button
+                class="btn btn-upload mb-3 mt-3"
+                (click)="triggerFileInput($event)"
+              >
+                تصویر را انتخاب کنید
+              </button>
+            </fieldset>
+          </nz-form-control>
+        </nz-form-item>
+
+        @if (images.length) {
+          <nz-radio-group
+            style="width: 100%"
+            [ngModel]="selectedImage"
+            nzName="selectMainImage"
+          >
+            <div class="ant-upload-list ant-upload-list-picture">
+              <div class="ant-upload-list-picture-container">
+                <div nz-row>
+                  @for (file of images; track $index) {
+                    <div
+                      nz-col
+                      nzSpan="6"
+                      style="margin-right: 5px; margin-left: 5px"
+                    >
+                      <div
+                        class="ant-upload-list-item ant-upload-list-item-done ant-upload-list-item-list-type-picture"
+                        [ngStyle]="{
+                          'border-color': file.isPublishable ? 'rgb(81 167 64)'
+                : 'rgb(235 143 143)',
+                        }"
+                      >
+                        <div class="ant-upload-list-item-info">
+                          <span class="choose-image">
+                            <label
+                              nz-radio
+                              [ngModel]="file.isMainImage"
+                              [nzValue]="file.productImageId"
+                              (click)="selectAsIndexImage(file.productImageId)"
+                            >انتخاب به عنوان تصویر اصلی</label
+                            >
+                          </span>
+                          <span class="ant-upload-span">
+                            <a
+                              target="_blank"
+                              class="ant-upload-list-item-thumbnail"
+                              href="{{ file.imageSrc | fullSrc }}"
+                              title="{{ file.title }}"
+                            >
+                              <img
+                                src="{{ file.imageSrc | fullSrc }}"
+                                alt="{{ file.title }}"
+                              />
+                            </a>
+
+                            <a
+                              target="_blank"
+                              class="ant-upload-list-item-name"
+                              href="{{ file.imageSrc | fullSrc }}"
+                              title="{{ file.title }}"
+                            >
+                              {{ file.title }}</a
+                            >
+
+                            <span
+                              class="ant-upload-list-item-card-actions picture"
+                            >
+                            </span>
+                          </span>
+                          <span class="action-image">
+                            @if (!file.isPublishable && isAdmin) {
+                              <button
+                                type="button"
+                                nz-button
+                                nzSize="small"
+                                style="margin-left: 5px"
+                                (click)="publish(file)"
+                                class="bg-primary"
+                                nz-tooltip
+                                nzTooltipTitle="انتشار تصویر"
+                              >
+                                انتشار
+                              </button>
+                            }
+
+                            <button
+                              type="button"
+                              nz-button
+                              nzSize="small"
+                              (click)="remove(file)"
+                              class="bg-danger"
+                              nz-tooltip
+                              nzTooltipTitle="حذف تصویر"
+                            >
+                              حذف
+                            </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </nz-radio-group>
+        }
+      </div>
+    </div>
+  </div>
+</div>

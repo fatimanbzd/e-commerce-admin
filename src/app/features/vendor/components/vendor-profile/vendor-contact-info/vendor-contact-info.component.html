@@ -1,0 +1,126 @@
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+        >نام نماینده
+        </nz-form-label
+        >
+        <nz-form-control [nzSpan]="24" nzErrorTip="نام نماینده الزامیست!">
+          <input nz-input formControlName="agentName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired nzNoColon
+        >نام خانوادگی نماینده
+        </nz-form-label
+        >
+        <nz-form-control
+          [nzSpan]="24"
+          nzErrorTip="نام خانوادگی نماینده الزامیست!"
+        >
+          <input nz-input formControlName="agentFamily" class="number"/>
+          <ng-template></ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon>
+          شماره تلفن سازمان
+        </nz-form-label
+        >
+        <nz-form-control [nzSpan]="24">
+          <input
+            nz-input
+            formControlName="phoneNumber"
+            class="number"
+            numbersOnly
+            [maxlength]="11"
+          />
+
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon nzRequired>شماره موبایل نماینده</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="agentMobileNumberError">
+          <input nz-input
+                 formControlName="agentMobileNumber"
+                 class="number"
+                 numbersOnly
+                 [maxlength]="11"
+                 [minlength]="11"/>
+        </nz-form-control>
+        <ng-template #agentMobileNumberError let-control>
+          @if (control.errors?.["minlength"]) {
+            حداقل کاراکتر 11 می باشد
+          }
+          @if (control.errors?.["required"]) {
+            شماره موبایل نماینده الزامیست!
+          }
+        </ng-template>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon>آدرس سایت</nz-form-label>
+        <nz-form-control [nzSpan]="24">
+          <input nz-input formControlName="siteUrl"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon >ایمیل</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="emailError">
+          <input nz-input formControlName="email" class="number"/>
+          <ng-template #emailError let-control>
+            @if (control.errors?.["email"]) {
+              فرمت ایمیل اشتباه است!
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon>توضیحات فروشگاه</nz-form-label>
+        <nz-form-control [nzSpan]="24">
+        <textarea
+          formControlName="storeDescription"
+          nz-input
+          rows="3"
+        ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row>
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-control class="action-container">
+          <button
+            nz-button
+            class="btn-add"
+            nzType="default"
+            (click)="submit(validateForm)"
+            [nzLoading]="loading"
+          >
+            ثبت اطلاعات
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

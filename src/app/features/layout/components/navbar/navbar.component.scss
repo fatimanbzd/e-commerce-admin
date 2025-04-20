@@ -1,0 +1,56 @@
+.sidebar-logo {
+  position: relative;
+  height: 64px;
+  overflow: hidden;
+  line-height: 64px;
+  transition: all 0.3s;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-logo img {
+  display: inline-block;
+  height: 32px;
+  width: 100%;
+
+  vertical-align: middle;
+}
+
+.sidebar-logo h1 {
+  display: inline-block;
+  margin: 0 0 0 20px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: Avenir,
+  Helvetica Neue,
+  Arial,
+  Helvetica,
+  sans-serif;
+  vertical-align: middle;
+}
+
+.ant-menu-title-content .span-router {
+  width: 100% !important;
+  display: block;
+}
+
+.ant-menu-item.no-child-menu {
+  span a {
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover, &:focus, &:active {
+      color: #fff;
+    }
+  }
+}
+
+.ant-menu-item-selected.no-child-menu {
+  color: #fff;
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #7367f0 !important;
+}

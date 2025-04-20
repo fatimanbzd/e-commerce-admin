@@ -1,0 +1,17 @@
+<div class="mb-1">
+  <admin-settlement-reports-search
+    (filterChanged)="onFilterChanged($event)"
+  ></admin-settlement-reports-search>
+</div>
+
+<admin-qland-table
+  [data]="listOfReports"
+  [tableColumns]="gridOptions"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [displayRowIndex]="true"
+  [totalRecords]="total"
+  (queryParamsChange)="onTableQueryParamsChange($event)"
+  [isServerSide]="true"
+  [showPagination]="true"
+></admin-qland-table>

@@ -1,0 +1,37 @@
+@if (productId) {
+  <nz-tabset
+    nzType="card"
+    class="product-tabset"
+    [nzTabPosition]="nzTabPosition"
+    [(nzSelectedIndex)]="selectedIndex"
+  >
+    <nz-tab nzTitle="اطلاعات کلی">
+      <admin-product-info-base
+        [productId]="productId"
+      ></admin-product-info-base>
+    </nz-tab>
+
+    <nz-tab nzTitle="قیمت">
+      <ng-template nz-tab>
+        <admin-product-info-price
+          [productId]="productId"
+        ></admin-product-info-price>
+      </ng-template>
+    </nz-tab>
+    <nz-tab nzTitle="تصاویر">
+      <ng-template nz-tab>
+        <admin-product-info-attachment
+          [productId]="productId"
+        ></admin-product-info-attachment>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="مشخصات">
+      <ng-template nz-tab>
+        <admin-product-info-specification
+          [productId]="productId"
+        ></admin-product-info-specification>
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+}

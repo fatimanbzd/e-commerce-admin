@@ -1,0 +1,38 @@
+.title{
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+}
+
+.inp{
+  background: #dadada52;
+}
+
+.title-inp{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+.change-status-btn{
+  float: left;
+}
+
+nz-form-label{
+ text-align: right!important;
+}
+
+.btn-accept{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+nz-divider{
+  border-color: rgb(0 0 0 / 7%);
+  border-width: 2px 0 0;
+}

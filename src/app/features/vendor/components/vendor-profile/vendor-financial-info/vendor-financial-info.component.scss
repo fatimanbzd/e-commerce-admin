@@ -1,0 +1,83 @@
+:host {
+  //height: calc(100vh - 260px);
+  //overflow-y: auto;
+  //display: block;
+  //overflow-x: hidden;
+  //padding: 17px;
+}
+
+.owner-container {
+  border-bottom: 1px solid #f1f0f0;
+  margin-bottom: 10px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media all and (max-width: 767px) {
+    padding-bottom: 15px;
+  }
+}
+
+.action-item-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin-top: 1.1rem;
+    margin-left: 0.5rem;
+    border-radius: 5px;
+    height: 32px;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &.plus {
+      border-color: #2389ef;
+      color: #2389ef;
+    }
+
+    &.remove {
+      border-color: #cc2222;
+      color: #cc2222;
+    }
+  }
+}
+
+.add-user-panel {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+
+  button {
+    margin-top: 1.1rem;
+    margin-left: 0.5rem;
+    border-radius: 5px;
+    height: 32px;
+    font-size: 1rem;
+    font-weight: 300;
+
+    &.plus {
+      border-color: #2389ef;
+      color: #2389ef;
+    }
+  }
+}
+
+.ant-input-group {
+  .ant-input {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+  }
+
+  .ant-input-group-addon {
+    &:last-child {
+      border-bottom-left-radius: 5px !important;
+      border-top-left-radius: 5px !important;
+    }
+
+    span {
+      color: #787d7d !important;
+    }
+  }
+}

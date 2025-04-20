@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-layout {
+  min-height: 100vh;
+  height: 100%;
+}
+
+nz-header {
+  padding: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+nz-content {
+  margin: 15px 20px;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 4px rgba(72, 71, 71, 0.2);
+  @media all and (max-width: 767px) {
+    padding: 5px;
+  }
+}

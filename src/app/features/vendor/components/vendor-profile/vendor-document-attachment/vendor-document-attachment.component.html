@@ -1,0 +1,75 @@
+<div nz-row [nzGutter]="[16,16]" class="mt-1">
+  <div nz-col [nzSpan]="24" [nzLg]="7">
+    <nz-form-item>
+      <nz-form-control [nzSpan]="24" nzErrorTip="نام سند الزامیست!">
+        <nz-select
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="نام سند"
+          [(ngModel)]="documentType"
+          (ngModelChange)="changeDocument($event)"
+        >
+          @for (dt of documentTypeList; track dt) {
+            <nz-option
+              [nzLabel]="dt.name"
+              [nzValue]="dt.value"
+            ></nz-option>
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="24" [nzLg]="5">
+    <nz-form-item class="upload-input">
+      <nz-upload
+        [nzLimit]="1"
+        [(nzFileList)]="fileList"
+        [nzBeforeUpload]="beforeUpload"
+        class="wt-100"
+      >
+        <button nz-button class="btn-upload wt-100">
+          <span nz-icon nzType="upload"></span>
+          انتخاب فایل
+        </button>
+      </nz-upload>
+    </nz-form-item>
+  </div>
+  <div nz-col [nzSpan]="24" [nzLg]="4">
+    <nz-form-item>
+      <button nz-button
+              [nzType]="'primary'"
+              [nzLoading]="uploading"
+              (click)="uploadFile()"
+              [disabled]="fileList.length === 0 || documentType===null">
+        ثبت
+      </button>
+    </nz-form-item>
+  </div>
+</div>
+@if (documents.length > 0) {
+  <nz-divider nzText="لیست مدارک" nzOrientation="center"></nz-divider>
+
+  <div nz-row [nzGutter]="[16,8]">
+    @for (doc of documents; track doc) {
+      <div nz-col [nzSpan]="24" [nzLg]="8">
+        <div class="file-list-container">
+          <div class="file-info">
+            <div class="file-download-icon">
+              <span nz-icon nzType="paper-clip" nzTheme="outline"></span>
+            </div>
+
+            <div class="file-filename">
+                  <span
+                    title="{{doc.documentType | enumLabel:VendorDocumentTypeLabel}}">
+                    {{ doc.documentType | enumLabel:VendorDocumentTypeLabel }} </span>
+            </div>
+          </div>
+          <div class="file-action">
+            <span nz-icon nzType="download" nzTheme="outline" (click)="downloadFile(doc.fileId)"></span>
+            <span nz-icon nzType="delete" nzTheme="outline" (click)="removeFile(doc.documentId, doc.documentType)"></span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

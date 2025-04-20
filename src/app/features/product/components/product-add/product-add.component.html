@@ -1,0 +1,126 @@
+@if (isAdmin) {
+  <div class="release-box">
+    <div class="active-box">
+      <div class="text-active">
+        <span>وضعیت محصول: </span>
+      </div>
+      @if (data) {
+        <nz-switch
+          (ngModelChange)="changeActiveStatus($event)"
+          [(ngModel)]="data.isActive"
+          nzCheckedChildren="فعال"
+          nzUnCheckedChildren="غیرفعال"
+        ></nz-switch>
+      }
+    </div>
+    @if (data && data.havePending) {
+      <div class="publishable-box">
+
+        @if (data && data.havePending) {
+          <div class="group-btn-confirm-reject">
+            <nz-button-group>
+              <button
+                nz-button
+                nz-popconfirm
+                [nzIcon]="iconTpll"
+                nzPopconfirmTitle="آیا برای انتشار این محصول مطمئن هستید؟"
+                nzPopconfirmPlacement="topLeft"
+                class="success-btn"
+                (nzOnConfirm)="publishProduct()"
+              >
+                <ng-template #iconTpll>
+                  <span
+                    nz-icon
+                    nzType="question-circle-o"
+                    class="icon-question me-1"
+                  ></span>
+                </ng-template>
+                انتشار محصول
+              </button>
+              <button
+                nz-button
+                (click)="unpublishProduct()"
+                class="danger-btn"
+              >
+                عدم انتشار محصول
+              </button>
+            </nz-button-group>
+          </div>
+        }
+
+        <nz-modal
+          [(nzVisible)]="isVisibleModal"
+          nzTitle="عدم انتشار محصول"
+          (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk(form)"
+        >
+          <ng-container *nzModalContent>
+            <form nz-form [formGroup]="form">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzNoColon class="label" nzRequired
+                  >دلیل</nz-form-label
+                >
+                <nz-form-control nzErrorTip="دلیل عدم انتشار الزامیست!">
+                  <textarea
+                    nz-input
+                    placeholder="دلیل عدم انتشار"
+                    formControlName="reason"
+                    maxlength="500"
+                    [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+                  ></textarea>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </ng-container>
+        </nz-modal>
+      </div>
+    }
+  </div>
+}
+
+<nz-tabset
+  nzType="card"
+  class="product-tabset"
+  [nzTabPosition]="nzTabPosition"
+  [(nzSelectedIndex)]="selectedIndex"
+>
+  @if (currentState !== ProductFormStateEnum.editPrice) {
+    <nz-tab nzTitle="اطلاعات کلی">
+      <admin-product-add-base-info
+        [productId]="productId"
+      ></admin-product-add-base-info>
+    </nz-tab>
+  }
+  <nz-tab nzTitle="قیمت" [nzDisabled]="isTabDisabled('price')">
+    <ng-template nz-tab>
+      <admin-product-add-price
+        [productId]="productId"
+      ></admin-product-add-price>
+    </ng-template>
+  </nz-tab>
+  @if (currentState !== ProductFormStateEnum.editPrice) {
+    <nz-tab nzTitle="تصاویر" [nzDisabled]="isTabDisabled('attachment')">
+      <ng-template nz-tab>
+        <admin-product-add-attachment
+          [productId]="productId"
+        ></admin-product-add-attachment>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="مشخصات" [nzDisabled]="isTabDisabled('spec')">
+      <ng-template nz-tab>
+        <admin-product-add-specification
+          [productId]="productId"
+        ></admin-product-add-specification>
+      </ng-template>
+    </nz-tab>
+    <nz-tab nzTitle="سایزبندی" [nzDisabled]="true">
+      <ng-template nz-tab>
+        <admin-product-add-size></admin-product-add-size>
+      </ng-template>
+    </nz-tab>
+    <nz-tab nzTitle="سئو" [nzDisabled]="true">
+      <admin-product-add-seo></admin-product-add-seo>
+    </nz-tab>
+  }
+</nz-tabset>

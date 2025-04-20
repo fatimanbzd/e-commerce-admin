@@ -1,0 +1,115 @@
+<form nz-form [formGroup]="validateForm" class="ant-form-horizontal">
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon nzRequired>
+          شماره کارت
+        </nz-form-label
+        >
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="cardNumberErrors">
+          <input
+            nz-input
+            [maxlength]="16"
+            [minlength]="16"
+            numbersOnly
+            class="number"
+            formControlName="cardNumber"
+          />
+          <ng-template #cardNumberErrors let-control>
+            @if (control.errors?.["minlength"]) {
+              حداقل کاراکتر 16 می باشد!
+            }
+            @if (control.errors?.["required"]) {
+              شماره کارت الزامیست!
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon nzRequired>
+          شماره شبا
+        </nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="shabaNumberErrors">
+          <nz-input-group nzAddOnAfter="IR">
+            <input
+              nz-input
+              numbersOnly
+              class="number"
+              formControlName="shabaNumber"
+              [maxlength]="24"
+              [minlength]="24"
+            />
+          </nz-input-group>
+          <ng-template #shabaNumberErrors let-control>
+            @if (control.errors?.["minlength"]) {
+              حداقل کاراکتر 24 می باشد!
+            }
+            @if (control.errors?.["required"]) {
+              شماره شبا الزامیست!
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon nzRequired>
+          شماره حساب
+        </nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="شماره حساب الزامیست!">
+          <input
+            nz-input
+            [maxlength]="16"
+            numbersOnly
+            class="number"
+            formControlName="depositNumber"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col [nzSpan]="24" [nzLg]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzNoColon nzRequired>
+          نام کامل صاحب حساب
+        </nz-form-label>
+        <nz-form-control [nzSpan]="24" nzErrorTip="نام صاحب حساب الزامیست!">
+          <input
+            nz-input
+            formControlName="ownerFullName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="[16,16]">
+    <div nz-col [nzSpan]="24" [nzLg]="24">
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <span class="p-3">مالیات بر ارزش افزوده</span>
+          <nz-switch
+            formControlName="haveValueAddedTax"
+            [nzCheckedChildren]="'دارد'"
+            [nzUnCheckedChildren]="'ندارد'"
+          ></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="24" [nzLg]="24">
+      <nz-form-control [nzSpan]="24">
+        <nz-form-item nz-row class="mt-3">
+          <nz-form-control class="action-container" [nzSpan]="24">
+            <button class="btn-add" nz-button nzType="default" (click)="submit(validateForm)">ثبت اطلاعات</button>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-form-control>
+    </div>
+  </div>
+</form>

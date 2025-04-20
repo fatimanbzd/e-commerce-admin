@@ -1,0 +1,16 @@
+<div class="filter-container">
+  <button nz-button
+          nzType="default"
+          [nzSize]="size"
+          (click)="showFilters=!showFilters">
+    <nz-icon nzType="filter" nzTheme="outline"></nz-icon>
+    فیلتر
+  </button>
+
+  <div class="filter-content"
+       [@openClose]="showFilters? 'true': 'false'">
+    <ng-content></ng-content>
+
+  </div>
+
+</div>
