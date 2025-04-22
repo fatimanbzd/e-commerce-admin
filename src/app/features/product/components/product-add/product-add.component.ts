@@ -1,54 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  NzTabComponent,
-  NzTabDirective,
-  NzTabPosition,
-  NzTabSetComponent,
-} from 'ng-zorro-antd/tabs';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ProductAddBaseInfoComponent } from './product-add-base-info/product-add-base-info.component';
-import { ProductAddSeoComponent } from './product-add-seo/product-add-seo.component';
-import { ProductAddPriceComponent } from './product-add-price/product-add-price.component';
-import { ProductAddAttachmentComponent } from './product-add-attachment/product-add-attachment.component';
-import { ProductAddSpecificationComponent } from './product-add-specification/product-add-specification.component';
-import { ProductAddSizeComponent } from './product-add-size/product-add-size.component';
-import { Subject, takeUntil } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { ProductFormStateEnum } from '../../enums/product-form-state.enum';
-import { toBoolean } from 'ng-zorro-antd/core/util';
-import {
-  NzButtonComponent,
-  NzButtonGroupComponent,
-} from 'ng-zorro-antd/button';
-import { AuthService } from '../../../../shared/services/auth.service';
-import { RoleUtil } from '../../../../shared/utilities/role-base';
-import { ProductService } from '../../services/product.service';
-import { IProductBaseInfoAddResponseModel } from '../../interfaces/product-add.model';
-import {
-  NzModalComponent,
-  NzModalContentDirective,
-  NzModalModule,
-} from 'ng-zorro-antd/modal';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { ToastrService } from 'ngx-toastr';
-import { NzAutosizeDirective, NzInputDirective } from 'ng-zorro-antd/input';
-import { NzSwitchComponent } from 'ng-zorro-antd/switch';
-import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { Utilities } from '@core/Utils/utilities';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NzTabComponent, NzTabDirective, NzTabPosition, NzTabSetComponent,} from 'ng-zorro-antd/tabs';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {ProductAddBaseInfoComponent} from './product-add-base-info/product-add-base-info.component';
+import {ProductAddSeoComponent} from './product-add-seo/product-add-seo.component';
+import {ProductAddPriceComponent} from './product-add-price/product-add-price.component';
+import {ProductAddAttachmentComponent} from './product-add-attachment/product-add-attachment.component';
+import {ProductAddSpecificationComponent} from './product-add-specification/product-add-specification.component';
+import {ProductAddSizeComponent} from './product-add-size/product-add-size.component';
+import {Subject, takeUntil} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {ProductFormStateEnum} from '../../enums/product-form-state.enum';
+import {toBoolean} from 'ng-zorro-antd/core/util';
+import {NzButtonComponent, NzButtonGroupComponent,} from 'ng-zorro-antd/button';
+import {AuthService} from '../../../../shared/services/auth.service';
+import {RoleUtil} from '../../../../shared/Utils/role-base';
+import {ProductService} from '../../services/product.service';
+import {IProductBaseInfoAddResponseModel} from '../../interfaces/product-add.model';
+import {NzModalComponent, NzModalContentDirective, NzModalModule,} from 'ng-zorro-antd/modal';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {ToastrService} from 'ngx-toastr';
+import {NzAutosizeDirective, NzInputDirective} from 'ng-zorro-antd/input';
+import {NzSwitchComponent} from 'ng-zorro-antd/switch';
+import {NzPopconfirmDirective} from 'ng-zorro-antd/popconfirm';
+import {NzIconDirective} from 'ng-zorro-antd/icon';
+import {FormValidation} from '../../../../shared/Utils/validators/form-validation';
+
 
 @Component({
   selector: 'admin-product-add',
@@ -98,11 +75,7 @@ export class ProductAddComponent implements OnInit, OnDestroy {
   protected readonly ProductFormStateEnum = ProductFormStateEnum;
   private readonly _destroy = new Subject<void>();
 
-  form: FormGroup<{
-    reason: FormControl<null>;
-  }> = this.fb.group({
-    reason: [null, [Validators.required]],
-  });
+  form!: FormGroup;
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -119,8 +92,15 @@ export class ProductAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initForm();
     this.setState();
     this.getProduct();
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      reason: [null, [Validators.required]],
+    });
   }
 
   publishProduct(): void {
@@ -157,7 +137,7 @@ export class ProductAddComponent implements OnInit, OnDestroy {
 
   handleOk(form: FormGroup): void {
     if (this.form.invalid) {
-      Utilities.checkValidation(this.form);
+      FormValidation.checkValidation(this.form);
       return;
     } else {
       this.productService

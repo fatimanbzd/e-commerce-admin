@@ -6,11 +6,11 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { IEnvironmentModel } from '@core/interfaces/environment.model';
 import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserInformationStorageService } from '../services/user-information-storage.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import {IEnvironmentModel} from '../interfaces/environment.model';
 
 @Injectable({
   providedIn: 'root',

@@ -4,7 +4,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { IEnvironmentModel } from '@core/interfaces/environment.model';
+import {IEnvironmentModel} from '../interfaces/environment.model';
 
 @Injectable({
   providedIn: 'root',

@@ -8,7 +8,7 @@ import {
   NzFormLabelComponent,
 } from 'ng-zorro-antd/form';
 import { NzInputDirective } from 'ng-zorro-antd/input';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
+import { OnlyNumberDirective } from '../../../../../shared/directives/only-number.directive';
 import {
   FormBuilder,
   FormGroup,
@@ -18,8 +18,8 @@ import {
 import { Subject, takeUntil } from 'rxjs';
 import { VendorService } from '../../../services/vendor.service';
 import { ToastrService } from 'ngx-toastr';
-import { Utilities } from '@core/Utils/utilities';
 import { IVendorContactModel } from '../../../interfaces/vendor-contact.model';
+import {FormValidation} from '../../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'admin-vendor-contact-info',
@@ -92,7 +92,7 @@ export class VendorContactInfoComponent implements OnInit, OnDestroy {
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      Utilities.checkValidation(form);
+      FormValidation.checkValidation(form);
     } else {
       const vendorContactModel: IVendorContactModel = {
         agentName: form.value.agentName,

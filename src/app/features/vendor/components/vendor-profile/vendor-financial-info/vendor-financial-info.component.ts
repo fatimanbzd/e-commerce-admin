@@ -17,11 +17,11 @@ import {
   NzFormLabelComponent,
 } from 'ng-zorro-antd/form';
 import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
+import { OnlyNumberDirective } from '../../../../../shared/directives/only-number.directive';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Utilities } from '@core/Utils/utilities';
+import {FormValidation} from '../../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'vendor-financial-info',
@@ -80,7 +80,7 @@ export class VendorFinancialInfoComponent implements OnInit {
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      Utilities.checkValidation(form);
+      FormValidation.checkValidation(form);
       return;
     }
 

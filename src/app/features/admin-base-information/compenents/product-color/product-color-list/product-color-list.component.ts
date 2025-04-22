@@ -13,7 +13,7 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 
 import { ToastrService } from 'ngx-toastr';
 import { ProductColorCreateDialogComponent } from '../product-color-create-dialog/product-color-create-dialog.component';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
+import { FilterOptionUtils } from '../../../../../shared/Utils/filterOption';
 import { ProductColorService } from '../../../services/product-color.service';
 import { IProductColor } from '../../../interfaces/product-color.model';
 import {QlandTableComponent} from "../../../../../shared/components/qland-table/qland-table.component";

@@ -1,44 +1,29 @@
-import { Component, Input } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from '../features/layout/components/navbar/navbar.component';
-import {
-  NzContentComponent,
-  NzHeaderComponent,
-  NzLayoutComponent,
-  NzSiderComponent,
-} from 'ng-zorro-antd/layout';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import {
-  NzMenuDirective,
-  NzMenuItemComponent,
-  NzSubMenuComponent,
-} from 'ng-zorro-antd/menu';
-import { HeaderComponent } from '../features/layout/components/header/header.component';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
+import {Component, Input} from '@angular/core';
+import {RouterOutlet} from "@angular/router";
+import {NzContentComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent} from "ng-zorro-antd/layout";
+import {NavbarComponent} from "../features/layout/components/navbar/navbar.component";
+import {NzBreadCrumbComponent} from "ng-zorro-antd/breadcrumb";
+import {HeaderComponent} from "../features/layout/components/header/header.component";
 
 @Component({
     selector: 'app-pages',
     templateUrl: './pages.component.html',
     imports: [
         RouterOutlet,
-        NavbarComponent,
-        NzContentComponent,
-        NzHeaderComponent,
-        NzIconDirective,
         NzLayoutComponent,
-        NzMenuDirective,
-        NzMenuItemComponent,
+        NavbarComponent,
         NzSiderComponent,
-        NzSubMenuComponent,
-        HeaderComponent,
         NzBreadCrumbComponent,
+        NzContentComponent,
+        HeaderComponent,
+        NzHeaderComponent
     ],
     styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent {
-  @Input() isCollapsed = false;
+    @Input() isCollapsed = false;
 
-  getLastTrigger(is: boolean) {
-    this.isCollapsed = is;
-  }
+    getLastTrigger(is: boolean) {
+        this.isCollapsed = is;
+    }
 }

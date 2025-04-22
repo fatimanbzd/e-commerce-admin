@@ -1,32 +1,16 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { VendorService } from '../../../services/vendor.service';
-import { ToastrService } from 'ngx-toastr';
-import { DateAdapter } from '@angular/material/core';
-import { faIR } from 'date-fns/locale';
-import { Utilities } from '@core/Utils/utilities';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit,} from '@angular/core';
+import {Subject, takeUntil} from 'rxjs';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {OnlyNumberDirective} from '../../../../../shared/directives/only-number.directive';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {VendorService} from '../../../services/vendor.service';
+import {ToastrService} from 'ngx-toastr';
+import {DateAdapter} from '@angular/material/core';
+import {faIR} from 'date-fns/locale';
+import {FormValidation} from '../../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'vendor-company-info',
@@ -47,23 +31,7 @@ import { Utilities } from '@core/Utils/utilities';
   styleUrl: './vendor-company-info.component.scss',
 })
 export class VendorCompanyInfoComponent implements OnInit, OnDestroy {
-  validateForm: FormGroup<{
-    organizationName: FormControl<string | null>;
-    companyEconomicCode: FormControl<string | null>;
-    companyClassCode: FormControl<string | null>;
-    vendorTitle: FormControl<string | null>;
-  }> = this.fb.group({
-    organizationName: ['', Validators.required],
-    companyEconomicCode: [
-      '',
-      Validators.required,
-      Validators.maxLength(12),
-      Validators.minLength(12),
-    ],
-    companyClassCode: ['', Validators.required],
-    vendorTitle: ['', Validators.required],
-  });
-
+  form!: FormGroup;
   loading: boolean = false;
   private _destroy = new Subject<void>();
 
@@ -77,12 +45,27 @@ export class VendorCompanyInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initForm();
     this.getCompany();
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      organizationName: ['', Validators.required],
+      companyEconomicCode: [
+        '',
+        Validators.required,
+        Validators.maxLength(12),
+        Validators.minLength(12),
+      ],
+      companyClassCode: ['', Validators.required],
+      vendorTitle: ['', Validators.required],
+    });
   }
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      Utilities.checkValidation(form);
+      FormValidation.checkValidation(form);
     } else {
       this.loading = true;
       this.companyService
@@ -106,7 +89,7 @@ export class VendorCompanyInfoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy))
       .subscribe({
         next: (res) => {
-          this.validateForm.patchValue(res);
+          this.form.patchValue(res);
         },
       });
   }

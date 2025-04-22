@@ -27,15 +27,15 @@ import {
 } from 'ng-zorro-antd/form';
 import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
+import { OnlyNumberDirective } from '../../../../shared/directives/only-number.directive';
 import {
   VendorBalanceTypeLabel
 } from '../../enums/vendor-balance-type.enums';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
+import { EnumConvertorUtils } from '../../../../shared/Utils/EnumConvertoModel';
 import { distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {RoleUtil} from "../../../../shared/utilities/role-base";
-import {IEnumModel} from "@core/interfaces/enum.model";
+import {RoleUtil} from "../../../../shared/Utils/role-base";
+import {IEnumModel} from "../../../../shared/interfaces/enum.model";
 import {IVendorsModel} from "../../../order/interfaces/vendors.model";
 import {OrderService} from "../../../order/services/order.service";
 

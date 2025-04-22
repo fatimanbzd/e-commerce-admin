@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { PricePipe } from '@core/pipes/price.pipe';
+import { PricePipe } from '../../../../shared/pipes/price.pipe';
 import { HttpParams } from '@angular/common/http';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { FiscalService } from '../../services/fiscal.service';
 import { IVendorsListModel } from '../../interfaces/vendors-list.model';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
+import { FilterOptionUtils } from '../../../../shared/Utils/filterOption';
 import { Router } from '@angular/router';
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
 import { TableColumn } from '../../../../shared/interfaces/qland-table.model';

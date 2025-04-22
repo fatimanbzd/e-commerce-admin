@@ -3,7 +3,7 @@ import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { NzRibbonComponent } from 'ng-zorro-antd/badge';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
+import { EnumLabelPipe } from '../../../../../shared/pipes/enum-label.pipe';
 import { VendorLogoAttachmentComponent } from '../vendor-logo-attachment/vendor-logo-attachment.component';
 import { VendorDocumentAttachmentComponent } from '../vendor-document-attachment/vendor-document-attachment.component';
 

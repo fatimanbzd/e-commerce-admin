@@ -3,7 +3,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { IDashboardModel } from '../../interfaces/dashboard.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import { PricePipe } from '@core/pipes/price.pipe';
+import { PricePipe } from '../../../../shared/pipes/price.pipe';
 
 @Component({
     selector: 'admin-dashboard',

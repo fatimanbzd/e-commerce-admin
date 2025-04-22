@@ -8,7 +8,6 @@ import {
 import { Observable } from 'rxjs';
 import { inject } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { UserTypeEnum } from '@core/enums/user-type.enum';
 
 export const AuthGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

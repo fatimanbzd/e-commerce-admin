@@ -9,9 +9,9 @@ import { NzInputDirective } from 'ng-zorro-antd/input';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { IManagementCommentResponseModel } from '../../interfaces/management-comments.model';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import { PersianDatePipe } from '../../pipes/persian-date.pipe';
 import { FormsModule } from '@angular/forms';
-import { ProductCommentRatingLabel } from '@core/enums/product-comment-rating';
+import { ProductCommentRatingLabel } from '../../../../shared/enums/product-comment-rating';
+import {PersianDatePipe} from '../../../../shared/pipes/persian-date.pipe';
 
 @Component({
   selector: 'admin-view-comment-information-dialog',

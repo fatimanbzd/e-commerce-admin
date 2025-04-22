@@ -1,4 +1,4 @@
-import { InvoiceItemStatusEnum } from '@core/enums/invoice-item-status.enum';
+import { InvoiceItemStatusEnum } from '../../../shared/enums/invoice-item-status.enum';
 
 export interface IChangeOrderStatusModel {
   sendStatus: InvoiceItemStatusEnum;

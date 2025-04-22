@@ -8,7 +8,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductBrandService } from '../../../services/product-brand.service';
 import { IProductBrand } from '../../../interfaces/product-brand.model';
 import { ProductBrandCreateDialogComponent } from '../product-brand-create-dialog/product-brand-create-dialog.component';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
+import { FilterOptionUtils } from '../../../../../shared/Utils/filterOption';
 import {
   FormsModule,
   ReactiveFormsModule,

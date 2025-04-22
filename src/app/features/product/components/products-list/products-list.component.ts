@@ -1,52 +1,40 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { ProductService } from '../../services/product.service';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
-import { finalize, Subject, takeUntil } from 'rxjs';
-import { IProductsListModel } from '../../interfaces/products-list.model';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
-import { ProductSearchComponent } from '../product-search/product-search.component';
-import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
-import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
-import { IEnvironmentModel } from '@core/interfaces/environment.model';
-import { DateConvertorUtil } from '@core/Utils/DateConvertorUtil';
-import { RoleUtil } from '../../../../shared/utilities/role-base';
-import { IUserModel } from '@core/interfaces/user.model';
-import { AuthService } from '../../../../shared/services/auth.service';
-import { MehrFilterComponent } from '../../../../shared/components/mer-filter/mehr-filter.component';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { NzTreeSelectComponent } from 'ng-zorro-antd/tree-select';
-import { IVendorModel } from '../../../../shared/interfaces/vendor.model';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
-import { PublishableStatusesLabel } from '../../enums/publishable-statuses.enum';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {NzTableQueryParams} from 'ng-zorro-antd/table';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {ProductService} from '../../services/product.service';
+import {finalize, Subject, takeUntil} from 'rxjs';
+import {IProductsListModel} from '../../interfaces/products-list.model';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,} from '@angular/forms';
+import {Router} from '@angular/router';
+import {HttpParams} from '@angular/common/http';
+import {NzModalModule} from 'ng-zorro-antd/modal';
+import {NzMenuModule} from 'ng-zorro-antd/menu';
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import {QlandTableComponent} from '../../../../shared/components/qland-table/qland-table.component';
+import {TableColumn} from '../../../../shared/interfaces/qland-table.model';
+
+import {RoleUtil} from '../../../../shared/Utils/role-base';
+import {AuthService} from '../../../../shared/services/auth.service';
+import {MehrFilterComponent} from '../../../../shared/components/mer-filter/mehr-filter.component';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
+import {NzTreeSelectComponent} from 'ng-zorro-antd/tree-select';
+import {IVendorModel} from '../../../../shared/interfaces/vendor.model';
+import {NzTreeNodeOptions} from 'ng-zorro-antd/core/tree';
+import {PublishableStatusesLabel} from '../../enums/publishable-statuses.enum';
+import {IUserModel} from '../../../../auth/interfaces/user.model';
+import {EnumConvertorUtils} from '../../../../shared/Utils/EnumConvertoModel';
+import {IEnvironmentModel} from '../../../../shared/interfaces/environment.model';
+import {FilterOptionUtils} from '../../../../shared/Utils/filterOption';
+import {DateConvertorUtil} from '../../../../shared/Utils/DateConvertorUtil';
 
 @Component({
-  selector: 'admin-products-list',
-  standalone: true,
+    selector: 'admin-products-list',
   imports: [
     ReactiveFormsModule,
-    ProductSearchComponent,
     NzModalModule,
     NzDropDownModule,
     NzButtonModule,
@@ -66,8 +54,8 @@ import { PublishableStatusesLabel } from '../../enums/publishable-statuses.enum'
     NzSelectComponent,
     NzTreeSelectComponent,
   ],
-  templateUrl: './products-list.component.html',
-  styleUrl: './products-list.component.scss',
+    templateUrl: './products-list.component.html',
+    styleUrl: './products-list.component.scss'
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
   isAdmin = false;

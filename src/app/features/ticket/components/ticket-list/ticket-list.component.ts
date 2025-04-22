@@ -1,20 +1,20 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
-import { IUserModel } from '@core/interfaces/user.model';
 import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
 import { finalize } from 'rxjs';
 import { ITicketResponseModel } from '../../interfaces/ticket.model';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { HttpParams } from '@angular/common/http';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
 import { Router } from '@angular/router';
 import { TicketService } from '../../services/ticket.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
 import { TicketPriorityLabel } from '../../enums/ticket-priority.enum';
 import { ToastrService } from 'ngx-toastr';
 import { TicketStatusLabel } from '../../enums/ticket-status.enum';
+import {EnumLabelPipe} from '../../../../shared/pipes/enum-label.pipe';
+import {IUserModel} from '../../../../auth/interfaces/user.model';
+import {FilterOptionUtils} from '../../../../shared/Utils/filterOption';
 
 @Component({
   selector: 'admin-ticket-list',

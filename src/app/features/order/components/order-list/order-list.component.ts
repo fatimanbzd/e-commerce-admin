@@ -6,20 +6,20 @@ import { HttpParams } from '@angular/common/http';
 import { finalize } from 'rxjs';
 import { OrderService } from '../../services/order.service';
 import { IOrdersListModel } from '../../interfaces/orders-list.model';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
-import { PricePipe } from '@core/pipes/price.pipe';
-import { RoleUtil } from '../../../../shared/utilities/role-base';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
+import { RoleUtil } from '../../../../shared/Utils/role-base';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { InvoiceStatusLabel } from '@core/enums/invoice-status.enum';
 import { orderStatus } from '../../../product/pipes/payment-status.pipe';
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
 import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
 import { Router } from '@angular/router';
-import { DateConvertorUtil } from '@core/Utils/DateConvertorUtil';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { downloadFileHelper } from '@core/Utils/downloadFileHeper';
+import {EnumLabelPipe} from '../../../../shared/pipes/enum-label.pipe';
+import {PricePipe} from '../../../../shared/pipes/price.pipe';
+import {InvoiceStatusLabel} from '../../../../shared/enums/invoice-status.enum';
+import {FilterOptionUtils} from '../../../../shared/Utils/filterOption';
+import {DateConvertorUtil} from '../../../../shared/Utils/DateConvertorUtil';
+import {downloadFileHelper} from '../../../../shared/Utils/downloadFileHeper';
 
 @Component({
   selector: 'admin-order-list',

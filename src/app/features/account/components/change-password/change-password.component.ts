@@ -1,85 +1,45 @@
-import { Component } from '@angular/core';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
-import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
-import { ToastrService } from 'ngx-toastr';
-import { NzFlexDirective } from 'ng-zorro-antd/flex';
-import { Subject, takeUntil } from 'rxjs';
-import { NzDividerComponent } from 'ng-zorro-antd/divider';
-import { NzRibbonComponent } from 'ng-zorro-antd/badge';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { AuthService } from '../../../../shared/services/auth.service';
-import { AccountService } from '../../services/account.service';
-import { Utilities } from '@core/Utils/utilities';
-import { NzAlertComponent } from 'ng-zorro-antd/alert';
-import { IUserModel } from '@core/interfaces/user.model';
+import {Component, OnInit} from '@angular/core';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective, NzInputGroupComponent} from 'ng-zorro-antd/input';
+import {ToastrService} from 'ngx-toastr';
+import {NzFlexDirective} from 'ng-zorro-antd/flex';
+import {Subject, takeUntil} from 'rxjs';
+import {NzRibbonComponent} from 'ng-zorro-antd/badge';
+import {NzIconDirective} from 'ng-zorro-antd/icon';
+import {AuthService} from '../../../../shared/services/auth.service';
+import {AccountService} from '../../services/account.service';
+import {NzAlertComponent} from 'ng-zorro-antd/alert';
+import {IUserModel} from '../../../../auth/interfaces/user.model';
+import {FormValidation} from '../../../../shared/Utils/validators/form-validation';
 
 @Component({
-    selector: 'admin-change-password',
-    imports: [
-        NzRowDirective,
-        NzColDirective,
-        FormsModule,
-        NzButtonComponent,
-        NzFormControlComponent,
-        NzFormDirective,
-        NzFormItemComponent,
-        NzFormLabelComponent,
-        NzInputDirective,
-        NzOptionComponent,
-        NzSelectComponent,
-        OnlyNumberDirective,
-        ReactiveFormsModule,
-        NzFlexDirective,
-        NzDividerComponent,
-        NzRibbonComponent,
-        NzIconDirective,
-        NzInputGroupComponent,
-        NzAlertComponent,
-    ],
-    templateUrl: './change-password.component.html',
-    styleUrl: './change-password.component.scss'
+  selector: 'admin-change-password',
+  imports: [
+    NzRowDirective,
+    NzColDirective,
+    FormsModule,
+    NzButtonComponent,
+    NzFormControlComponent,
+    NzFormDirective,
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzInputDirective,
+    ReactiveFormsModule,
+    NzFlexDirective,
+    NzRibbonComponent,
+    NzIconDirective,
+    NzInputGroupComponent,
+    NzAlertComponent,
+  ],
+  templateUrl: './change-password.component.html',
+  styleUrl: './change-password.component.scss'
 })
-export class ChangePasswordComponent {
+export class ChangePasswordComponent implements OnInit {
   user!: IUserModel;
-  validateForm: FormGroup<{
-    currentPassword: FormControl<string | null>;
-    newPassword: FormControl<string | null>;
-    confirmNewPassword: FormControl<string | null>;
-  }> = this.fb.group(
-    {
-      currentPassword: ['', Validators.required],
-      newPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}',
-          ),
-        ],
-      ],
-      confirmPassword: ['', Validators.required],
-    },
-    {
-      validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
-    },
-  );
+  validateForm!: FormGroup;
 
   loading: boolean = false;
   showCurrentPass = false;
@@ -96,6 +56,31 @@ export class ChangePasswordComponent {
     this.user = authService.getUserAuthenticated();
   }
 
+  ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
+    this.validateForm = this.fb.group(
+      {
+        currentPassword: ['', Validators.required],
+        newPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}',
+            ),
+          ],
+        ],
+        confirmPassword: ['', Validators.required],
+      },
+      {
+        validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
+      },
+    );
+  }
+
   ConfirmedValidator(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
@@ -107,7 +92,7 @@ export class ChangePasswordComponent {
         return;
       }
       if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ confirmedValidator: true });
+        matchingControl.setErrors({confirmedValidator: true});
       } else {
         matchingControl.setErrors(null);
       }
@@ -130,7 +115,7 @@ export class ChangePasswordComponent {
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      Utilities.checkValidation(form);
+      FormValidation.checkValidation(form);
     } else {
       this.loading = true;
       const data = {

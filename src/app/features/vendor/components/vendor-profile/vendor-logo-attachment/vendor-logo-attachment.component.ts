@@ -12,7 +12,7 @@ import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 import { ToastrService } from 'ngx-toastr';
 import { VendorService } from '../../../services/vendor.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { downloadFileHelper } from '@core/Utils/downloadFileHeper';
+import { downloadFileHelper } from '../../../../../shared/Utils/downloadFileHeper';
 
 @Component({
   selector: 'vendor-logo-attachment',

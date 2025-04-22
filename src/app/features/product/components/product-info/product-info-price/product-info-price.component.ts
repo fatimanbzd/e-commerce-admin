@@ -2,13 +2,13 @@ import { Component, DestroyRef, Input, OnInit } from '@angular/core';
 import {
   NzTableComponent,
 } from 'ng-zorro-antd/table';
-import { PersianDatePipe } from '@core/pipes/persian-date.pipe';
-import { PricePipe } from '@core/pipes/price.pipe';
 import { empty } from '../../../pipes/empty.pipe';
 import { IProductPricesModel } from '../../../interfaces/product-price.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductPriceService } from '../../../services/product-price.service';
 import { NzEmptyComponent } from 'ng-zorro-antd/empty';
+import {PersianDatePipe} from '../../../../../shared/pipes/persian-date.pipe';
+import {PricePipe} from '../../../../../shared/pipes/price.pipe';
 
 @Component({
     selector: 'admin-product-info-price',

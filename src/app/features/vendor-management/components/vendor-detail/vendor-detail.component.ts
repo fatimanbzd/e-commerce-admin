@@ -9,8 +9,6 @@ import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VendorService } from '../../services/vendor.service';
 import { IVendorDetailModel } from '../../interfaces/vendor-detail.model';
-import { PersianDatePipe } from '@core/pipes/persian-date.pipe';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
 import {
   VendorTypeEnum,
   VendorTypeLabel,
@@ -31,6 +29,8 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { VendorDetailRejectDialogComponent } from '../vendor-detail-reject-dialog/vendor-detail-reject-dialog.component';
 import { VendorDocumentTypeLabel } from '../../enums/vendor-document-type.enum';
 import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
+import {PersianDatePipe} from '../../../../shared/pipes/persian-date.pipe';
+import {EnumLabelPipe} from '../../../../shared/pipes/enum-label.pipe';
 
 @Component({
   selector: 'admin-vendor-detail',

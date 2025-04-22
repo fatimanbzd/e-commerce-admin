@@ -1,30 +1,16 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import {
-  NZ_MODAL_DATA,
-  NzModalFooterDirective,
-  NzModalRef,
-} from 'ng-zorro-antd/modal';
-import { ProductCategoryService } from '../../../services/product-category.service';
-import { finalize, Subject, takeUntil } from 'rxjs';
-import { IProductCategoryAddModel } from '../../../interfaces/product-category-add.model';
-import { IProductCategoryEditModel } from '../../../interfaces/product-category-edit.model';
-import { NzSwitchComponent } from 'ng-zorro-antd/switch';
-import { Utilities } from '@core/Utils/utilities';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NZ_MODAL_DATA, NzModalFooterDirective, NzModalRef,} from 'ng-zorro-antd/modal';
+import {ProductCategoryService} from '../../../services/product-category.service';
+import {finalize, Subject, takeUntil} from 'rxjs';
+import {IProductCategoryAddModel} from '../../../interfaces/product-category-add.model';
+import {IProductCategoryEditModel} from '../../../interfaces/product-category-edit.model';
+import {NzSwitchComponent} from 'ng-zorro-antd/switch';
+import {FormValidation} from '../../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'admin-product-item-category-add-dialog',
@@ -47,34 +33,40 @@ import { Utilities } from '@core/Utils/utilities';
 export class ProductCategoryAddDialogComponent implements OnInit, OnDestroy {
   readonly nzModalData = inject(NZ_MODAL_DATA);
   protected submitted = false;
-  form: FormGroup = this.fb.group({
-    name: [null, Validators.required],
-    isActive: [false, Validators.required],
-    description: [null],
-  });
+  form!: FormGroup;
 
   private _destroy = new Subject<void>();
 
   constructor(
     private modal: NzModalRef,
     private productCategoryService: ProductCategoryService,
-    private fb: NonNullableFormBuilder,
-  ) {}
+    private fb: FormBuilder,
+  ) {
+  }
 
   ngOnInit() {
+    this.initForm();
     if (this.nzModalData.editMode) this.getData();
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      name: [null, Validators.required],
+      isActive: [false, Validators.required],
+      description: [null],
+    });
   }
 
   getData() {
     this.productCategoryService
       .category(this.nzModalData.node.key)
       .pipe(takeUntil(this._destroy))
-      .subscribe((cat) => this.form.patchValue({ ...cat }));
+      .subscribe((cat) => this.form.patchValue({...cat}));
   }
 
   submit() {
     if (this.form.invalid) {
-      Utilities.checkValidation(this.form);
+      FormValidation.checkValidation(this.form);
       return;
     }
 
@@ -97,8 +89,8 @@ export class ProductCategoryAddDialogComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy),
       )
       .subscribe((cat) => {
-        const { id, name } = { id: cat.id, name: this.form.value.name };
-        if (cat.id) this.modal.close({ id, name });
+        const {id, name} = {id: cat.id, name: this.form.value.name};
+        if (cat.id) this.modal.close({id, name});
       });
   }
 

@@ -1,5 +1,5 @@
-import { InvoiceStatusEnum } from '@core/enums/invoice-status.enum';
-import { InvoiceItemStatusEnum } from '@core/enums/invoice-item-status.enum';
+import { InvoiceStatusEnum } from '../../../shared/enums/invoice-status.enum';
+import { InvoiceItemStatusEnum } from '../../../shared/enums/invoice-item-status.enum';
 
 export interface IOrderDetailModel {
   invoiceId: number;

@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { VendorListPageComponent } from './vendor-list-page/vendor-list-page.component';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
     selector: 'admin-vendor-management-page',
-    imports: [VendorListPageComponent, RouterOutlet],
+  imports: [RouterOutlet],
     templateUrl: './vendor-management-page.component.html',
     styleUrl: './vendor-management-page.component.scss'
 })

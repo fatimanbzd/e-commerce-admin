@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import moment from 'jalali-moment';
+import moment from 'moment-jalaali';
 
 @Pipe({
   standalone: true,
@@ -11,3 +11,4 @@ export class PersianDatePipe implements PipeTransform {
     return moment(date).locale('fa').format('YYYY/MM/DD');
   }
 }
+

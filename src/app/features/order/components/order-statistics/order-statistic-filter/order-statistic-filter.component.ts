@@ -11,7 +11,7 @@ import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { MatInput } from '@angular/material/input';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
+import { EnumConvertorUtils } from '../../../../../shared/Utils/EnumConvertoModel';
 import { ReportDatePartLabel } from '../../../enums/report-date-part-enum';
 import { IOrderStatisticFilterModel } from '../../../interfaces/order-statistic.model';
 

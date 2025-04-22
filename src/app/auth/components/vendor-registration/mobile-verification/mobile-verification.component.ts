@@ -1,37 +1,19 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
-import { ToastrService } from 'ngx-toastr';
-import { finalize, Subject, takeUntil } from 'rxjs';
-import { VendorAuthService } from '../../../services/vendor-auth.service';
-import {
-  IVendorRegisterModel,
-  IVendorRequestRegisterModel,
-} from '../../../interfaces/vendor-request-register.model';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
-import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import {
-  VendorTypeEnum,
-  VendorTypeLabel,
-} from '../../../enums/vendor-type.enum';
-import { Router, RouterLink } from '@angular/router';
-import { NzSpinComponent } from 'ng-zorro-antd/spin';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {OnlyNumberDirective} from '../../../../shared/directives/only-number.directive';
+import {ToastrService} from 'ngx-toastr';
+import {finalize, Subject, takeUntil} from 'rxjs';
+import {VendorAuthService} from '../../../services/vendor-auth.service';
+import {IVendorRegisterModel, IVendorRequestRegisterModel,} from '../../../interfaces/vendor-request-register.model';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective, NzInputGroupComponent} from 'ng-zorro-antd/input';
+import {NzRadioComponent, NzRadioGroupComponent} from 'ng-zorro-antd/radio';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {VendorTypeEnum, VendorTypeLabel,} from '../../../enums/vendor-type.enum';
+import {Router, RouterLink} from '@angular/router';
+import {NzSpinComponent} from 'ng-zorro-antd/spin';
+import {EnumConvertorUtils} from '../../../../shared/Utils/EnumConvertoModel';
 
 @Component({
   selector: 'vendor-mobile-verification',
@@ -56,7 +38,7 @@ import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
   templateUrl: './mobile-verification.component.html',
   styleUrl: './mobile-verification.component.scss',
 })
-export class MobileVerificationComponent implements OnDestroy {
+export class MobileVerificationComponent implements OnInit, OnDestroy {
   submitted = false;
   displayTimer!: string;
   gettingOtp = false;
@@ -64,29 +46,7 @@ export class MobileVerificationComponent implements OnDestroy {
     [VendorTypeEnum.real, VendorTypeEnum.legal],
     VendorTypeLabel,
   );
-  validateForm: FormGroup<{
-    vendorType: FormControl<number>;
-    mobileNumber: FormControl<null>;
-    nationalNumber: FormControl<null>;
-    verificationCode: FormControl<null>;
-  }> = this.fb.group({
-    vendorType: [VendorTypeEnum.legal],
-    mobileNumber: [
-      null,
-      [
-        Validators.required,
-        Validators.pattern(
-          '^(?:(?:(?:\\\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$',
-        ),
-        Validators.maxLength(11),
-      ],
-    ],
-    nationalNumber: [
-      null,
-      [Validators.required, Validators.maxLength(10), Validators.minLength(10)],
-    ],
-    verificationCode: [null, Validators.required],
-  });
+  validateForm!: FormGroup;
   @Output() confirmedMobile = new EventEmitter();
   private _destroy = new Subject<void>();
 
@@ -95,7 +55,33 @@ export class MobileVerificationComponent implements OnDestroy {
     private authService: VendorAuthService,
     private toastrService: ToastrService,
     private router: Router,
-  ) {}
+  ) {
+  }
+
+  ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
+    this.validateForm = this.fb.group({
+      vendorType: [VendorTypeEnum.legal],
+      mobileNumber: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(
+            '^(?:(?:(?:\\\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$',
+          ),
+          Validators.maxLength(11),
+        ],
+      ],
+      nationalNumber: [
+        null,
+        [Validators.required, Validators.maxLength(10), Validators.minLength(10)],
+      ],
+      verificationCode: [null, Validators.required],
+    });
+  }
 
   submit(form: any): void {
     this.submitted = true;
@@ -103,7 +89,7 @@ export class MobileVerificationComponent implements OnDestroy {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
+          control.updateValueAndValidity({onlySelf: true});
         }
       });
       return;
@@ -134,7 +120,7 @@ export class MobileVerificationComponent implements OnDestroy {
     if (!mobileNumber) {
       const mobileFormControl = this.validateForm.controls['mobileNumber'];
       mobileFormControl.markAsDirty();
-      mobileFormControl.updateValueAndValidity({ onlySelf: true });
+      mobileFormControl.updateValueAndValidity({onlySelf: true});
       return;
     }
     this.gettingOtp = true;

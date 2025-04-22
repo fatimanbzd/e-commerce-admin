@@ -13,7 +13,7 @@ import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { ActivatedRoute } from '@angular/router';
-import { PersianDatePipe } from '@core/pipes/persian-date.pipe';
+import { PersianDatePipe } from '../../../../shared/pipes/persian-date.pipe';
 import { Subject, takeUntil } from 'rxjs';
 import { OrderService } from '../../services/order.service';
 import {
@@ -21,20 +21,20 @@ import {
   IOrderDetailProductModel,
   ITransactionModel,
 } from '../../interfaces/order-detail.model';
-import { PricePipe } from '@core/pipes/price.pipe';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
+import { PricePipe } from '../../../../shared/pipes/price.pipe';
+import { EnumLabelPipe } from '../../../../shared/pipes/enum-label.pipe';
 import { FormsModule } from '@angular/forms';
 import {
   InvoiceItemStatusEnum,
   InvoiceItemStatusLabel,
-} from '@core/enums/invoice-item-status.enum';
+} from '../../../../shared/enums/invoice-item-status.enum';
 import {
   InvoiceStatusEnum,
   InvoiceStatusLabel,
-} from '@core/enums/invoice-status.enum';
+} from '../../../../shared/enums/invoice-status.enum';
 import { WarrantyCategoryLabel } from '../../../product/enums/warranty-category.enum';
-import { RoleUtil } from '../../../../shared/utilities/role-base';
-import { PersianDateTimePipe } from '@core/pipes/persian-date-time.pipe';
+import { RoleUtil } from '../../../../shared/Utils/role-base';
+import { PersianDateTimePipe } from '../../../../shared/pipes/persian-date-time.pipe';
 import { NzRibbonComponent } from 'ng-zorro-antd/badge';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { empty } from '../../../product/pipes/empty.pipe';
@@ -42,8 +42,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ViewOrderDialogComponent } from '../view-order-dialog/view-order-dialog.component';
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
 import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
-import { IEnvironmentModel } from '@core/interfaces/environment.model';
-import { DateConvertorUtil } from '@core/Utils/DateConvertorUtil';
+import { IEnvironmentModel } from '../../../../shared/interfaces/environment.model';
+import { DateConvertorUtil } from '../../../../shared/Utils/DateConvertorUtil';
 
 @Component({
   selector: 'admin-order-detail',

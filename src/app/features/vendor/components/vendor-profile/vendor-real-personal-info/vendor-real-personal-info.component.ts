@@ -8,7 +8,7 @@ import {
   NzFormLabelComponent,
 } from 'ng-zorro-antd/form';
 import { NzInputDirective } from 'ng-zorro-antd/input';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
+import { OnlyNumberDirective } from '../../../../../shared/directives/only-number.directive';
 import {
   FormBuilder,
   FormGroup,
@@ -18,8 +18,8 @@ import {
 import { map, Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { VendorService } from '../../../services/vendor.service';
-import { Utilities } from '@core/Utils/utilities';
 import { IVendorCompanyModel } from '../../../interfaces/vendor-company.model';
+import {FormValidation} from '../../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'vendor-real-personal-info',
@@ -73,7 +73,7 @@ export class VendorRealPersonalInfoComponent implements OnInit, OnDestroy {
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      Utilities.checkValidation(form);
+      FormValidation.checkValidation(form);
       return;
     }
 

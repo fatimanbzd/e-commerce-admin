@@ -1,32 +1,15 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import {
-  FormGroup,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NzSwitchComponent } from 'ng-zorro-antd/switch';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import { NzColDirective } from 'ng-zorro-antd/grid';
-import {
-  NZ_MODAL_DATA,
-  NzModalFooterDirective,
-  NzModalRef,
-} from 'ng-zorro-antd/modal';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { finalize, Subject, takeUntil } from 'rxjs';
-import { ProductCategoryService } from '../../../../features/admin-base-information/services/product-category.service';
-import { Utilities } from '@core/Utils/utilities';
-import { IProductCategoryAddModel } from '../../../../features/admin-base-information/interfaces/product-category-add.model';
-import { IProductCategoryEditModel } from '../../../../features/admin-base-information/interfaces/product-category-edit.model';
-import { AddTreeModel, NodeInfoTreeModel } from '../mehr-tree.model';
-import { MehrTreeService } from '../mehr-tree.service';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {NzSwitchComponent} from 'ng-zorro-antd/switch';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {NzColDirective} from 'ng-zorro-antd/grid';
+import {NZ_MODAL_DATA, NzModalFooterDirective, NzModalRef,} from 'ng-zorro-antd/modal';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {Subject, takeUntil} from 'rxjs';
+import {AddTreeModel} from '../mehr-tree.model';
+import {MehrTreeService} from '../mehr-tree.service';
+import {FormValidation} from '../../../Utils/validators/form-validation';
 
 @Component({
   selector: 'admin-mehr-add-update-node',
@@ -80,7 +63,7 @@ export class MehrAddUpdateNodeComponent implements OnInit, OnDestroy {
 
   submit() {
     if (this.form.invalid) {
-      Utilities.checkValidation(this.form);
+      FormValidation.checkValidation(this.form);
       return;
     }
 

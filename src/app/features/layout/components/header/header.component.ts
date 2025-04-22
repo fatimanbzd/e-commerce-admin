@@ -21,8 +21,8 @@ import { AuthService } from '../../../../shared/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { VendorAuthService } from '../../../../auth/services/vendor-auth.service';
-import { UserTypeEnum } from '@core/enums/user-type.enum';
 import { NotificationService } from '../../../../shared/services/notification.service';
+import {UserTypeEnum} from '../../../../shared/enums/user-type.enum';
 
 @Component({
   selector: 'admin-header',

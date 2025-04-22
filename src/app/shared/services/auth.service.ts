@@ -5,10 +5,10 @@ import { ILoginModel } from '../../auth/interfaces/login.model';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 
-import { IAuthModel } from '@core/interfaces/token.model';
 import { UserInformationStorageService } from './user-information-storage.service';
-import { IUserModel } from '@core/interfaces/user.model';
 import { ICurrentUserModel } from '../interfaces/user.model';
+import {IAuthModel} from '../../auth/interfaces/token.model';
+import {IUserModel} from '../../auth/interfaces/user.model';
 
 @Injectable({
   providedIn: 'root',

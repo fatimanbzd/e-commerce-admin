@@ -1,13 +1,13 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { ISettlementListModel } from '../../interfaces/settlement-list.model';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
-import { FiscalService } from '../../services/fiscal.service';
-import { HttpParams } from '@angular/common/http';
-import { finalize } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PricePipe } from '@core/pipes/price.pipe';
+import {Component, DestroyRef, OnInit} from '@angular/core';
+import {NzTableQueryParams} from 'ng-zorro-antd/table';
+import {ISettlementListModel} from '../../interfaces/settlement-list.model';
+import {FilterOptionUtils} from '../../../../shared/Utils/filterOption';
+import {FiscalService} from '../../services/fiscal.service';
+import {HttpParams} from '@angular/common/http';
+import {finalize} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PricePipe} from '../../../../shared/pipes/price.pipe';
 import {
   FormArray,
   FormBuilder,
@@ -15,12 +15,12 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { ToastrService } from 'ngx-toastr';
-import { NzFormDirective } from 'ng-zorro-antd/form';
-import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
-import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
-import { DateConvertorUtil } from '@core/Utils/DateConvertorUtil';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {ToastrService} from 'ngx-toastr';
+import {NzFormDirective} from 'ng-zorro-antd/form';
+import {QlandTableComponent} from '../../../../shared/components/qland-table/qland-table.component';
+import {TableColumn} from '../../../../shared/interfaces/qland-table.model';
+import {DateConvertorUtil} from '../../../../shared/Utils/DateConvertorUtil';
 
 @Component({
   selector: 'admin-vendor-settlement-list',
@@ -48,9 +48,7 @@ export class VendorSettlementListComponent implements OnInit {
   gridOptions!: TableColumn[];
   params: any;
 
-  form: FormGroup = this.fb.group({
-    invoiceNumbers: this.fb.array([]),
-  });
+  form!: FormGroup;
 
   constructor(
     private fiscalService: FiscalService,
@@ -60,10 +58,14 @@ export class VendorSettlementListComponent implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private currencyPipe: PricePipe,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.gridOption();
+    this.form = this.fb.group({
+      invoiceNumbers: this.fb.array([]),
+    });
   }
 
   getSettlementList(params: HttpParams) {
@@ -80,7 +82,7 @@ export class VendorSettlementListComponent implements OnInit {
       )
       .subscribe((data) => {
         this.total = data.totalCount;
-        this.settlementList = data.items.map((item) => ({
+        this.settlementList = data.items.map((item:any) => ({
           ...item,
           checked: false,
         }));
@@ -88,7 +90,7 @@ export class VendorSettlementListComponent implements OnInit {
   }
 
   onTableQueryParamsChange(params: NzTableQueryParams) {
-    const { pageSize, pageIndex, sort, filter } = params;
+    const {pageSize, pageIndex, sort, filter} = params;
     this.pageSize = pageSize;
     this.pageIndex = pageIndex;
     const currentSort = sort.find((item) => item.value !== null);

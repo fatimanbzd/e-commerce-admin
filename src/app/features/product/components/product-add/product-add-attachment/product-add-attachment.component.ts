@@ -25,12 +25,12 @@ import { Subject, takeUntil } from 'rxjs';
 import { ProductAttachmentService } from '../../../services/product-attachment.service';
 import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { NgStyle } from '@angular/common';
-import { FullSrcPipe } from '@core/pipes/full-src.pipe';
+import { FullSrcPipe } from '../../../../../shared/pipes/full-src.pipe';
 import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { IProductAttachmentResponseModel } from '../../../interfaces/product-attachment.model';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
-import { RoleUtil } from '../../../../../shared/utilities/role-base';
+import { RoleUtil } from '../../../../../shared/Utils/role-base';
 
 @Component({
   selector: 'admin-product-add-attachment',

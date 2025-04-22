@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IListModel } from '@core/interfaces/list.model';
 import { IVendorMessageModel } from '../../features/vendor/interfaces/vendorMessage.model';
+import {IListModel} from '../interfaces/list.model';
 
 @Injectable({
   providedIn: 'root',

@@ -12,15 +12,15 @@ import { ActivatedRoute } from '@angular/router';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { ITicketInfoResponseModel } from '../../interfaces/ticket.model';
 import { TicketPriorityLabel } from '../../enums/ticket-priority.enum';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
 import { NzInputDirective } from 'ng-zorro-antd/input';
 import { FormsModule } from '@angular/forms';
 import { NzFormControlComponent, NzFormDirective } from 'ng-zorro-antd/form';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { downloadFileHelper } from '@core/Utils/downloadFileHeper';
 import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
-import { RelativeTimePipe } from '@core/pipes/relative-time.pipe';
+import {EnumLabelPipe} from '../../../../shared/pipes/enum-label.pipe';
+import {RelativeTimePipe} from '../../../../shared/pipes/relative-time.pipe';
+import {downloadFileHelper} from '../../../../shared/Utils/downloadFileHeper';
 
 @Component({
   selector: 'admin-ticket-info',

@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
+  FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
@@ -10,18 +11,18 @@ import {
   NzFormItemComponent,
   NzFormLabelComponent,
 } from 'ng-zorro-antd/form';
-import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { ILoginModel } from '../../interfaces/login.model';
-import { AuthService } from '../../../shared/services/auth.service';
-import { RouterLink } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
-import { UserTypeEnum, UserTypeLabel } from '@core/enums/user-type.enum';
-import { concatMap, map, Subject, takeUntil } from 'rxjs';
-import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
-import { NzIconDirective, NzIconModule } from 'ng-zorro-antd/icon';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
+import {NzInputDirective, NzInputGroupComponent} from 'ng-zorro-antd/input';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {ILoginModel} from '../../interfaces/login.model';
+import {AuthService} from '../../../shared/services/auth.service';
+import {RouterLink} from '@angular/router';
+import {NgOptimizedImage} from '@angular/common';
+import {concatMap, map, Subject, takeUntil} from 'rxjs';
+import {NzRadioComponent, NzRadioGroupComponent} from 'ng-zorro-antd/radio';
+import {NzIconDirective, NzIconModule} from 'ng-zorro-antd/icon';
+import {UserTypeEnum, UserTypeLabel} from '../../../shared/enums/user-type.enum';
+import {EnumConvertorUtils} from '../../../shared/Utils/EnumConvertoModel';
 
 @Component({
   selector: 'app-login',
@@ -46,14 +47,8 @@ import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnDestroy {
-  validateForm = this.fb.group({
-    userName: ['', [Validators.required]],
-    password: ['', [Validators.required]],
-    userType: [UserTypeEnum.admin, [Validators.required]],
-    captchaCode: ['321313', [Validators.required]],
-  });
-
+export class LoginComponent implements OnInit, OnDestroy {
+  validateForm!: FormGroup;
   userTypeList = EnumConvertorUtils.customEnumToModelList(
     [UserTypeEnum.admin, UserTypeEnum.vendor],
     UserTypeLabel,
@@ -64,7 +59,22 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private fb: NonNullableFormBuilder,
     private authService: AuthService,
-  ) {}
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
+    this.validateForm = this.fb.group({
+      userName: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      userType: [UserTypeEnum.admin, [Validators.required]],
+      captchaCode: ['321313', [Validators.required]],
+    });
+
+  }
 
   showPassword() {
     this.showPass = !this.showPass;
@@ -78,18 +88,18 @@ export class LoginComponent implements OnDestroy {
           concatMap((auth) => {
             return this.authService
               .currentUser()
-              .pipe(map((user) => ({ auth, user })));
+              .pipe(map((user) => ({auth, user})));
           }),
           takeUntil(this._destroy),
         )
-        .subscribe(({ auth, user }) => {
+        .subscribe(({auth, user}) => {
           this.authService.doLoginUser(auth, user);
         });
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
+          control.updateValueAndValidity({onlySelf: true});
         }
       });
     }

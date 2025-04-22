@@ -1,4 +1,4 @@
-import { UserTypeEnum } from '@core/enums/user-type.enum';
+import { UserTypeEnum } from '../../shared/enums/user-type.enum';
 
 export interface ILoginModel {
   userName: string;

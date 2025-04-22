@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IVendorResponseModel } from '../interfaces/vendor-response.model';
-import { IListModel } from '@core/interfaces/list.model';
 import { IVendorDetailModel } from '../interfaces/vendor-detail.model';
 import { IFinancialDownloadFileResponseModel } from '../../vendor/interfaces/vendor-financial.model';
+import {IListModel} from '../../../shared/interfaces/list.model';
 
 @Injectable({
   providedIn: 'root',

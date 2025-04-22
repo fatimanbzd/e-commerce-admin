@@ -10,7 +10,7 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { IMenuModel } from '../../interfaces/menu.model';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../../../shared/services/auth.service';
-import { UserTypeEnum } from '@core/enums/user-type.enum';
+import { UserTypeEnum } from '../../../../shared/enums/user-type.enum';
 import { filter, map } from 'rxjs';
 
 @Component({

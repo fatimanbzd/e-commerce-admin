@@ -1,6 +1,6 @@
 import { AuthService } from '../services/auth.service';
-import { UserTypeEnum } from '@core/enums/user-type.enum';
 import { inject } from '@angular/core';
+import {UserTypeEnum} from '../enums/user-type.enum';
 
 export class RoleUtil {
   static isAdmin() {

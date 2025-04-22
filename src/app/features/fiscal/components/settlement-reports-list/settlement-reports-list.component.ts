@@ -2,19 +2,19 @@ import {Component, DestroyRef, OnInit} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {finalize} from 'rxjs';
 import {FiscalService} from '../../services/fiscal.service';
-import {FilterOptionUtils} from '@core/Utils/filterOption';
+import {FilterOptionUtils} from '../../../../shared/Utils/filterOption';
 import {
   ISettlementFilterModel,
   ISettlementReportsListModel,
 } from '../../interfaces/settlement-reports-list.model';
-import {EnumLabelPipe} from '@core/pipes/enum-label.pipe';
+import {EnumLabelPipe} from '../../../../shared/pipes/enum-label.pipe';
 import {
   NzTableQueryParams,
 } from 'ng-zorro-antd/table';
-import {PricePipe} from '@core/pipes/price.pipe';
+import {PricePipe} from '../../../../shared/pipes/price.pipe';
 import {SettlementReportsSearchComponent} from '../settlement-reports-search/settlement-reports-search.component';
 import {VendorBalanceTypeLabel} from "../../enums/vendor-balance-type.enums";
-import {DateConvertorUtil} from "@core/Utils/DateConvertorUtil";
+import {DateConvertorUtil} from "../../../../shared/Utils/DateConvertorUtil";
 import {QlandTableComponent} from "../../../../shared/components/qland-table/qland-table.component";
 import {TableColumn} from "../../../../shared/interfaces/qland-table.model";
 

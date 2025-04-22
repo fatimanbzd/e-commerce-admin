@@ -7,7 +7,6 @@ import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzStatisticComponent } from 'ng-zorro-antd/statistic';
 import { NzEmptyComponent } from 'ng-zorro-antd/empty';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
 import { ReportDatePartLabel } from '../../../enums/report-date-part-enum';
 import {
   IAggregateStatisticsOrderResponseModel,
@@ -27,6 +26,7 @@ import {
 } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { OrderStatisticFilterComponent } from '../order-statistic-filter/order-statistic-filter.component';
+import {EnumConvertorUtils} from '../../../../../shared/Utils/EnumConvertoModel';
 
 @Component({
   selector: 'admin-order-statistic-value',

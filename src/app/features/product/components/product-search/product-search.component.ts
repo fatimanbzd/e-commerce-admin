@@ -1,42 +1,25 @@
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzCollapseComponent,
-  NzCollapsePanelComponent,
-} from 'ng-zorro-antd/collapse';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { NzTreeSelectComponent } from 'ng-zorro-antd/tree-select';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
-import { IVendorModel } from '../../../../shared/interfaces/vendor.model';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
-import { IProductCategoryResponseModel } from '@core/interfaces/product-category.model';
-import { VendorService } from '../../../../shared/services/vendor.service';
-import { ProductService } from '../../services/product.service';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
-import { PublishableStatusesLabel } from '../../enums/publishable-statuses.enum';
+import {Component, EventEmitter, OnDestroy, OnInit, Output,} from '@angular/core';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
+import {NzTreeSelectComponent} from 'ng-zorro-antd/tree-select';
+import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {combineLatest, Subject, takeUntil} from 'rxjs';
+import {IVendorModel} from '../../../../shared/interfaces/vendor.model';
+import {NzTreeNodeOptions} from 'ng-zorro-antd/core/tree';
+import {IProductCategoryResponseModel} from '../../../../shared/interfaces/product-category.model';
+import {VendorService} from '../../../../shared/services/vendor.service';
+import {ProductService} from '../../services/product.service';
+import {EnumConvertorUtils} from '../../../../shared/Utils/EnumConvertoModel';
+import {PublishableStatusesLabel} from '../../enums/publishable-statuses.enum';
 
 @Component({
   selector: 'app-product-search',
   imports: [
     NzButtonComponent,
     NzColDirective,
-    NzCollapseComponent,
-    NzCollapsePanelComponent,
     NzFormControlComponent,
     NzFormDirective,
     NzFormItemComponent,

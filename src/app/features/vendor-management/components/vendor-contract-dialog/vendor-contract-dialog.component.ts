@@ -1,82 +1,51 @@
-import { Component, inject, OnDestroy } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzColDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import {
-  NZ_MODAL_DATA,
-  NzModalFooterDirective,
-  NzModalRef,
-} from 'ng-zorro-antd/modal';
-import { VendorService } from '../../services/vendor.service';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
-import {
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerToggle,
-} from '@angular/material/datepicker';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInput, MatSuffix } from '@angular/material/input';
-import { MatCardContent } from '@angular/material/card';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
-import { ToastrService } from 'ngx-toastr';
-import { finalize, Subject, takeUntil } from 'rxjs';
-import { Utilities } from '@core/Utils/utilities';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzColDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {NZ_MODAL_DATA, NzModalFooterDirective, NzModalRef,} from 'ng-zorro-antd/modal';
+import {VendorService} from '../../services/vendor.service';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle,} from '@angular/material/datepicker';
+import {MatFormField} from '@angular/material/form-field';
+import {MatInput, MatSuffix} from '@angular/material/input';
+import {NzIconDirective} from 'ng-zorro-antd/icon';
+import {NzUploadComponent, NzUploadFile} from 'ng-zorro-antd/upload';
+import {ToastrService} from 'ngx-toastr';
+import {finalize, Subject, takeUntil} from 'rxjs';
+import {FormValidation} from '../../../../shared/Utils/validators/form-validation';
+import {OnlyNumberDirective} from '../../../../shared/directives/only-number.directive';
 
 @Component({
-    selector: 'admin-vendor-contract-dialog',
-    imports: [
-        FormsModule,
-        NzButtonComponent,
-        NzColDirective,
-        NzFormDirective,
-        NzFormItemComponent,
-        NzInputDirective,
-        ReactiveFormsModule,
-        NzModalFooterDirective,
-        NzFormControlComponent,
-        OnlyNumberDirective,
-        NzFormLabelComponent,
-        MatInput,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatDatepicker,
-        MatSuffix,
-        MatFormField,
-        MatCardContent,
-        MatCardContent,
-        NzIconDirective,
-        NzUploadComponent,
-    ],
-    templateUrl: './vendor-contract-dialog.component.html',
-    styleUrl: './vendor-contract-dialog.component.scss'
+  selector: 'admin-vendor-contract-dialog',
+  imports: [
+    FormsModule,
+    NzButtonComponent,
+    NzColDirective,
+    NzFormDirective,
+    NzFormItemComponent,
+    NzInputDirective,
+    ReactiveFormsModule,
+    NzModalFooterDirective,
+    NzFormControlComponent,
+    OnlyNumberDirective,
+    NzFormLabelComponent,
+    MatInput,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatSuffix,
+    MatFormField,
+    NzIconDirective,
+    NzUploadComponent,
+  ],
+  templateUrl: './vendor-contract-dialog.component.html',
+  styleUrl: './vendor-contract-dialog.component.scss'
 })
-export class VendorContractDialogComponent implements OnDestroy {
+export class VendorContractDialogComponent implements OnInit, OnDestroy {
   isConfirmLoading = false;
   id!: number;
-  form: FormGroup<{
-    contractNumber: FormControl<string>;
-    contractDate: FormControl<string>;
-    expireDate: FormControl<string>;
-  }> = this.fb.group({
-    contractNumber: ['', [Validators.required]],
-    contractDate: ['', [Validators.required]],
-    expireDate: ['', [Validators.required]],
-  });
+  form!: FormGroup;
   readonly nzModalData = inject(NZ_MODAL_DATA);
   fileList: NzUploadFile[] = [];
   selectedFile: any | null = null;
@@ -91,9 +60,21 @@ export class VendorContractDialogComponent implements OnDestroy {
     this.id = this.nzModalData.id;
   }
 
+  ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      contractNumber: ['', [Validators.required]],
+      contractDate: ['', [Validators.required]],
+      expireDate: ['', [Validators.required]],
+    });
+  }
+
   handleOk(): void {
     if (this.form.invalid) {
-      Utilities.checkValidation(this.form);
+      FormValidation.checkValidation(this.form);
       return;
     }
     this.isConfirmLoading = true;
@@ -139,7 +120,7 @@ export class VendorContractDialogComponent implements OnDestroy {
   };
 
   handleChange(info: { file: NzUploadFile; fileList: NzUploadFile[] }): void {
-    const { file } = info;
+    const {file} = info;
     if (file.status === 'done') {
       this.toaster.error('');
     } else if (file.status === 'error') {

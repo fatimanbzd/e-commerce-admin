@@ -1,6 +1,6 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
-import { IOrderDetailProductModel } from '../../interfaces/order-detail.model';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {NZ_MODAL_DATA, NzModalRef} from 'ng-zorro-antd/modal';
+import {IOrderDetailProductModel} from '../../interfaces/order-detail.model';
 import {
   FormBuilder,
   FormGroup,
@@ -8,45 +8,45 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { OrderService } from '../../services/order.service';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
+import {OrderService} from '../../services/order.service';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
 import {
   NzFormControlComponent,
   NzFormDirective,
   NzFormItemComponent,
   NzFormLabelComponent,
 } from 'ng-zorro-antd/form';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import { PricePipe } from '@core/pipes/price.pipe';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {PricePipe} from '../../../../shared/pipes/price.pipe';
 import {
   InvoiceItemStatusEnum,
   InvoiceItemStatusLabel,
-} from '@core/enums/invoice-item-status.enum';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
+} from '../../../../shared/enums/invoice-item-status.enum';
+import {EnumLabelPipe} from '../../../../shared/pipes/enum-label.pipe';
 import {
   IInvoiceItemDeliveryEnum,
   InvoiceItemDeliveryLabel,
-} from '@core/enums/incoice-item-delivery.enum';
-import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
+} from '../../../../shared/enums/incoice-item-delivery.enum';
+import {NzRadioComponent, NzRadioGroupComponent} from 'ng-zorro-antd/radio';
+import {EnumConvertorUtils} from '../../../../shared/Utils/EnumConvertoModel';
 import {
   MatDatepicker,
   MatDatepickerInput,
   MatDatepickerToggle,
 } from '@angular/material/datepicker';
-import { MatFormField, MatSuffix } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { Utilities } from '@core/Utils/utilities';
-import { IChangeOrderStatusModel } from '../../interfaces/change-order-status.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { PersianDatePipe } from '@core/pipes/persian-date.pipe';
-import { NzRibbonComponent } from 'ng-zorro-antd/badge';
-import { NzCardComponent } from 'ng-zorro-antd/card';
-import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
+import {MatFormField, MatSuffix} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {IChangeOrderStatusModel} from '../../interfaces/change-order-status.model';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {finalize} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
+import {PersianDatePipe} from '../../../../shared/pipes/persian-date.pipe';
+import {NzRibbonComponent} from 'ng-zorro-antd/badge';
+import {NzCardComponent} from 'ng-zorro-antd/card';
+import {NzTooltipDirective} from 'ng-zorro-antd/tooltip';
+import {FormValidation} from '../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'admin-view-order-dialog',
@@ -113,12 +113,7 @@ export class ViewOrderDialogComponent implements OnInit {
     InvoiceItemDeliveryLabel,
   );
 
-  form: FormGroup = this.fb.group({
-    deliveryType: [null, [Validators.required]],
-    deliveryTime: [null, [Validators.required]],
-    deliveryDate: [null, [Validators.required]],
-    sendStatus: [null, [Validators.required]],
-  });
+  form!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -131,6 +126,7 @@ export class ViewOrderDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initForm();
     this.invoiceId = this.nzModalData.invoiceId;
     this.data = this.nzModalData.data;
 
@@ -162,6 +158,15 @@ export class ViewOrderDialogComponent implements OnInit {
     });
   }
 
+  initForm() {
+    this.form = this.fb.group({
+      deliveryType: [null, [Validators.required]],
+      deliveryTime: [null, [Validators.required]],
+      deliveryDate: [null, [Validators.required]],
+      sendStatus: [null, [Validators.required]],
+    });
+  }
+
   onDiscountExpireDateChange(event: any) {
     const selectedDate = new Date(event.value);
     if (selectedDate < this.today) {
@@ -174,7 +179,7 @@ export class ViewOrderDialogComponent implements OnInit {
 
   changeUnderReview(form: IChangeOrderStatusModel) {
     if (this.form.invalid) {
-      Utilities.checkValidation(this.form);
+      FormValidation.checkValidation(this.form);
       return;
     }
     this.isConfirmLoading = true;

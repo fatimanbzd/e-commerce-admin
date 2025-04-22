@@ -4,17 +4,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { IBillResponseModel } from '../../interfaces/bill-response.model';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
+import { FilterOptionUtils } from '../../../../shared/Utils/filterOption';
 import { finalize } from 'rxjs';
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
-import { DateConvertorUtil } from '@core/Utils/DateConvertorUtil';
-import { PricePipe } from '@core/pipes/price.pipe';
-import { downloadFileHelper } from '@core/Utils/downloadFileHeper';
+import { DateConvertorUtil } from '../../../../shared/Utils/DateConvertorUtil';
+import { PricePipe } from '../../../../shared/pipes/price.pipe';
+import { downloadFileHelper } from '../../../../shared/Utils/downloadFileHeper';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { BillingSearchComponent } from '../billing-search/billing-search.component';
-import { InvoiceItemStatusLabel } from '@core/enums/invoice-item-status.enum';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
+import { InvoiceItemStatusLabel } from '../../../../shared/enums/invoice-item-status.enum';
+import { EnumLabelPipe } from '../../../../shared/pipes/enum-label.pipe';
 
 @Component({
   selector: 'admin-billing-list',

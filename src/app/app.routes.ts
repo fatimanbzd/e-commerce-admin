@@ -6,7 +6,6 @@ import {ChangedPasswordGuard} from './auth/gaurds/changed-password.guard';
 import {UserTypeEnum} from './shared/enums/user-type.enum';
 import {TicketListPageComponent} from './pages/ticket-page/ticket-list-page/ticket-list-page.component';
 import {TicketInfoPageComponent} from './pages/ticket-page/ticket-info-page/ticket-info-page.component';
-import {ManagementPageComponent} from './pages/management-page/management-page.component';
 import {StatisticOrderPageComponent} from './pages/report-page/statistic-order-page/statistic-order-page.component';
 import {
   BillingInformationPageComponent
@@ -20,7 +19,6 @@ import {VendorListPageComponent} from './pages/vendor-management-page/vendor-lis
 import {
   VendorDetailPageComponent
 } from './pages/vendor-management-page/vendor-detail-page/vendor-detail-page.component';
-import {BaseInformationPageComponent} from './pages/base-information-page/base-information-page.component';
 import {
   ProductCategoryPageComponent
 } from './pages/base-information-page/product-category-page/product-category-page.component';
@@ -46,23 +44,25 @@ import {NotFoundComponent} from './shared/components/not-found/not-found.compone
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'pages'},
-  {path: '', pathMatch: 'full', redirectTo: 'pages'},
   {
     path: 'pages',
-    loadChildren: () =>
+    loadComponent: () =>
       import('./pages/pages.component').then((m) => m.PagesComponent),
     canActivate: [AuthGuard],
     children: [
       {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+
+      {
         path: 'dashboard',
         component: DashboardPageComponent,
-        loadComponent: () =>
-          import('./pages/dashboard-page/dashboard-page.component').then(
-            (m) => m.DashboardPageComponent,
-          ),
-
+        canActivate: [AdminGuard, ChangedPasswordGuard],
         data: {
           breadcrumb: 'داشبورد',
+          roles: [UserTypeEnum.admin, UserTypeEnum.vendor],
         },
       },
 
@@ -179,7 +179,6 @@ export const routes: Routes = [
 
       {
         path: 'base-info',
-        component: BaseInformationPageComponent,
         loadComponent: () =>
           import(
             './pages/base-information-page/base-information-page.component'
@@ -435,7 +434,6 @@ export const routes: Routes = [
 
       {
         path: 'management',
-        component: ManagementPageComponent,
         loadComponent: () =>
           import('./pages/management-page/management-page.component').then(
             (m) => m.ManagementPageComponent,

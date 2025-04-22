@@ -11,9 +11,7 @@ import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { IVendorResponseModel } from '../../interfaces/vendor-response.model';
 import { VendorService } from '../../services/vendor.service';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
 import { VendorTypeLabel } from '../../../../auth/enums/vendor-type.enum';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
 import {
   VendorRequestStatusEnum,
   VendorRequestStatusLabel,
@@ -24,6 +22,8 @@ import { VendorContractDialogComponent } from '../vendor-contract-dialog/vendor-
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
 import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
 import { HttpParams } from '@angular/common/http';
+import {EnumLabelPipe} from '../../../../shared/pipes/enum-label.pipe';
+import {FilterOptionUtils} from '../../../../shared/Utils/filterOption';
 
 @Component({
   selector: 'admin-vendor-list',

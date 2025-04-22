@@ -3,7 +3,7 @@ import {
   VendorDocumentTypeEnum,
   VendorDocumentTypeLabel,
 } from '../../../enums/vendor-document-type.enum';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
+import { EnumLabelPipe } from '../../../../../shared/pipes/enum-label.pipe';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
@@ -13,8 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IVendorDocumentResponseModel } from '../../../interfaces/vendor-document.model';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
-import { downloadFileHelper } from '@core/Utils/downloadFileHeper';
+import { EnumConvertorUtils } from '../../../../../shared/Utils/EnumConvertoModel';
+import { downloadFileHelper } from '../../../../../shared/Utils/downloadFileHeper';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { FormsModule } from '@angular/forms';

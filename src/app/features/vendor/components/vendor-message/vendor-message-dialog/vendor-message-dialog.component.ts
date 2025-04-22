@@ -5,9 +5,9 @@ import {
   NzModalFooterDirective,
   NzModalRef,
 } from 'ng-zorro-antd/modal';
-import { PersianDatePipe } from '@core/pipes/persian-date.pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NotificationService } from '../../../../../shared/services/notification.service';
+import {PersianDatePipe} from '../../../../../shared/pipes/persian-date.pipe';
 
 @Component({
   selector: 'admin-vendor-message-dialog',

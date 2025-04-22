@@ -6,8 +6,8 @@ import {
   IVendorRequestRegisterModel,
 } from '../interfaces/vendor-request-register.model';
 import { IVendorRegisterResponseModel } from '../interfaces/vendor-register-response.model';
-import { IAuthModel } from '@core/interfaces/token.model';
 import { IVendorInfoResponseModel } from '../interfaces/vendor-info.model';
+import {IAuthModel} from '../interfaces/token.model';
 
 @Injectable({
   providedIn: 'root',

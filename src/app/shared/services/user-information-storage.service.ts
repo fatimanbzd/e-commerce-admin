@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { IEnvironmentModel } from '@core/interfaces/environment.model';
-import { IUserModel } from '@core/interfaces/user.model';
+import {IEnvironmentModel} from '../interfaces/environment.model';
+import {IUserModel} from '../../auth/interfaces/user.model';
 
 @Injectable({
   providedIn: 'root',

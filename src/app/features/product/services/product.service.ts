@@ -1,23 +1,24 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IProductCategoryResponseModel } from '@core/interfaces/product-category.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { IListModel } from '@core/interfaces/list.model';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {
   IProductAddModel,
   IProductAddResponseModel,
   IProductBaseInfoAddResponseModel,
 } from '../interfaces/product-add.model';
-import { IProductUnitResponseModel } from '../interfaces/product-unit-response.model';
-import { IProductBrandResponseModel } from '../interfaces/product-brand-response.model';
-import { IProductsListModel } from '../interfaces/products-list.model';
-import { IProductSetUnPublishableModel } from '../interfaces/product-setUnPublishable.model';
+import {IProductUnitResponseModel} from '../interfaces/product-unit-response.model';
+import {IProductBrandResponseModel} from '../interfaces/product-brand-response.model';
+import {IProductsListModel} from '../interfaces/products-list.model';
+import {IProductSetUnPublishableModel} from '../interfaces/product-setUnPublishable.model';
+import {IListModel} from '../../../shared/interfaces/list.model';
+import {IProductCategoryResponseModel} from '../../../shared/interfaces/product-category.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   private _productIdSubject = new BehaviorSubject<number>(0);
   productId$ = this._productIdSubject.asObservable();

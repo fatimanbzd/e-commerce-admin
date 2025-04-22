@@ -1,51 +1,34 @@
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  SecurityContext,
-} from '@angular/core';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import { NzAutosizeDirective, NzInputDirective } from 'ng-zorro-antd/input';
-import { combineLatest, finalize, Subject, takeUntil } from 'rxjs';
-import { NzTreeSelectComponent } from 'ng-zorro-antd/tree-select';
-import { ProductService } from '../../../services/product.service';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
-import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
-import { TEXT_FORMATTING_TYPE } from '../../../../../shared/utilities/text-editor/constants';
-import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
-import { WeightCategoryLabel } from '../../../enums/weight-category.enum';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { ToastrService } from 'ngx-toastr';
-import { DomSanitizer } from '@angular/platform-browser';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
-import { EnCharOnlyDirective } from '@core/directives/en-char-only.directive';
-import { requiredIfValidator } from '@core/validators/validateIf';
-import { IProductAddModel } from '../../../interfaces/product-add.model';
-import { IProductBrandResponseModel } from '../../../interfaces/product-brand-response.model';
-import { IProductUnitResponseModel } from '../../../interfaces/product-unit-response.model';
-import { Router } from '@angular/router';
-import { Utilities } from '@core/Utils/utilities';
-import { RoleUtil } from '../../../../../shared/utilities/role-base';
-import { NzRadioComponent, NzRadioGroupComponent } from 'ng-zorro-antd/radio';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AuthService } from '../../../../../shared/services/auth.service';
-import { IProductCategoryResponseModel } from '@core/interfaces/product-category.model';
+import {Component, Input, OnDestroy, OnInit, SecurityContext,} from '@angular/core';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzAutosizeDirective, NzInputDirective} from 'ng-zorro-antd/input';
+import {combineLatest, finalize, Subject, takeUntil} from 'rxjs';
+import {NzTreeSelectComponent} from 'ng-zorro-antd/tree-select';
+import {ProductService} from '../../../services/product.service';
+import {NzTreeNodeOptions} from 'ng-zorro-antd/core/tree';
+import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
+import {Editor, NgxEditorModule, Toolbar} from 'ngx-editor';
+import {TEXT_FORMATTING_TYPE} from '../../../../../shared/Utils/text-editor/constants';
+import {NzCheckboxComponent} from 'ng-zorro-antd/checkbox';
+import {WeightCategoryLabel} from '../../../enums/weight-category.enum';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {ToastrService} from 'ngx-toastr';
+import {DomSanitizer} from '@angular/platform-browser';
+import {IProductAddModel} from '../../../interfaces/product-add.model';
+import {IProductBrandResponseModel} from '../../../interfaces/product-brand-response.model';
+import {IProductUnitResponseModel} from '../../../interfaces/product-unit-response.model';
+import {Router} from '@angular/router';
+import {RoleUtil} from '../../../../../shared/Utils/role-base';
+import {NzRadioComponent, NzRadioGroupComponent} from 'ng-zorro-antd/radio';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {AuthService} from '../../../../../shared/services/auth.service';
+import {OnlyNumberDirective} from '../../../../../shared/directives/only-number.directive';
+import {EnCharOnlyDirective} from '../../../../../shared/directives/en-char-only.directive';
+import {EnumConvertorUtils} from '../../../../../shared/Utils/EnumConvertoModel';
+import {IProductCategoryResponseModel} from '../../../../../shared/interfaces/product-category.model';
+import {requiredIfValidator} from '../../../../../shared/Utils/validators/validateIf';
+import {FormValidation} from '../../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'admin-product-add-base-info',
@@ -79,26 +62,7 @@ export class ProductAddBaseInfoComponent implements OnInit, OnDestroy {
   isAdmin = false;
   isPending = false;
   haveProductInformationPending = false;
-  form: FormGroup = this.fb.group({
-    persianTitle: [null, Validators.required],
-    englishTitle: [null, Validators.required],
-    productCategoryId: [null, Validators.required],
-    productTypeId: [{ value: 0, disabled: true }, Validators.required],
-    brandId: [null, Validators.required],
-    weight: [null],
-    weightCategory: [null, Validators.required],
-    unitId: [null],
-    tags: [null],
-    description: [''],
-    shortDescription: [''],
-    isExternalProduct: [false],
-    externalProductLink: [
-      null,
-      [requiredIfValidator(() => this.form.get('isExternalProduct')?.value)],
-    ],
-    isActive: [true],
-    productCategoryRelations: [null, Validators.required],
-  });
+  form!: FormGroup;
   treeData: NzTreeNodeOptions[] = [];
   brands: IProductBrandResponseModel[] = [];
   weightCategoryList = EnumConvertorUtils.enumToListModel(WeightCategoryLabel);
@@ -116,7 +80,7 @@ export class ProductAddBaseInfoComponent implements OnInit, OnDestroy {
     ['underline', 'strike'],
     ['code', 'blockquote'],
     ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
     ['link', 'image'],
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
@@ -138,6 +102,7 @@ export class ProductAddBaseInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initForm();
     this.getData();
     this.getProduct();
     this.editor_shortDescription = new Editor();
@@ -145,6 +110,29 @@ export class ProductAddBaseInfoComponent implements OnInit, OnDestroy {
 
     this.form.controls['isExternalProduct'].valueChanges.subscribe(() => {
       this.form.get('externalProductLink')?.updateValueAndValidity();
+    });
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      persianTitle: [null, Validators.required],
+      englishTitle: [null, Validators.required],
+      productCategoryId: [null, Validators.required],
+      productTypeId: [{value: 0, disabled: true}, Validators.required],
+      brandId: [null, Validators.required],
+      weight: [null],
+      weightCategory: [null, Validators.required],
+      unitId: [null],
+      tags: [null],
+      description: [''],
+      shortDescription: [''],
+      isExternalProduct: [false],
+      externalProductLink: [
+        null,
+        [requiredIfValidator(() => this.form.get('isExternalProduct')?.value)],
+      ],
+      isActive: [true],
+      productCategoryRelations: [null, Validators.required],
     });
   }
 
@@ -244,14 +232,14 @@ export class ProductAddBaseInfoComponent implements OnInit, OnDestroy {
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      Utilities.checkValidation(form);
+      FormValidation.checkValidation(form);
       return;
     }
 
     const productCategoryRelations = this.form.value.productCategoryRelations
       ? this.form.value.productCategoryRelations.map((x: string) => {
-          return +x;
-        })
+        return +x;
+      })
       : [];
 
     const formValue = form.value;

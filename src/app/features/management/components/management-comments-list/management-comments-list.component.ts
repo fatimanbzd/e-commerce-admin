@@ -4,10 +4,10 @@ import { ManagementService } from '../../services/management.service';
 import { IManagementCommentResponseModel } from '../../interfaces/management-comments.model';
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
+import { FilterOptionUtils } from '../../../../shared/Utils/filterOption';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
-import { DateConvertorUtil } from '@core/Utils/DateConvertorUtil';
+import { DateConvertorUtil } from '../../../../shared/Utils/DateConvertorUtil';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { SlicePipe } from '@angular/common';
@@ -15,8 +15,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ViewCommentInformationDialogComponent } from '../view-comment-information-dialog/view-comment-information-dialog.component';
 import { HttpParams } from '@angular/common/http';
 import { CommentsSearchComponent } from '../comments-search/comments-search.component';
-import { ProductCommentRatingLabel } from '@core/enums/product-comment-rating';
-import { EnumLabelPipe } from '@core/pipes/enum-label.pipe';
+import { ProductCommentRatingLabel } from '../../../../shared/enums/product-comment-rating';
+import { EnumLabelPipe } from '../../../../shared/pipes/enum-label.pipe';
 
 @Component({
   selector: 'admin-management-comments-list',

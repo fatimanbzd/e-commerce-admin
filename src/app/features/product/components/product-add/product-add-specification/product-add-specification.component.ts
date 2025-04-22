@@ -29,7 +29,7 @@ import {
 } from 'ng-zorro-antd/table';
 import { NgForOf, NgStyle } from '@angular/common';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { RoleUtil } from '../../../../../shared/utilities/role-base';
+import { RoleUtil } from '../../../../../shared/Utils/role-base';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 
 @Component({

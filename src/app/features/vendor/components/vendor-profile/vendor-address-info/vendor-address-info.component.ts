@@ -1,30 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { VendorService } from '../../../services/vendor.service';
-import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzInputDirective } from 'ng-zorro-antd/input';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
-import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { ProvinceService } from '../../../../../shared/services/province.service';
-import { IProvincesModel } from '../../../../../shared/interfaces/province.model';
-import { ICityModel } from '../../../../../shared/interfaces/cities.model';
-import { Utilities } from '@core/Utils/utilities';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {VendorService} from '../../../services/vendor.service';
+import {forkJoin, Subject, takeUntil} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
+import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {OnlyNumberDirective} from '../../../../../shared/directives/only-number.directive';
+import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
+import {ProvinceService} from '../../../../../shared/services/province.service';
+import {IProvincesModel} from '../../../../../shared/interfaces/province.model';
+import {ICityModel} from '../../../../../shared/interfaces/cities.model';
+import {FormValidation} from '../../../../../shared/Utils/validators/form-validation';
 
 @Component({
   selector: 'admin-vendor-address-info',
@@ -47,21 +35,7 @@ import { Utilities } from '@core/Utils/utilities';
   styleUrl: './vendor-address-info.component.scss',
 })
 export class VendorAddressInfoComponent implements OnInit, OnDestroy {
-  validateForm: FormGroup<{
-    provinceCode: FormControl<any>;
-    cityCode: FormControl<any>;
-    postalCode: FormControl<string | null>;
-    address: FormControl<string | null>;
-  }> = this.fb.group({
-    provinceCode: [null, Validators.required],
-    cityCode: ['', Validators.required],
-    postalCode: [
-      '',
-      [Validators.required, Validators.maxLength(10), Validators.minLength(10)],
-    ],
-    address: ['', Validators.required],
-  });
-
+  form!: FormGroup;
   private _destroy = new Subject<void>();
   loading: boolean = false;
   provinceList: IProvincesModel[] = [];
@@ -72,14 +46,28 @@ export class VendorAddressInfoComponent implements OnInit, OnDestroy {
     private addressService: VendorService,
     private provinceService: ProvinceService,
     private toaster: ToastrService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
+    this.initForm();
     this.initialData();
-
-    this.validateForm.get('provinceCode')?.valueChanges.subscribe((value) => {
+    this.form.get('provinceCode')?.valueChanges.subscribe((value) => {
       this.getCities(value);
     });
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      provinceCode: [null, Validators.required],
+      cityCode: ['', Validators.required],
+      postalCode: [
+        '',
+        [Validators.required, Validators.maxLength(10), Validators.minLength(10)],
+      ],
+      address: ['', Validators.required],
+    });
+
   }
 
   initialData() {
@@ -90,12 +78,12 @@ export class VendorAddressInfoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy))
       .subscribe(([address, provinces]) => {
         this.provinceList = provinces;
-        this.validateForm.patchValue({ ...address });
+        this.form.patchValue({...address});
       });
   }
 
   getCities(provinceCode: number) {
-    this.validateForm.controls['cityCode'].setValue('');
+    this.form.controls['cityCode'].setValue('');
     if (provinceCode) {
       this.provinceService
         .getCities(provinceCode)
@@ -106,7 +94,7 @@ export class VendorAddressInfoComponent implements OnInit, OnDestroy {
 
   submit(form: FormGroup) {
     if (form.invalid) {
-      Utilities.checkValidation(form);
+      FormValidation.checkValidation(form);
     } else {
       this.loading = true;
       this.addressService

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IProductCategoryResponseModel } from '@core/interfaces/product-category.model';
+import { IProductCategoryResponseModel } from '../../../shared/interfaces/product-category.model';
 import {
   IProductCategoryAddModel,
   IProductCategoryAddResponseModel,
 } from '../interfaces/product-category-add.model';
 import { IProductCategoryEditModel } from '../interfaces/product-category-edit.model';
-import { IListModel } from '@core/interfaces/list.model';
+import { IListModel } from '../../../shared/interfaces/list.model';
 
 @Injectable({
   providedIn: 'root',

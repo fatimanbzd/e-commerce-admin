@@ -6,7 +6,7 @@ import { ICustomerResponseModel } from '../../interfaces/customer.model';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FilterOptionUtils } from '@core/Utils/filterOption';
+import { FilterOptionUtils } from '../../../../shared/Utils/filterOption';
 import { QlandTableComponent } from '../../../../shared/components/qland-table/qland-table.component';
 import { TableColumn } from '../../../../shared/interfaces/qland-table.model';
 import { HttpParams } from '@angular/common/http';

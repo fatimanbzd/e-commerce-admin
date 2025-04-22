@@ -1,46 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { EnCharOnlyDirective } from '@core/directives/en-char-only.directive';
-import { NzAutosizeDirective, NzInputDirective } from 'ng-zorro-antd/input';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
-import { NzColDirective, NzRowDirective } from 'ng-zorro-antd/grid';
-import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
-} from 'ng-zorro-antd/form';
-import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
-import { NzTreeSelectComponent } from 'ng-zorro-antd/tree-select';
-import { OnlyNumberDirective } from '@core/directives/only-number.directive';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EnumConvertorUtils } from '@core/Utils/EnumConvertoModel';
-import { WeightCategoryLabel } from '../../../enums/weight-category.enum';
-import { Subject, takeUntil } from 'rxjs';
-import { ProductService } from '../../../services/product.service';
-import { IProductBaseInfoAddResponseModel } from '../../../interfaces/product-add.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {NzAutosizeDirective, NzInputDirective} from 'ng-zorro-antd/input';
+import {NzCheckboxComponent} from 'ng-zorro-antd/checkbox';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from 'ng-zorro-antd/form';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {EnumConvertorUtils} from '../../../../../shared/Utils/EnumConvertoModel';
+import {WeightCategoryLabel} from '../../../enums/weight-category.enum';
+import {Subject, takeUntil} from 'rxjs';
+import {ProductService} from '../../../services/product.service';
+import {IProductBaseInfoAddResponseModel} from '../../../interfaces/product-add.model';
 
 @Component({
     selector: 'admin-product-info-base',
-    imports: [
-        EnCharOnlyDirective,
-        NzAutosizeDirective,
-        NzButtonComponent,
-        NzCheckboxComponent,
-        NzColDirective,
-        NzFormControlComponent,
-        NzFormDirective,
-        NzFormItemComponent,
-        NzFormLabelComponent,
-        NzInputDirective,
-        NzOptionComponent,
-        NzRowDirective,
-        NzSelectComponent,
-        NzTreeSelectComponent,
-        OnlyNumberDirective,
-        ReactiveFormsModule,
-        FormsModule,
-    ],
+  imports: [
+    NzAutosizeDirective,
+    NzCheckboxComponent,
+    NzColDirective,
+    NzFormControlComponent,
+    NzFormDirective,
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzInputDirective,
+    NzRowDirective,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
     templateUrl: './product-info-base.component.html',
     styleUrl: './product-info-base.component.scss'
 })

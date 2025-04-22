@@ -23,7 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 import {
   IProductCategoryResponseModel,
   IProductCategoryTreeModel,
-} from '@core/interfaces/product-category.model';
+} from '../../../../../shared/interfaces/product-category.model';
 import { NgClass } from '@angular/common';
 import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
 import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
